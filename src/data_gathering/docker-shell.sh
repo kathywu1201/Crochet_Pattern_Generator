@@ -3,30 +3,37 @@
 # exit immediately if a command exits with a non-zero status
 set -e
 
-BUILD="False" 
-
-# Define some environment variables
-# Use this if you are planning to build the container
-export IMAGE_NAME="crochet-project-data-gathering"
+# Set vairables
 export BASE_DIR=$(pwd)
-export SECRETS_DIR=$(pwd)/../../secrets/
- 
-# export PERSISTENT_DIR=$(pwd)/../persistent-folder/
+export PERSISTENT_DIR=$(pwd)/../persistent-folder/
+export SECRETS_DIR=$(pwd)/../secrets/
+export GCP_PROJECT="crochetai-438515" # CHANGE TO YOUR PROJECT ID
+export GOOGLE_APPLICATION_CREDENTIALS="/secrets/crochetai-438515-63ef835b2ccc.json"
+export IMAGE_NAME="data-collecting"
+
+# Create the network if we don't have it yet
+# docker network inspect llm-rag-network >/dev/null 2>&1 || docker network create llm-rag-network
+docker network inspect data-collecting-network >/dev/null 2>&1 || docker network create data-collecting-network
+
+# Build the image based on the Dockerfile
+docker build -t $IMAGE_NAME -f Dockerfile .
+
+# Run All Containers
+docker-compose run --rm --service-ports $IMAGE_NAME
 
 
- 
-if [ "$BUILD" == "True" ]; then 
-    echo "Building image..."
-    docker build -t $IMAGE_NAME -f Dockerfile .
 
-    # Run the container
-    docker run --rm --name $IMAGE_NAME -ti \
-    --mount type=bind,source="$BASE_DIR",target=/app -v "$SECRETS_DIR":/secrets $IMAGE_NAME
-fi
 
-if [ "$BUILD" != "True" ]; then 
-    echo "Using prebuilt image..."
-    # Run the container
-    docker run --rm --name $IMAGE_NAME -ti \
-    --mount type=bind,source="$BASE_DIR",target=/app -v "$SECRETS_DIR":/secrets  dlops/$IMAGE_NAME
-fi
+
+
+# # Build the image based on the Dockerfile
+# docker build -t $IMAGE_NAME -f Dockerfile .
+
+# # Run Container
+# docker run --rm --name $IMAGE_NAME -ti \
+# -v "$BASE_DIR":/app \
+# -v "$SECRETS_DIR":/secrets \
+# -v "$PERSISTENT_DIR":/persistent \
+# -e GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS \
+# -e GCP_PROJECT=$GCP_PROJECT \
+# $IMAGE_NAME

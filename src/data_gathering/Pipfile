@@ -6,11 +6,17 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-google-cloud-storage = "*"
-google-cloud-texttospeech = "*"
-selenium = "*"
+user-agent = "*"
 requests = "*"
-
+google-cloud-storage = "*"
+google-generativeai = "*"
+google-cloud-aiplatform = "*"
+pandas = "*"
+langchain = "*"
+llama-index = "*"
+chromadb = "*"
+langchain-community = "*"
+selenium = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.12"
