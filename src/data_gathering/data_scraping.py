@@ -11,7 +11,7 @@ import requests
 chrome_driver_path = "/Users/ciciwxp/Downloads/chromedriver/chromedriver"
 
 # pdf folder
-download_dir = "/Users/ciciwxp/Desktop/AC215_pdf/Pillows+%26+Poufs"
+download_dir = "/Users/ciciwxp/Desktop/AC215_pdf"
 if not os.path.exists(download_dir):
     os.makedirs(download_dir)
 
@@ -44,41 +44,46 @@ def download_pdf(pdf_url, file_name):
 
 
 # URL: yarnspirations
-base_url = "https://www.yarnspirations.com/collections/patterns?filter.p.m.global.project_type=Pillows+%26+Poufs&page={page_num}"
+#base_url = "https://www.yarnspirations.com/collections/patterns?filter.p.m.global.project_type=Pillows+%26+Poufs&page={page_num}"
 
+
+def download_yarnspirations(project_type, total_page_num):
 # Loop through pages
-for page_num in range(1,27):  # page range
-    print(f"Scraping page {page_num}...")
-    driver.get(base_url.format(page_num=page_num))
-    
-    # wait til the "Free Pattern" buttons are loaded
-    try:
-        # wait for elements to be present (located by XPath)
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located((By.XPATH, "//a[contains(@class, 'card-button--full')]"))
-        )
-    except Exception as e:
-        print(f"Error while waiting for patterns to load: {e}")
-        continue
-    
-    # find "Free Pattern" buttons by XPath or class
-    pattern_links = driver.find_elements(By.XPATH, "//a[contains(@class, 'card-button--full')]")
-    
-    # debug to see how many links are found on current page
-    print(f"Found {len(pattern_links)} pattern links on page {page_num}")
-    
-    for pattern_link in pattern_links:
-        pdf_url = pattern_link.get_attribute('href')
-        
-        # check if the link is a PDF link
-        if pdf_url and pdf_url.endswith('.pdf'):
-            # extract the file name from the URL
-            file_name = pdf_url.split('/')[-1]
-            
-            # download the PDF
-            download_pdf(pdf_url, file_name)
-        else:
-            print(f"Skipping non-PDF or invalid link: {pdf_url}")
+    base_url = "https://www.yarnspirations.com/collections/patterns?filter.p.m.global.project_type={project_type}&page={page_num}"
 
+    for page_num in range(1,total_page_num + 1):  # page range
+        print(f"Scraping page {page_num}...")
+        driver.get(base_url.format(project_type=project_type, page_num=page_num))
+        
+        # wait til the "Free Pattern" buttons are loaded
+        try:
+            # wait for elements to be present (located by XPath)
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_all_elements_located((By.XPATH, "//a[contains(@class, 'card-button--full')]"))
+            )
+        except Exception as e:
+            print(f"Error while waiting for patterns to load: {e}")
+            continue
+        
+        # find "Free Pattern" buttons by XPath or class
+        pattern_links = driver.find_elements(By.XPATH, "//a[contains(@class, 'card-button--full')]")
+        
+        # debug to see how many links are found on current page
+        print(f"Found {len(pattern_links)} pattern links on page {page_num}")
+        
+        for pattern_link in pattern_links:
+            pdf_url = pattern_link.get_attribute('href')
+            
+            # check if the link is a PDF link
+            if pdf_url and pdf_url.endswith('.pdf'):
+                # extract the file name from the URL
+                file_name = pdf_url.split('/')[-1]
+                
+                # download the PDF
+                download_pdf(pdf_url, file_name)
+            else:
+                print(f"Skipping non-PDF or invalid link: {pdf_url}")
+
+download_yarnspirations('Skirts', 2)
 # quit chromedriver
 driver.quit()
