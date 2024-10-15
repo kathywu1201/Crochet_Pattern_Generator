@@ -44,7 +44,7 @@ def download():
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
 
-    folders = ["Pillows+%26+Poufs", "scarves", "skirts"]
+    folders = ["Pillows+%26+Poufs", "Scarves", "Skirts", "Afghans+%26+Blankets", "Rug"]
 
     # Loop through each folder and download PDFs
     for folder in folders:
