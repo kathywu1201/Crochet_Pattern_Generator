@@ -38,36 +38,7 @@ CHROMADB_PORT = 8000
 vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
 # https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-embeddings-api#python
 embedding_model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
-# Configuration settings for the content generation
-generation_config = {
-    "max_output_tokens": 8192,  # Maximum number of tokens for output
-    "temperature": 0.25,  # Control randomness in output
-    "top_p": 0.95,  # Use nucleus sampling
-}
-# Initialize the GenerativeModel with specific system instructions
-SYSTEM_INSTRUCTION = """
-You are an AI assistant specialized in crochet knowledge. Your responses are based solely on the information provided in the text chunks given to you. Do not use any external knowledge or make assumptions beyond what is explicitly stated in these chunks.
 
-When answering a query:
-1. Carefully read all the text chunks provided.
-2. Identify the most relevant information from these chunks to address the user's question.
-3. Formulate your response using only the information found in the given chunks.
-4. If the provided chunks do not contain sufficient information to answer the query, state that you don't have enough information to provide a complete answer.
-5. Always maintain a professional and knowledgeable tone, befitting a crochet expert.
-6. If there are contradictions in the provided chunks, mention this in your response and explain the different viewpoints presented.
-
-Remember:
-- You are an expert in crochet, but your knowledge is limited to the information in the provided chunks.
-- Do not invent information or draw from knowledge outside of the given text chunks.
-- If asked about topics unrelated to crochet, politely redirect the conversation back to crochet-related subjects.
-- Be concise in your responses while ensuring you cover all relevant information from the chunks.
-
-Your goal is to provide accurate, helpful information about crochet pattern instructions based solely on the content of the text chunks you receive with each query.
-"""
-# generative_model = GenerativeModel(
-# 	GENERATIVE_MODEL,
-# 	system_instruction=[SYSTEM_INSTRUCTION]
-# )
 
 book_mappings = {
 	"BRC0224-010156M": {"title":"BERNAT LIL' LEAF CROCHET PLAY MAT & LADYBUG TOY"},
@@ -287,7 +258,7 @@ def query():
 	collection = client.get_collection(name=collection_name)
 
     # Perform text query
-	query = "null" # user input query, if this is empty, I will replace with all 0s
+	query = "null" # User input query, if this is empty, will replace with all 0s
 	query_embedding = generate_query_embedding(query)
 
     # Since the collection expects 1280-dimensional embeddings (256 text + 1024 image),
@@ -356,7 +327,6 @@ def query():
 		json.dump(output_data, json_file, indent=4)
 
 	print(f"Data saved to {json_filename}")
-
 
 
 
@@ -500,7 +470,7 @@ def upload():
 	bucket_folder = "training/data_prep"
 
 	# Get the list of JSON files in the local folder
-	json_files = glob.glob(os.path.join(DATA_OUTPUT, "*.json"))
+	json_files = glob.glob(os.path.join(DATA_OUTPUT, "*.json")) # This will upload the image vector user inputed
 
 	# Check if there are any JSON files to upload
 	if not json_files:
