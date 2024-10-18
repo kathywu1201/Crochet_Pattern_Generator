@@ -13,13 +13,11 @@ from google.cloud import storage
 # Vertex AI
 import vertexai
 from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
-from vertexai.generative_models import GenerativeModel, GenerationConfig, Content, Part, ToolConfig
+# from vertexai.generative_models import GenerativeModel, GenerationConfig, Content, Part, ToolConfig
 
 # Langchain
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-#from langchain_experimental.text_splitter import SemanticChunker
-from semantic_splitter import SemanticChunker
+from langchain_experimental.text_splitter import SemanticChunker
+# from semantic_splitter import SemanticChunker
 # import agent_tools
 
 # Setup
@@ -27,7 +25,7 @@ GCP_PROJECT = os.environ["GCP_PROJECT"]
 GCP_LOCATION = "us-central1"
 EMBEDDING_MODEL = "text-embedding-004"
 EMBEDDING_DIMENSION = 256
-GENERATIVE_MODEL = "gemini-1.5-flash-001"
+# GENERATIVE_MODEL = "gemini-1.5-flash-001"
 INPUT_FOLDER = "input_datasets"
 OUTPUT_FOLDER = "outputs"
 JSON_OUTPUT = "json_outputs"
@@ -52,7 +50,6 @@ def download():
 
 	shutil.rmtree(INPUT_FOLDER, ignore_errors=True, onerror=None)
 	os.makedirs(INPUT_FOLDER, exist_ok=True)
-	# makedirs()
 
 	client = storage.Client()
 	bucket = client.get_bucket(BUCKET_NAME)
@@ -206,7 +203,6 @@ def embed():
         data_df["embedding"] = text_embeddings
 
         # Load the corresponding pre-generated image embedding (.npy file)
-        # Assuming each image embedding file is named after the corresponding book
         book_name = data_df["book"].iloc[0]  # Extract the book name
         image_embedding_file = os.path.join(INPUT_FOLDER, "image_vectors", f"{book_name}.npy")
 
@@ -252,13 +248,23 @@ def load():
         load_text_and_image_embeddings(data_df, collection)
 
 
+
+
 def query():
 	client = chromadb.HttpClient(host=CHROMADB_HOST, port=CHROMADB_PORT)
 	collection_name = "semantic-text-image-collection"
 	collection = client.get_collection(name=collection_name)
 
-    # Perform text query
-	query = "null" # User input query, if this is empty, will replace with all 0s
+	text_file_path = "user_inputs/ALS0537-030775M.txt"
+    # User input query, if this is empty, will replace with all 0s
+	try:
+		with open(text_file_path, 'r') as f:
+			query = f.read()
+	except FileNotFoundError:
+		query = "Text instruction not found."
+	except Exception as e:
+		print(f"An error occurred: {e}")
+		query = "null"
 	query_embedding = generate_query_embedding(query)
 
     # Since the collection expects 1280-dimensional embeddings (256 text + 1024 image),
@@ -285,7 +291,7 @@ def query():
     # Concatenate the dummy text embedding with the image query embedding
 	combined_image_query_embedding = dummy_text_embedding + image_query_embedding.tolist()
 
-    # Perform the image query with the combined embedding (1280-dimensional)
+	 # Perform the image query with the combined embedding (1280-dimensional)
 	image_results = collection.query(
         query_embeddings=[combined_image_query_embedding], 
         n_results=10
@@ -311,18 +317,24 @@ def query():
 	embeddings = [embedding.tolist() if isinstance(embedding, np.ndarray) else embedding for embedding in embeddings]
 
 	# print('\n retreived_data',retrieved_data['embeddings'])
-	# Prepare the data for the JSON format
-	output_data = {
-		"input": {
-			"image_embeddings": [image_query_embedding.tolist()],  
-			"text_chunk_embeddings": embeddings,  # All text embeddings from ChromaDB
-			"query_embeddings": [query_embedding]  # The text query embedding
-		},
-		"output": embedded_texts  # Assuming the first embedded text is the desired output
-    }
+	# Prepare the data for the JSON format # this output is used if we have 
+	# output_data = {
+	# 	"input": {
+	# 		"image_embeddings": [image_query_embedding.tolist()],  
+	# 		"text_chunk_embeddings": embeddings,  # All text embeddings from ChromaDB
+	# 		"query_embeddings": [query_embedding]  # The text query embedding
+	# 	},
+	# 	"output": embedded_texts  # Assuming the first embedded text is the desired output
+    # }
 
-    # Output the data to a JSON file
-	json_filename = "json_outputs/output_data_test2.json"
+	combined_text_chunks = ' '.join(embedded_texts)
+
+	output_data = {
+		"prompt": query + combined_text_chunks
+	}
+
+	# Output the data to a JSON file
+	json_filename = "json_outputs/retrieved_data.json"
 	with open(json_filename, 'w') as json_file:
 		json.dump(output_data, json_file, indent=4)
 
@@ -370,107 +382,19 @@ def re_rank_results(text_results, image_results, text_weight=0.6, image_weight=0
     return ranked_results
 
 
-def data_prep_query():
-    client = chromadb.HttpClient(host=CHROMADB_HOST, port=CHROMADB_PORT)
-    collection_name = "semantic-text-image-collection"
-    collection = client.get_collection(name=collection_name)
-
-    # Perform text query
-    query = "null"
-    query_embedding = generate_query_embedding(query)
-
-    # Since the collection expects 1280-dimensional embeddings (256 text + 1024 image),
-    # we need to concatenate a 1024-dimensional dummy image embedding to the query
-    dummy_image_embedding = [0.0] * 1024  # 1024-dimensional zero vector
-
-    # Concatenate text embedding and dummy image embedding
-    combined_text_query_embedding = query_embedding + dummy_image_embedding
-
-    # Perform the text query with the combined embedding
-    text_results = collection.query(
-        query_embeddings=[combined_text_query_embedding], 
-        n_results=10
-    )
-
-    # Load the user input image query embedding (which is 1024-dimensional)
-    image_folder = os.path.join(INPUT_FOLDER, "image_vectors")  # Folder containing image embeddings
-    text_folder = os.path.join(INPUT_FOLDER, "text_instructions/txt_outputs")   # Folder containing the text instructions
-    image_files = sorted(os.listdir(image_folder))  # Ensure files are sorted for matching with text
-
-    for image_file in image_files:
-        # Load the image embedding for the current image file
-        image_embedding_path = os.path.join(image_folder, image_file)
-        image_query_embedding = np.load(image_embedding_path)
-
-        # Concatenate dummy text embedding (256-dimensional zero vector) to the image query embedding
-        dummy_text_embedding = [0.0] * EMBEDDING_DIMENSION  # 256-dimensional zero vector
-
-        # Concatenate the dummy text embedding with the image query embedding
-        combined_image_query_embedding = dummy_text_embedding + image_query_embedding.tolist()
-
-        # Perform the image query with the combined embedding (1280-dimensional)
-        image_results = collection.query(
-            query_embeddings=[combined_image_query_embedding], 
-            n_results=10
-        )
-
-        # Re-rank the results based on both text and image queries
-        ranked_results = re_rank_results(text_results, image_results, text_weight=0.6, image_weight=0.4)
-
-        # Extract document IDs from ranked results
-        result_ids = [result['id'] for result in ranked_results]
-
-        # Retrieve documents by IDs from the collection
-        retrieved_data = collection.get(ids=result_ids, include=['documents', 'embeddings'])
-
-        # Extract the embedded texts and embeddings
-        embedded_texts = retrieved_data['documents']
-        embeddings = retrieved_data['embeddings']
-
-        # Convert embeddings from numpy arrays to lists if needed
-        embeddings = [embedding.tolist() if isinstance(embedding, np.ndarray) else embedding for embedding in embeddings]
-
-        # Load the corresponding text file for the current image file
-        text_file = os.path.splitext(image_file)[0] + ".txt"
-        text_file_path = os.path.join(text_folder, text_file)
-
-        if os.path.exists(text_file_path):
-            with open(text_file_path, "r") as f:
-                text_instruction = f.read()
-        else:
-            text_instruction = "Text instruction not found."
-
-        # Prepare the data for the JSON format
-        output_data = {
-            "input": {
-                "image_embeddings": [image_query_embedding.tolist()],  # Image vectors from .npy
-                "text_chunk_embeddings": embeddings  # Text embeddings (chunks) from ChromaDB
-            },
-            "output": text_instruction  # Corresponding text instruction
-        }
-
-        # Save the data to an individual JSON file for each image
-        json_filename = f"data_prep/{os.path.splitext(image_file)[0]}_output.json"
-        with open(json_filename, 'w') as json_file:
-            json.dump(output_data, json_file, indent=4)
-
-        print(f"Data for {image_file} saved to {json_filename}")
-
 
 def upload():
-	print("upload")
+	print("upload") 
 
 	# Initialize GCS client
 	storage_client = storage.Client()
 	bucket = storage_client.bucket(BUCKET_NAME)
 
-	# Specify the local folder and the bucket folder
-	# local_folder = JSON_OUTPUT  # Assuming JSON_OUTPUT is a valid folder path
-	# bucket_folder = "training/rag_json_outputs"  
-	bucket_folder = "training/data_prep"
+	# Bucket fold that will store chunks retrieval based on user inputs
+	bucket_folder = "rag/rag_json_outputs"  
 
 	# Get the list of JSON files in the local folder
-	json_files = glob.glob(os.path.join(DATA_OUTPUT, "*.json")) # This will upload the image vector user inputed
+	json_files = glob.glob(os.path.join(JSON_OUTPUT, "retrieved_data.json")) # *.json
 
 	# Check if there are any JSON files to upload
 	if not json_files:
@@ -493,7 +417,7 @@ def upload():
 
 
 def main(args=None):
-	print("CLI Arguments:", args)
+	print("RAG Arguments:", args)
 
 	if args.chunk:
 		chunk()
@@ -507,8 +431,8 @@ def main(args=None):
 	if args.query:
 		query()
 	
-	if args.prep:
-		data_prep_query()
+	# if args.prep:
+	# 	data_prep_query()
 		
 	if args.download:
 		download()
@@ -518,14 +442,14 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="CLI")
+	parser = argparse.ArgumentParser(description="RAG")
 
 	parser.add_argument("--download", action="store_true", help="Download text files and image vectors from GCS bucket")
 	parser.add_argument("--chunk", action="store_true", help="Chunk text")
 	parser.add_argument("--embed", action="store_true", help="Generate embeddings")
 	parser.add_argument("--load", action="store_true", help="Load embeddings to vector db")
 	parser.add_argument("--query", action="store_true", help="Query vector db")
-	parser.add_argument("--prep", action="store_true", help="Prepared the dataset")
+	# parser.add_argument("--prep", action="store_true", help="Prepared the dataset")
 	parser.add_argument("--upload", action="store_true", help="Upload chunked texts in JSON to GCS bucket")
 	args = parser.parse_args()
 

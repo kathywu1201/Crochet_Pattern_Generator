@@ -8,3 +8,5 @@ agent_tools.py
 /user_inputs
 /data_prep
 # /data_preparation.py
+/archived.py
+/semantic_splitter.py
