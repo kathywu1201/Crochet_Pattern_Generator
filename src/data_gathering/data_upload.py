@@ -25,7 +25,11 @@ def upload_folder_to_gcs(bucket_name, source_folder, destination_blob_prefix="")
 
             print(f"Uploaded {local_file_path} to {blob_name}")
 
-# Example usage
-bucket_name = "crochet-patterns-bucket"
-source_folder = "/Users/ciciwxp/Desktop/AC215/input_file"
-upload_folder_to_gcs(bucket_name, source_folder)
+# Example usage (ensure the bucket exists in GCP)
+if __name__ == "__main__":
+    # Ensure the environment variable for Google Cloud authentication is set
+    if not os.getenv('GOOGLE_APPLICATION_CREDENTIALS'):
+        raise EnvironmentError('The GOOGLE_APPLICATION_CREDENTIALS environment variable is not set.')
+
+    # Define the GCP bucket name and the folder to upload
+    bucket_name = "crochet-patterns-bucket"
