@@ -24,7 +24,6 @@ text_instructions = f"{base_folder}/text_instructions"
 txt_outputs = f"{text_instructions}/txt_outputs"
 
 def makedirs():
-    """Create necessary local directories."""
     os.makedirs(input_files, exist_ok=True)
     os.makedirs(images_folder, exist_ok=True)
     os.makedirs(image_vectors, exist_ok=True)
@@ -39,14 +38,13 @@ def upload_to_gcs(local_file, destination_blob_name):
     print(f"Uploaded {local_file} to {destination_blob_name}.")
 
 def download():
-    """Download files from 'input_files' folder on GCS."""
+    """Download files from folders that stores PDF to local directory."""
     print("Downloading files from GCS...")
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
 
     folders = ["Pillows+%26+Poufs", "Scarves", "Skirts", "Afghans+%26+Blankets", "Rug"]
 
-    # Loop through each folder and download PDFs
     for folder in folders:
         print(f"Downloading from folder: {folder}")
         blobs = bucket.list_blobs(prefix=folder)
@@ -81,23 +79,20 @@ def download_results_from_gcs(prefix, local_file):
     bucket = storage_client.bucket(bucket_name)
     blobs = list(bucket.list_blobs(prefix=prefix))
 
-    full_text = ""  # Initialize an empty string to store the extracted text
+    full_text = ""  # Use to store text
 
     for blob in blobs:
-        # Load the JSON response from each blob
         json_data = json.loads(blob.download_as_text())
-        # Extract text from the Vision API's response
         for response in json_data.get("responses", []):
             full_text += response.get("fullTextAnnotation", {}).get("text", "")
 
-    # Save the extracted text to a local .txt file
     with open(local_file, "w") as f:
         f.write(full_text)
 
     print(f"Results saved to {local_file}")
 
 def extract_and_auto_crop_color(pdf_path, output_image_path):
-    """Extract and crop the first image from a PDF."""
+    """Extract and crop the first image from the first page of PDFs."""
     with pdfplumber.open(pdf_path) as pdf:
         first_page = pdf.pages[0]
         page_image = first_page.to_image().original
@@ -114,7 +109,7 @@ def extract_and_auto_crop_color(pdf_path, output_image_path):
     x, y, w, h = cv2.boundingRect(largest_contour)
     cropped_img = img[y:y+h, x:x+w]
     cv2.imwrite(output_image_path, cropped_img)
-    print(f"Cropped color image saved as {output_image_path}")
+    print(f"Cropped image saved as {output_image_path}")
 
 def image_to_vector(image_path):
     """Convert an image to a vector using SwinV2."""

@@ -4,7 +4,7 @@
 set -e
 
 # Define some environment variables
-export IMAGE_NAME="crochet-ai-container"
+export IMAGE_NAME="processing_pdf"
 export BASE_DIR=$(pwd)
 
 # Build the image based on the Dockerfile
