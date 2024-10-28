@@ -8,7 +8,7 @@ export BASE_DIR=$(pwd)
 export PERSISTENT_DIR=$(pwd)/../persistent-folder/
 export SECRETS_DIR=$(pwd)/../secrets/
 export GCP_PROJECT="crochetai-438515" #our-shield-436522-f2
-export GOOGLE_APPLICATION_CREDENTIALS="/secrets/llm-service-account-rag-winnie.json" # llm-service-account-rag
+export GOOGLE_APPLICATION_CREDENTIALS="/secrets/crochet_prompts_generate.json" # llm-service-account-rag
 export IMAGE_NAME="llm-rag-cli"
 
 
