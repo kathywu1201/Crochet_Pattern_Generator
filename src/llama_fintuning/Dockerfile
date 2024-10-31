@@ -6,18 +6,16 @@ ARG DEBIAN_PACKAGES="build-essential git screen vim"
 # Prevent apt from showing prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Python wants UTF-8 locale
+# Set UTF-8 locale for Python
 ENV LANG=C.UTF-8
 
-# Tell pipenv where the shell is. This allows us to use "pipenv shell" as a
-# container entry point.
+# Define shell for pipenv
 ENV PYENV_SHELL=/bin/bash
 
-# Tell Python to disable buffering so we don't lose any logs.
+# Disable Python buffering to ensure log visibility
 ENV PYTHONUNBUFFERED=1
 
-# Ensure we have an up to date baseline, install dependencies and
-# create a user so we don't run the app as root
+# Ensure up-to-date system, install dependencies, create a user
 RUN set -ex; \
     for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done && \
     apt-get update && \
@@ -33,19 +31,21 @@ RUN set -ex; \
     chown app:app /persistent && \
     chown app:app /app
 
-
 # Switch to the new user
 USER app
 WORKDIR /app
 
-# Install python packages
+# Copy Pipfile and Pipfile.lock for dependency installation
 ADD --chown=app:app Pipfile Pipfile.lock /app/
 
-RUN pipenv sync
+# Install Python packages with pipenv, ensuring unsloth is included
+RUN pipenv sync --dev
 
-# Add the rest of the source code. This is done last so we don't invalidate all
-# layers when we change a line of code.
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Add the rest of the source code
 ADD --chown=app:app . /app
 
-# Entry point
+# Define entrypoint
 ENTRYPOINT ["/bin/bash","./docker-entrypoint.sh"]
