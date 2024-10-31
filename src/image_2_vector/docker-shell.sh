@@ -5,17 +5,16 @@ set -e
 
 BUILD="True" 
 
-# Read the settings file
 source ../env.dev
 
-export IMAGE_NAME="gemini-prompts-generator"
+# Define some environment variables
+export IMAGE_NAME="image_vector"
 
 if [ "$BUILD" == "True" ]; then 
-    # Build the docker image
     echo "Building the Docker image..."
     docker build -t $IMAGE_NAME -f Dockerfile .
 
-    # Run Container
+    # Run the container
     echo "Running the Docker container..."
     docker run --rm --name $IMAGE_NAME -ti \
     -v "$BASE_DIR":/app \
@@ -38,5 +37,3 @@ if [ "$BUILD" != "True" ]; then
     -e GCS_BUCKET_NAME=$GCS_BUCKET_NAME \
     $IMAGE_NAME
 fi
-
-

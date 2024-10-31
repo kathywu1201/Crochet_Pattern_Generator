@@ -7,17 +7,49 @@ from PIL import Image as PILImage
 from google.cloud import storage
 import vertexai
 from vertexai.preview.generative_models import GenerativeModel, Image
+import time
 
 # GCP configurations
-gcp_project = "crochetai-438515"
+gcp_project = os.environ["GCP_PROJECT"]
 region = "us-central1"
-bucket_name = "crochet-patterns-bucket"
+bucket_name = os.environ["GCS_BUCKET_NAME"]
 base_folder = "training"
 images_folder = f"{base_folder}/images"
 text_instructions_folder = f"{base_folder}/text_instructions/txt_outputs"
 image_descriptions_txt_folder = f"{base_folder}/image_descriptions_txt"
 image_descriptions_json_folder = f"{base_folder}/image_descriptions_json"
 image_descriptions_jsonl_folder = f"{base_folder}/image_descriptions_jsonl"
+
+# Define prompt
+instruction = '''
+You are an expert in textile arts with a specialization in crochet. 
+Your task is to analyze the provided image of a crochet object and generate a detailed description focusing exclusively on the intricate details of the crochet work. 
+Describe the crochet product shown in this image, focusing on its pattern and texture. 
+Ignore any other objects or elements in the image.
+The description should encompass the following aspects:
+
+Number of Threads:
+Determine and specify the total number of threads used in creating the crochet object.
+If possible, provide information on the thickness or gauge of the threads.
+Stitch Types:
+Identify and list all the types of stitches present in the crochet piece (e.g., single crochet, double crochet, half-double crochet, treble crochet, etc.).
+Describe any unique or complex stitch patterns utilized.
+Yarn Color:
+Accurately describe the color(s) of the yarn used.
+Mention any color variations, gradients, or patterns resulting from the yarn colors.
+Knit vs. Crochet Distinction:
+Analyze the construction of the object to determine whether it is knitted or crocheted.
+Provide reasoning for the distinction, highlighting specific features that indicate crochet techniques over knitting, or vice versa.
+Number of Rows:
+Count and state the total number of rows involved in the creation of the crochet product.
+If applicable, mention any notable changes in row patterns or techniques throughout the project.
+Additional Guidelines:
+
+Focus Exclusively on Crochet Details: Ensure that the description remains concentrated on the crochet aspects mentioned above. Avoid general comments about the object's appearance, functionality, or aesthetics unless they directly relate to the crochet techniques or materials used.
+Clarity and Precision: Use clear and precise language to convey each detail. Where measurements or counts are involved, provide them in appropriate units (e.g., number of threads, specific row counts).
+Technical Accuracy: Ensure that all crochet terminology and descriptions are technically accurate, reflecting a deep understanding of crochet methods and practices.
+Structured Format: Present the information in a well-organized manner, possibly using bullet points or numbered lists for each of the five key aspects to enhance readability.
+'''
 
 # Initialize Vertex AI
 vertexai.init(project=gcp_project, location=region)
@@ -51,19 +83,49 @@ def download_files_from_gcs(prefix, local_folder):
         blob.download_to_filename(local_path)
         print(f"Downloaded {blob.name} to {local_path}")
 
-def generate_image_description(image_path):
-    """Generate a caption for an image using the Gemini model."""
+def generate_image_description(image_path, max_retries=5, retry_delay=5):
+    """Generate a caption for an image using the Gemini model, with retry logic for 429 errors."""
     print(f"Generating detailed description for {image_path}...")
 
-    image = Image.load_from_file(image_path)
     generative_model = GenerativeModel("gemini-1.5-pro-002")
-    response = generative_model.generate_content(
-        ["Describe the crochet product shown in this image, focusing on its pattern and texture. Ignore any other objects or elements in the image.", image]
-    )
+    retry_count = 0
 
-    description = response.text
-    print(f"Generated description: {description}")
-    return description
+    while retry_count < max_retries:
+        try:
+            image = Image.load_from_file(image_path)
+            response = generative_model.generate_content([instruction, image])
+            
+            # Check if the response contains the expected text
+            description = response.text if hasattr(response, 'text') else "No description available."
+            print(f"Description generated for {image_path}.")
+            return description
+
+        except Exception as e:
+            if '429' in str(e):  # Check if the error is a quota-related issue (HTTP 429)
+                retry_count += 1
+                print(f"Quota exceeded for {image_path}. Retrying in {retry_delay} seconds... (Retry {retry_count}/{max_retries})")
+                time.sleep(retry_delay)  # Wait for the specified time before retrying
+            else:
+                print(f"Error generating description for {image_path}: {e}")
+                return "Error generating description"
+
+    # If all retries are exhausted, return a failure message
+    print(f"Failed to generate description for {image_path} after {max_retries} retries.")
+    return "Failed to generate description after multiple retries"
+
+# def generate_image_description(image_path):
+#     """Generate a caption for an image using the Gemini model."""
+#     print(f"Generating detailed description for {image_path}...")
+
+#     image = Image.load_from_file(image_path)
+#     generative_model = GenerativeModel("gemini-1.5-pro-002")
+#     response = generative_model.generate_content(
+#         [instruction, image]
+#     )
+
+#     description = response.text
+#     # print(f"Generated description: {description}")
+#     return description
 
 def save_txt_file(image_name, description):
     """Save the description as a text file."""
@@ -94,9 +156,22 @@ def process():
         print(f"No images found in '{images_folder}'.")
         return
 
+    image_processed_cnt = 0
+    excluded_image_cnt = 0
+
     for image_file in image_files:
+        descriptions_file_path = os.path.join(image_descriptions_txt_folder, f"{os.path.splitext(image_file)[0]}.txt")
+        if os.path.exists(descriptions_file_path):
+            print(f"{image_file} description already processed.")
+            continue
+
         image_path = os.path.join(images_folder, image_file)
         description = generate_image_description(image_path)
+        if "Error generating description" in description or "not crochet" in description or "*not* crochet" in description:
+            print(f"{image_file} excluded from dataset.")
+            excluded_image_cnt += 1
+            continue 
+
         save_txt_file(image_file, description)
 
         txt_file_path = os.path.join(text_instructions_folder, f"{os.path.splitext(image_file)[0]}.txt")
@@ -109,7 +184,13 @@ def process():
 
         create_json_file(image_file, description, text_instruction)
 
-def split_json_to_jsonl(input_folder, output_folder, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
+        print("processed image cnt:", image_processed_cnt)
+        image_processed_cnt += 1
+    
+    print("total processed images", image_processed_cnt)
+    print("excluded image count", excluded_image_cnt)
+
+def split_json_to_jsonl(input_folder, output_folder, train_ratio=0.85, val_ratio=0, test_ratio=0.15):
     """Split JSON files into train, validation, and test JSONL files."""
     json_files = [f for f in os.listdir(input_folder) if f.endswith('.json')]
     random.shuffle(json_files)

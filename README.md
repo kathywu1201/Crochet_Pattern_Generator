@@ -25,14 +25,21 @@
     │   ├── docker-entrypoint.sh
     │   ├── Dockerfile
     │   ├── echo
-    │   ├── generate_prompts_gemini.py
-    ├── processing_pdfs
+    │   ├── cli.py
+    ├── pdf_processor
     │   ├── Pipfile
     │   ├── Pipfile.lock
     │   ├── docker-shell.sh
     │   ├── docker-entrypoint.sh
     │   ├── Dockerfile
-    │   ├── processing_pdfs.py
+    │   ├── cli.py
+    ├── image_2_vector
+    │   ├── Pipfile
+    │   ├── Pipfile.lock
+    │   ├── docker-shell.sh
+    │   ├── docker-entrypoint.sh
+    │   ├── Dockerfile
+    │   ├── cli.py
     ├── llm-rag
     │   ├── Pipfile
     │   ├── Pipfile.lock
@@ -52,7 +59,7 @@
   
 ```
 
-# AC215 - Milestone2 - Crochet Pattern Generator
+# AC215 - Milestone3 - Crochet Pattern Generator
 
 **Team Members**
 Shiqi Wang, Yanfeiyun Wu, Jiahui Zhang, Wanying Zhang
@@ -63,9 +70,9 @@ CrochetPatternGenerator
 **Project**
 In this project, we aim to develop a Deep Learning model capable of interpreting images of crochet products and generating corresponding, detailed pattern instructions. Despite crochet's popularity as a creative and therapeutic pastime, enthusiasts like us often struggle to find clear, step-by-step instructions for intriguing designs we encounter online or in person due to scarce resources. Existing tools can transform written instructions into visual 3D models, but there is a significant gap in generating pattern instructions directly from images of finished products. To address this need, we envision not only creating a model that provides meaningful instructions but also developing an app tailored for crochet enthusiasts. This platform would allow users to upload pictures of crochet items they find interesting, receive detailed patterns, and foster an online community where they can connect, share their creations, and inspire each other.
 
-### Milestone2 ###
+### Milestone3 ###
 
-In this milestone, we have the components for data scraping from websites, as well as the computer vision, language models and RAG.
+In this milestone, we have split the processing pdfs container into two seperate containers - pdf processor and image to vector.
 
 **Data**
 We gathered around 5,000 crochet products instructions in PDF format from the open-source website.
@@ -77,25 +84,31 @@ We gathered around 5,000 crochet products instructions in PDF format from the op
 
 	**Output:** pdfs stored in the specified GCS location.
 
-2. One container read in instruction pdfs and storing the segmented images, image feature vecturs, and raw text to Goodle Cloud Storage. 
+2. One container read in instruction pdfs and storing the segmented images and raw text to Goodle Cloud Storage. 
 
    **Input:** PDFs downloaded from GCS.
 
-   **Output:** Cropped images (first image in first page of every PDF, saved as png), image feature vectors (npy), and raw text (txt), uploaded into GCS.
+   **Output:** Cropped images (first image in first page of every PDF, saved as png) and raw text (txt), uploaded into GCS.
 
-3. One container read in raw image data and output description of the image.
+3. One container read in raw images data and output image vectors.
+
+   **Input:** Images downloaded from GCS.
+
+   **Output:** Image vectors (saved as npy) and uploaded into GCS.
+
+4. One container read in raw image data and output description of the image.
 
    **Input:** Images and raw text downloaded from GCS.
 
    **Output:** Descriptions of images (txt and json) and upload into GCS.
 
-4. One container prepares data for the RAG model, including tasks such as chunking, embedding, and loading to the vector database.
+5. One container prepares data for the RAG model, including tasks such as chunking, embedding, and loading to the vector database.
 
 	**Input:** Download image (png) and text (json and txt) data from GCS and load the data to the RAG model. Additional, it will also download the generated prompt as the user input prompt.
 
 	**Output:** Output a combination of generated user prompt and chunked text (as json file) searched from the vector database.
 
-5. One container to fine tune large language model (Gemini).
+6. One container to fine tune large language model (Gemini).
 
    **Input:** The generated prompt from last llm and original textual instruction.
 
@@ -115,22 +128,30 @@ We gathered around 5,000 crochet products instructions in PDF format from the op
 4. **`src/data_gathering/docker-shell.sh`**
    This Docker shell script sets up environment variables, pulls the latest seleniarm/standalone-chromium image, and runs a container with mounted local directories for the app and secrets. Inside the container, it installs Python, pip, sets up a virtual environment, and installs necessary Python packages like Selenium, Requests, and Google Cloud Storage.
 
-5. **`src/processing_pdfs/process_pdfs.py`**
-   This script extracts the raw text and image from the PDF files, convert image to image vectors, and store them into local folder then upload into GCS.
+5. **`src/pdf_processor/cli.py`**
+   This script extracts the raw text and image from the PDF files and store them into local folder then upload into GCS.
 
-6. **`src/processing_pdfs/Pipfile`**
+6. **`src/pdf_processor/Pipfile`**
    We used the following packages to help with preprocessing the PDFs:
    - `google-cloud-vision`
    - `google-cloud-storage`
    - `pdfplumber`
+
+7. **`src/image_2_vector/cli.py`**
+   This script extracts the image from the PDF files, convert image to image vectors, and store them into local folder then upload into GCS.
+
+8. **`src/image_2_vector/Pipfile`**
+   We used the following packages to help with preprocessing the PDFs:
+   - `numpy`
+   - `google-cloud-storage`
    - `Pillow`
    - `torch`
    - `transformers`
 
-7. **`src/image_descriptions/generate_prompts_gemini.py`**
+9. **`src/image_descriptions/generate_prompts_gemini.py`**
    This script use gemini to produce descriptions of the images downloaded from GCS bucket, then create formatted json and jsonl files that can use to finetune LLM (still gemini) later. Then, upload txt files (raw descriptions), json, and jsonl files (contain train, validation, and test datasets) into GCS bucket.
 
-8. **`src/image_descriptions/Pipfile`**
+10. **`src/image_descriptions/Pipfile`**
    We used the following packages to help with generate image descriptions:
    - `user-agent`
    - `requests`
@@ -140,26 +161,26 @@ We gathered around 5,000 crochet products instructions in PDF format from the op
    - `pandas`
    - `pillow`
 
-9. **`src/llm-rag/rag.py`**
+11. **`src/llm-rag/rag.py`**
    This script prepares the necessary dat for setting up our vector database. It performs downloading data from GCS bucket, chunking, embedding, loads data into a vector database (ChromaDB), and upload retrieved chunks and prompts to the GCS bucket which will be used as input in the Large Language Model.
 
-10. **`src/llm-rag/Pipfile`**
+12. **`src/llm-rag/Pipfile`**
    We used the following packages to help with processing RAG:
    - `chromadb`
    - `google-cloud-storage`
    - `google-cloud-aiplatform`
    - `langchain`
 
-11. **`src/llm-finetuning/gemini-finetuning.py`**
+13. **`src/llm-finetuning/gemini-finetuning.py`**
    This script utilizes prompt generated from crochet images from last Gemini model and raw texual instructions corresponding with each image to finetune the Gemini, to make the model generate textual pattern instructions based on prompt. It also gives instructions of how to generate output based on RAG as well as the prompts which users input.
 
-12. **`src/llm-finetuning/Pipfile`**
+14. **`src/llm-finetuning/Pipfile`**
    We used the following packages to help with preprocessing:
    - `google-cloud-storage`
    - `google-generativeai`
    - `google-cloud-aiplatform`
 
-13. **`src/../Dockerfile(s)`**
+15. **`src/../Dockerfile(s)`**
    Our Dockerfiles follow standard conventions, with the exception of some specific modifications described in the Dockerfile/described below.
    - In the data_gathering container, instead of building our own image, we utilized an open-source image on dockerhub which can let us run chromdriver in the container.
 
@@ -175,19 +196,30 @@ Instructions for running the Dockerfiles in each of the container is: `sh docker
    - `python3 cli.py scrape --project-type "Rugs" --pages 3`
    - `python3 cli.py upload --folder "/app/input_file" --bucket “crochet-patterns-bucket"`
 
-**PDF Processing container**
-- This container has scripts for process PDFs and output images, image vectors, and raw text instructions to put into RAG and LLM.
+**PDF Processor Container**
+
+- This container has scripts for process PDFs and output images and raw text instructions to put into RAG and LLM.
 - Instructions for running the model container:\
-   - `python3 process_pdfs.py --download`, download the PDFs from GCS.
-   - `python3 process_pdfs.py --process`, Process the PDFs, including extracting images(use pdfplumber and cvs), convert images into image vectors (SwinV2), and extract raw text from (Google Cloud Vision API).
+  - `python3 cli.py --download`, download the PDFs from GCS.
+  - `python3 cli.py --uploadpdfs`, uploads the downloaded PDFs into one folder on GCS for easy process.
+  - `python3 cli.py --process`, Process the PDFs, including extracting images(use pdfplumber and cvs) and extract raw text from (Google Cloud Vision API) the PDFs.
+  - `python3 cli.py --upload`, Upload the processed images and raw text to GCS
+
+**Image To Vector Container**
+
+- This container has scripts for convert the images to image vectors to put into RAG
+- Instructions for running the model container:\
+  - `python3 cli.py --download`, download the images from GCS.
+  - `python3 cli.py --process`, Convert the images to image vectors (user SwinV2)
+  - `python3 cli.py --upload`, Upload the processed image vectors to GCS
 
 **Image Descriptions container**
 - This container has scripts for running a gemini and asked it to generate image descriptions of the inputted image.
 - Instructions for running the model container:\
-   - `python3 generate_prompts_gemini.py --download`, download the images from GCS.
-   - `python3 generate_prompts_gemini.py --process`, generate image descriptions for the images, and save both txt files and formatted json files into local directory
-   - `python3 generate_prompts_gemini.py --split`, split the json files into training, validation, and testing datasets and store in jsonl files
-   - `python generate_prompts_gemini.py --upload`, upload the image descriptions (txt file), fomatted json files, and splitted jsonl files to GCS bucket
+   - `python3 cli.py --download`, download the images from GCS.
+   - `python3 cli.py --process`, generate image descriptions for the images, and save both txt files and formatted json files into local directory
+   - `python3 cli.py --split`, split the json files into training, validation, and testing datasets and store in jsonl files
+   - `python cli.py --upload`, upload the image descriptions (txt file), fomatted json files, and splitted jsonl files to GCS bucket
 
 **RAG container**
 - This container has scripts for rag pipline and prepare inference data that can pass to language model.
