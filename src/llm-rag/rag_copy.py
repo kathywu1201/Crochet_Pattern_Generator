@@ -13,10 +13,11 @@ from google.cloud import storage
 # Vertex AI
 import vertexai
 from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
+# from vertexai.generative_models import GenerativeModel, GenerationConfig, Content, Part, ToolConfig
 
 # Langchain
-# from langchain_experimental.text_splitter import SemanticChunker
-from semantic_splitter import SemanticChunker
+from langchain_experimental.text_splitter import SemanticChunker
+# from semantic_splitter import SemanticChunker
 # import agent_tools
 
 # Setup
@@ -53,32 +54,27 @@ def download():
 	client = storage.Client()
 	bucket = client.get_bucket(BUCKET_NAME)
 
-	images_folder = "training/image_vectors"
-	text_folder = "training/text_instructions"
+	bucket_folder = "training"
 
-	blobs = bucket.list_blobs(prefix="training/")
+	blobs = bucket.list_blobs(prefix=bucket_folder+"/")
 
 	for blob in blobs:
-		print(f"Checking blob: {blob.name}")
+		print(f"Downloading: {blob.name}")
 
-		# Only download files from the specified folders
-		if blob.name.startswith(folder1 + "/") or blob.name.startswith(folder2 + "/"):
-			print(f"Downloading: {blob.name}")
+		# Skip "directory" blobs (those that end with a "/")
+		if not blob.name.endswith("/"):
+			# Get the relative path by removing the bucket folder prefix
+			relative_path = os.path.relpath(blob.name, bucket_folder)
 
-			# Skip "directory" blobs (those that end with a "/")
-			if not blob.name.endswith("/"):
-				# Get the relative path by removing the "training/" prefix
-				relative_path = os.path.relpath(blob.name, "training")
+			# Construct the full local path
+			local_path = os.path.join(INPUT_FOLDER, relative_path)
 
-				# Construct the full local path
-				local_path = os.path.join(INPUT_FOLDER, relative_path)
+			# Create the local directory structure if it doesn't exist
+			local_dir = os.path.dirname(local_path)
+			os.makedirs(local_dir, exist_ok=True)
 
-				# Create the local directory structure if it doesn't exist
-				local_dir = os.path.dirname(local_path)
-				os.makedirs(local_dir, exist_ok=True)
-
-				# Download the file to the local path
-				blob.download_to_filename(local_path)
+			# Download the file to the local path
+			blob.download_to_filename(local_path)
 
 	print("Download completed.")
 
@@ -144,7 +140,7 @@ def load_text_and_image_embeddings(df, collection, batch_size=500):
 				text_emb = text_emb.tolist()
 			if isinstance(image_emb, np.ndarray):
 				image_emb = image_emb.tolist()
-			# print(image_emb)
+			print(image_emb)
 
 			# Combine text and image embeddings
 			combined_embeddings.append(text_emb + image_emb)
@@ -164,191 +160,65 @@ def load_text_and_image_embeddings(df, collection, batch_size=500):
 
 
 def chunk():
-	os.makedirs(OUTPUT_FOLDER, exist_ok=True)
-	text_files = glob.glob(os.path.join(INPUT_FOLDER, "text_instructions/txt_outputs", "*.txt"))
-	print("Number of files to process:", len(text_files))
+    os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+    text_files = glob.glob(os.path.join(INPUT_FOLDER, "text_instructions/txt_outputs", "*.txt"))
+    print("Number of files to process:", len(text_files))
 
-	cnt = 1
+    for text_file in text_files:
+        print("Processing file:", text_file)
+        filename = os.path.basename(text_file)
+        book_name = filename.split(".")[0]
 
-	for text_file in text_files:
-		if cnt % 100 == 0:
-			print(f"Working on {cnt}th file...")
-		
-		filename = os.path.basename(text_file)
-		book_name = filename.split(".")[0]
+        with open(text_file) as f:
+            input_text = f.read()
 
-		# Check if the output file already exists
-		jsonl_filename = os.path.join(OUTPUT_FOLDER, f"chunks-{book_name}.jsonl")
-		if os.path.exists(jsonl_filename):
-			print(f"Output file for {book_name} already exists. Skipping...")
-			continue
-		
-		print("Processing file:", text_file)
-		with open(text_file) as f:
-			input_text = f.read()
+        # Using semantic splitting exclusively
+        text_splitter = SemanticChunker(embedding_function=generate_text_embeddings)
+        text_chunks = text_splitter.create_documents([input_text])
+        text_chunks = [doc.page_content for doc in text_chunks]
+        print("Number of chunks:", len(text_chunks))
 
-		# Using semantic splitting exclusively
-		text_splitter = SemanticChunker(embedding_function=generate_text_embeddings)
-		text_chunks = text_splitter.create_documents([input_text])
-		text_chunks = [doc.page_content for doc in text_chunks]
-		print("Number of chunks:", len(text_chunks))
+        data_df = pd.DataFrame(text_chunks, columns=["chunk"])
+        data_df["book"] = book_name
+        print("Shape:", data_df.shape)
+        print(data_df.head())
 
-		data_df = pd.DataFrame(text_chunks, columns=["chunk"])
-		data_df["book"] = book_name
-		# print("Shape:", data_df.shape)
-		# print(data_df.head())
-
-		jsonl_filename = os.path.join(OUTPUT_FOLDER, f"chunks-{book_name}.jsonl")
-		with open(jsonl_filename, "w") as json_file:
-			json_file.write(data_df.to_json(orient='records', lines=True))
-		
-		cnt += 1
-
-	print(f">>> Finished processing {cnt-1} files.")
-
+        jsonl_filename = os.path.join(OUTPUT_FOLDER, f"chunks-{book_name}.jsonl")
+        with open(jsonl_filename, "w") as json_file:
+            json_file.write(data_df.to_json(orient='records', lines=True))
 
 def embed():
-	jsonl_files = glob.glob(os.path.join(OUTPUT_FOLDER, f"chunks-*.jsonl"))
-	print("Number of files to process:", len(jsonl_files))
+    jsonl_files = glob.glob(os.path.join(OUTPUT_FOLDER, f"chunks-*.jsonl"))
+    print("Number of files to process:", len(jsonl_files))
 
-	cnt = 1
+    for jsonl_file in jsonl_files:
+        print("Processing file:", jsonl_file)
 
-	for jsonl_file in jsonl_files:
+        data_df = pd.read_json(jsonl_file, lines=True)
+        print("Shape:", data_df.shape)
+        print(data_df.head())
 
-		# Check if the embedded output file already exists
-		embedded_jsonl_filename = jsonl_file.replace("chunks-", "embeddings-")
-		if os.path.exists(embedded_jsonl_filename):
-			print(f"Embedded file for {jsonl_file} already exists. Skipping...")
-			continue
+        chunks = data_df["chunk"].values
+        text_embeddings = generate_text_embeddings(chunks, EMBEDDING_DIMENSION, batch_size=100)
+        data_df["embedding"] = text_embeddings
 
-		print("Processing file:", jsonl_file)
+        # Load the corresponding pre-generated image embedding (.npy file)
+        book_name = data_df["book"].iloc[0]  # Extract the book name
+        image_embedding_file = os.path.join(INPUT_FOLDER, "image_vectors", f"{book_name}.npy")
 
-		data_df = pd.read_json(jsonl_file, lines=True)
-		print("Shape:", data_df.shape)
-		# print(data_df.head())
-		if cnt % 500 == 0:
-				time.sleep(60)
-		chunks = data_df["chunk"].values
-		text_embeddings = generate_text_embeddings(chunks, EMBEDDING_DIMENSION, batch_size=100)
-		data_df["embedding"] = text_embeddings
+        if os.path.exists(image_embedding_file):
+            print(f"Loading image embedding from: {image_embedding_file}")
+            image_embedding = np.load(image_embedding_file)  # Load the image embedding from the .npy file
 
-		# Load the corresponding pre-generated image embedding (.npy file)
-		book_name = data_df["book"].iloc[0]  # Extract the book name
-		image_embedding_file = os.path.join(INPUT_FOLDER, "image_vectors", f"{book_name}.npy")
+            # Assuming one image embedding for the entire book, we replicate it for all chunks
+            data_df["image_embedding"] = [image_embedding] * len(data_df)
+        else:
+            print(f"Warning: No image embedding found for {book_name}")
+            data_df["image_embedding"] = [None] * len(data_df)
 
-		if os.path.exists(image_embedding_file):
-			print(f"Loading image embedding from: {image_embedding_file}")
-			image_embedding = np.load(image_embedding_file)  # Load the image embedding from the .npy file
-
-			# Assuming one image embedding for the entire book, we replicate it for all chunks
-			data_df["image_embedding"] = [image_embedding] * len(data_df)
-		else:
-			print(f"Warning: No image embedding found for {book_name}, ignore this book.")
-			continue
-			# data_df["image_embedding"] = [None] * len(data_df)
-
-		jsonl_filename = jsonl_file.replace("chunks-", "embeddings-")
-		with open(jsonl_filename, "w") as json_file:
-			json_file.write(data_df.to_json(orient='records', lines=True))
-
-		cnt += 1
-		if cnt%100==0:
-			print(f"Working on {cnt}th file...")
-
-	print(f">>> Finished processing {cnt} files.")
-
-# import os
-# import glob
-# import time
-# import numpy as np
-# import pandas as pd
-
-# # A helper function to estimate token count based on the text (can be refined to match the model's tokenizer)
-# def count_tokens(text, token_limit):
-#     # Placeholder token counter: assuming one word is approximately one token
-#     # You might want to use the tokenizer from the model you are using to get a more accurate count.
-#     return len(text.split())
-
-# def embed():
-#     jsonl_files = glob.glob(os.path.join(OUTPUT_FOLDER, f"chunks-*.jsonl"))
-#     print("Number of files to process:", len(jsonl_files))
-
-#     cnt = 1
-
-#     for jsonl_file in jsonl_files:
-
-#         # Check if the embedded output file already exists
-#         embedded_jsonl_filename = jsonl_file.replace("chunks-", "embeddings-")
-#         if os.path.exists(embedded_jsonl_filename):
-#             print(f"Embedded file for {jsonl_file} already exists. Skipping...")
-#             continue
-
-#         print("Processing file:", jsonl_file)
-
-#         data_df = pd.read_json(jsonl_file, lines=True)
-#         print("Shape:", data_df.shape)
-
-#         if cnt % 200 == 0:
-#             time.sleep(200)
-
-#         # Extract chunks of text
-#         chunks = data_df["chunk"].values
-
-#         # Split into batches that respect the token limit
-#         token_limit = 20000
-#         current_batch = []
-#         current_token_count = 0
-#         embeddings_list = []
-
-#         for chunk in chunks:
-#             chunk_token_count = count_tokens(chunk, token_limit)
-            
-#             # If adding this chunk would exceed the limit, process the current batch
-#             if current_token_count + chunk_token_count > token_limit:
-#                 if current_batch:
-#                     text_embeddings = generate_text_embeddings(current_batch, EMBEDDING_DIMENSION, batch_size=100)
-#                     embeddings_list.extend(text_embeddings)
-#                 # Start a new batch
-#                 current_batch = [chunk]
-#                 current_token_count = chunk_token_count
-#             else:
-#                 # Add chunk to the current batch
-#                 current_batch.append(chunk)
-#                 current_token_count += chunk_token_count
-
-#         # Process the last batch
-#         if current_batch:
-#             text_embeddings = generate_text_embeddings(current_batch, EMBEDDING_DIMENSION, batch_size=100)
-#             embeddings_list.extend(text_embeddings)
-
-#         # Attach the embeddings to the dataframe
-#         data_df["embedding"] = embeddings_list
-
-#         # Load the corresponding pre-generated image embedding (.npy file)
-#         book_name = data_df["book"].iloc[0]  # Extract the book name
-#         image_embedding_file = os.path.join(INPUT_FOLDER, "image_vectors", f"{book_name}.npy")
-
-#         if os.path.exists(image_embedding_file):
-#             print(f"Loading image embedding from: {image_embedding_file}")
-#             image_embedding = np.load(image_embedding_file)  # Load the image embedding from the .npy file
-
-#             # Assuming one image embedding for the entire book, we replicate it for all chunks
-#             data_df["image_embedding"] = [image_embedding] * len(data_df)
-#         else:
-#             print(f"Warning: No image embedding found for {book_name}, skipping this book.")
-#             cnt += 1
-#             continue
-
-#         # Save the embeddings into a new JSONL file
-#         with open(embedded_jsonl_filename, "w") as json_file:
-#             json_file.write(data_df.to_json(orient='records', lines=True))
-
-#         cnt += 1
-#         if cnt % 100 == 0:
-#             print(f"Working on {cnt}th file...")
-
-#     print(f">>> Finished processing {cnt} files.")
-
+        jsonl_filename = jsonl_file.replace("chunks-", "embeddings-")
+        with open(jsonl_filename, "w") as json_file:
+            json_file.write(data_df.to_json(orient='records', lines=True))
 
 
 def load():
@@ -372,8 +242,8 @@ def load():
         print("Processing file:", jsonl_file)
 
         data_df = pd.read_json(jsonl_file, lines=True)
-        # print("Shape:", data_df.shape)
-        # print(data_df.head())
+        print("Shape:", data_df.shape)
+        print(data_df.head())
 
         load_text_and_image_embeddings(data_df, collection)
 
@@ -385,7 +255,7 @@ def query():
 	collection_name = "semantic-text-image-collection"
 	collection = client.get_collection(name=collection_name)
 
-	text_file_path = "user_inputs/prompt.txt"
+	text_file_path = "user_inputs/ALS0537-030775M.txt"
     # User input query, if this is empty, will replace with all 0s
 	try:
 		with open(text_file_path, 'r') as f:
@@ -412,7 +282,7 @@ def query():
 	# print("Text Query Results:", text_results)
 
     # Load the user input image query embedding (which is 1024-dimensional)
-	image_embedding_path = "user_inputs/heart.npy"
+	image_embedding_path = "user_inputs/ALS0537-030775M.npy"
 	image_query_embedding = np.load(image_embedding_path)
 
     # Concatenate dummy text embedding (256-dimensional zero vector) to the image query embedding
@@ -460,11 +330,11 @@ def query():
 	combined_text_chunks = ' '.join(embedded_texts)
 
 	output_data = {
-		"prompt": query# + "\n Chunked text: \n" + combined_text_chunks
+		"prompt": query + combined_text_chunks
 	}
 
 	# Output the data to a JSON file
-	json_filename = "json_outputs/retrieved_data_v11.json"
+	json_filename = "json_outputs/retrieved_data.json"
 	with open(json_filename, 'w') as json_file:
 		json.dump(output_data, json_file, indent=4)
 
@@ -472,7 +342,7 @@ def query():
 
 
 
-def re_rank_results(text_results, image_results, text_weight, image_weight):
+def re_rank_results(text_results, image_results, text_weight=0.6, image_weight=0.4):
     """
     Re-rank results based on weighted scores from both text and image searches.
 
