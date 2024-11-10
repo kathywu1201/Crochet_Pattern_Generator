@@ -1,4 +1,6 @@
 import modal
+import os
+import torch
 
 app = modal.App(name="llama-finetuning")
 
@@ -14,31 +16,55 @@ instructions_path = f"{local_base_path}/instructions"
                   modal.Mount.from_local_dir(images_path, remote_path="/root/dataset/images"),
                   modal.Mount.from_local_dir(instructions_path, remote_path="/root/dataset/instructions"),
                   ],
-                  image=modal.Image.debian_slim().pip_install(
-                      "Pillow",  
-                      "datasets",
-                      "peft",
-                      "torch",
-                      "transformers>=4.30.0",
-                      "huggingface_hub>=0.26.2"
-                      ))
+              image=modal.Image.debian_slim().pip_install(
+                  "Pillow",  
+                  "datasets",
+                  "peft",
+                  "torch",
+                  "transformers>=4.30.0",
+                  "huggingface_hub>=0.26.2"
+              ))
 def train_llama():
-    import os
     from datasets import Dataset
     from PIL import Image
     import base64
     import io
-    import torch  
-    from transformers import AutoModelForCausalLM, AutoProcessor, Trainer, TrainingArguments
+    from transformers import AutoProcessor, Trainer, TrainingArguments
     from huggingface_hub import login
 
-    # Hugging Face login
+    # Mock model definition for testing
+    class MockModel:
+        def __init__(self, *args, **kwargs):
+            print("Initialized Mock Model")
+
+        def forward(self, *args, **kwargs):
+            print("Mock forward pass called")
+            return {"loss": torch.tensor(0.0), "logits": torch.zeros((1, 10))}
+
+        def save_pretrained(self, path):
+            print(f"Mock model saved to {path}")
+
+        def to(self, device):
+            print(f"Mock model moved to {device}")
+            return self
+
+        def train(self):
+            print("Mock model set to training mode")
+            return self
+
+        def eval(self):
+            print("Mock model set to evaluation mode")
+            return self
+
+    # Determine whether to use the mock model for testing
+    use_mock_model = os.getenv("USE_MOCK_MODEL", "false").lower() == "true"
+
+    # Hugging Face login (can be bypassed if not needed for testing)
     token = os.getenv("HF_TOKEN")
     if token:
         login(token=token)
     else:
-        raise ValueError("Hugging Face token not found. Set the HF_TOKEN environment variable.")
-
+        print("Skipping Hugging Face login for testing.")
 
     # Paths for images and data
     image_folder = "/root/dataset/images"
@@ -50,13 +76,11 @@ def train_llama():
         data = {}
         for filename in os.listdir(folder_path):
             filepath = os.path.join(folder_path, filename)
-            file_key = os.path.splitext(filename)[0]  # Remove file extension to use as key
+            file_key = os.path.splitext(filename)[0]
             try:
-                # Attempt to read in UTF-8
                 with open(filepath, 'r', encoding='utf-8') as file:
                     data[file_key] = file.read().strip()
             except UnicodeDecodeError:
-                # Fallback to ISO-8859-1 or another encoding if UTF-8 fails
                 with open(filepath, 'r', encoding='ISO-8859-1') as file:
                     data[file_key] = file.read().strip()
         return data
@@ -71,8 +95,6 @@ def train_llama():
         for filename in os.listdir(image_folder):
             filepath = os.path.join(image_folder, filename)
             file_key = os.path.splitext(filename)[0]
-            
-            # Check if the file has an image extension
             if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
                 with open(filepath, 'rb') as img_file:
                     image = Image.open(img_file).convert("RGB")
@@ -97,48 +119,18 @@ def train_llama():
             }
             combined_data.append(sample)
 
+    # Mock dataset preparation
+    dataset = [sample for sample in combined_data]  # Use combined data directly
 
+    # Use either the real or mock model
+    if use_mock_model:
+        model = MockModel()
+    else:
+        from transformers import AutoModelForCausalLM
+        model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
+        model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float32).cuda()
 
-    from datasets import load_dataset
-
-    def format_data(sample):
-        return {
-            "messages": [
-                {
-                    "role": "system",
-                    "content": [{"type": "text", "text": "You are a crochet expert, and your role is to create detailed, accurate, and original crochet instructions."}],
-                },
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": f"You are an AI assistant specialized in crochet knowledge. Generate original crochet pattern instructions.\n\n##IMAGE DESCRIPTION##: {sample['Image Description']}"
-                        },
-                        {
-                            "type": "image",
-                            "image": sample["image"],
-                        }
-                    ],
-                },
-                {
-                    "role": "assistant",
-                    "content": [{"type": "text", "text": sample["Instruction"]}],
-                },
-            ]
-        }
-
-    # dataset_id = "philschmid/amazon-product-descriptions-vlm"
-    # dataset = load_dataset(dataset_id, split="train")
-    dataset = [format_data(sample) for sample in combined_data]
-
-
-    import torch  
-    from transformers import AutoProcessor
-
-    model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
-    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float32).cuda()
-    processor = AutoProcessor.from_pretrained(model_id)
+    processor = AutoProcessor.from_pretrained("meta-llama/Llama-3.2-11B-Vision-Instruct")
 
     # Define Training Arguments
     training_args = TrainingArguments(
@@ -155,7 +147,7 @@ def train_llama():
 
     # Data Collator
     def collate_fn(examples):
-        texts = [processor(text=example["messages"][0]["content"][0]["text"], images=None, return_tensors="pt", padding=True) for example in examples]
+        texts = [processor(text=example["Image Description"], images=None, return_tensors="pt", padding=True) for example in examples]
         return texts
 
     # Initialize Trainer
@@ -167,11 +159,11 @@ def train_llama():
         tokenizer=processor.tokenizer,
     )
 
-    # Train the model
+    # Train the model (or mock)
     trainer.train()
 
     # Save the model
-    model.save_pretrained("/Users/ciciwxp/Desktop/AC215/Crochet_Pattern_Generator/src/llama_fintuning")
+    model.save_pretrained("/path/to/save/mock_or_real_model")
 
 if __name__ == "__main__":
     with app.run():
