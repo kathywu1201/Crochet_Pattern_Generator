@@ -16,8 +16,8 @@ from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
 # from vertexai.generative_models import GenerativeModel, GenerationConfig, Content, Part, ToolConfig
 
 # Langchain
-from langchain_experimental.text_splitter import SemanticChunker
-# from semantic_splitter import SemanticChunker
+# from langchain_experimental.text_splitter import SemanticChunker
+from .semantic_splitter import SemanticChunker
 # import agent_tools
 
 # Setup
@@ -413,6 +413,17 @@ def upload():
 		blob.upload_from_filename(json_file)
 
 	print("Upload completed.")
+
+
+# Instead of initializing at the top level, encapsulate in a function
+def get_embedding_model():
+    GCP_PROJECT = os.environ.get("GCP_PROJECT")
+    if not GCP_PROJECT:
+        raise EnvironmentError("The 'GCP_PROJECT' environment variable is not set.")
+    return TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
+
+# Use the function wherever needed
+embedding_model = get_embedding_model()
 
 
 
