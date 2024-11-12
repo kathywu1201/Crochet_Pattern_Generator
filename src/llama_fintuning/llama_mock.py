@@ -185,32 +185,8 @@ def train_llama():
 
     # Data Collator
     def collate_fn(examples):
-        if not examples:
-            print("No examples received in collate_fn.")
-            return {}
-
-        valid_examples = [example for example in examples if "Image_Description" in example and example["Image_Description"]]
-
-        if not valid_examples:
-            print("No valid examples found in collate_fn.")
-            return {}
-
-        inputs = []
-        for example in valid_examples:
-            processed = processor(text=example["Image_Description"], images=None, return_tensors="pt", padding=True)
-            inputs.append(processed)
-
-        if inputs:
-            try:
-                batch = {k: torch.cat([input[k] for input in inputs], dim=0) for k in inputs[0]}
-                print("Batch created in collate_fn:", batch)
-                return batch
-            except Exception as e:
-                print(f"Error creating batch: {e}")
-                return {}
-        else:
-            print("No inputs to create batch in collate_fn.")
-            return {}
+        texts = [processor(text=example["messages"][0]["content"][0]["text"], images=None, return_tensors="pt", padding=True) for example in examples]
+        return texts
 
 
     # Initialize Trainer

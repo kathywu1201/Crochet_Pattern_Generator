@@ -137,8 +137,11 @@ def train_llama():
     from transformers import AutoProcessor
 
     model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
-    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float32).cuda()
+    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16).cuda()
     processor = AutoProcessor.from_pretrained(model_id)
+    model.gradient_checkpointing_enable()
+    model.gradient_checkpointing_enable()
+
 
     # Define Training Arguments
     training_args = TrainingArguments(

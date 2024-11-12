@@ -25,3 +25,5 @@ specific url:  https://llama3-2-multimodal.llamameta.net/*?Policy=eyJTdGF0ZW1lbn
 Llama3.2-11B-Vision
 
 token: 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
+
+
