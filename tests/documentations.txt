@@ -1,1 +1,35 @@
+----------------------------------------------------------------------------
+test_ImageDescription.py
+----------------------------------------------------------------------------
 
+1. Unit Tests:
+test_makedirs: Checks if directories are created.
+test_upload_to_gcs: Verifies file uploads with mocked GCS storage.
+test_download_files_from_gcs: Simulates downloading files from GCS.
+test_generate_image_description: Verifies image description generation.
+test_save_txt_file: Tests saving a text file.
+test_create_json_file: Tests JSON file creation.
+
+2. Integration Tests:
+test_process: Mocks dependencies to validate the full process function.
+test_split_json_to_jsonl: Verifies JSON file splitting into JSONL for train, val, and test sets.
+
+3. System Test:
+test_main_system_flow: Tests the end-to-end flow with main, covering download, process, split, and upload.
+
+----------------------------------------------------------------------------
+test_rag.py
+----------------------------------------------------------------------------
+
+
+
+
+
+
+----------------------------------------------------------------------------
+test_ImageVector.py
+----------------------------------------------------------------------------
+
+2. Integration Tests:
+test_process_images: Validates the full functionality of process_images, integrating file creation, processing, and storage verification. 
+test_download_images: Verifies the integration of Google Cloud Storage client functionality with the local file system, checking that image blobs are successfully downloaded and stored in the designated folder.
