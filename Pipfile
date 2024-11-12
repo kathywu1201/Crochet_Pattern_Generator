@@ -16,7 +16,9 @@ chromadb = "*"
 langchain = "*"
 langchain-community = "*"
 torch = "*"
-pytest="*"
+Pillow = "*"
+transformers = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.9"

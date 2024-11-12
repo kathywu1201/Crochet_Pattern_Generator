@@ -4,6 +4,7 @@ FROM python:3.9-slim
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV GCP_PROJECT="dummy_project"
+ENV GCS_BUCKET_NAME="dummy-bucket-name"
 
 # Copy the service account key to the container
 COPY ../secrets/data-service-account.json /app/data-service-account.json
