@@ -111,7 +111,7 @@ def generate_text_embeddings(chunks, dimensionality: int = 256, batch_size=250):
 
 def load_text_and_image_embeddings(df, collection, batch_size=500):
 	'''
-	This function will 
+	This function will load the text and image embedding to the collection.
 	'''
 	df["id"] = df.index.astype(str)
 	hashed_books = df["book"].apply(lambda x: hashlib.sha256(x.encode()).hexdigest()[:16])
@@ -120,6 +120,12 @@ def load_text_and_image_embeddings(df, collection, batch_size=500):
 	metadata = {
 		"book": df["book"].tolist()[0]
 	}
+
+	# Fill missing image embeddings with zeros of the expected length
+	embedding_length = 1024  # Adjust this length to match your actual image embedding size
+	df["image_embedding"] = df["image_embedding"].apply(
+		lambda x: x if isinstance(x, list) else [0.0] * embedding_length
+	)
 	# if metadata["book"] in book_mappings:
 	#     book_mapping = book_mappings[metadata["book"]]
 		# metadata["author"] = book_mapping["author"]
@@ -156,7 +162,6 @@ def load_text_and_image_embeddings(df, collection, batch_size=500):
 		print(f"Inserted {total_inserted} items...")
 
 	print(f"Finished inserting {total_inserted} items into collection '{collection.name}'")
-
 
 
 def chunk():
@@ -250,64 +255,69 @@ def load():
 
 
 
-def query():
+def query(): #text, image_path, image_vector
 	client = chromadb.HttpClient(host=CHROMADB_HOST, port=CHROMADB_PORT)
 	collection_name = "semantic-text-image-collection"
 	collection = client.get_collection(name=collection_name)
 
 	text_file_path = "user_inputs/ALS0537-030775M.txt"
-    # User input query, if this is empty, will replace with all 0s
+	# User input query, if this is empty, will replace with all 0s
 	try:
 		with open(text_file_path, 'r') as f:
 			query = f.read()
-	except FileNotFoundError:
-		query = "Text instruction not found."
 	except Exception as e:
-		print(f"An error occurred: {e}")
+		print(f"Text file not found")
 		query = "null"
+	# except FileNotFoundError:
+	# 	query = "Text instruction not found."
+
 	query_embedding = generate_query_embedding(query)
 
-    # Since the collection expects 1280-dimensional embeddings (256 text + 1024 image),
-    # we need to concatenate a 1024-dimensional dummy image embedding to the query
+	# Since the collection expects 1280-dimensional embeddings (256 text + 1024 image),
+	# we need to concatenate a 1024-dimensional dummy image embedding to the query
 	dummy_image_embedding = [0.0] * 1024  # 1024-dimensional zero vector
 
-    # Concatenate text embedding and dummy image embedding
+	# Concatenate text embedding and dummy image embedding
 	combined_text_query_embedding = query_embedding + dummy_image_embedding
 
-    # Perform the text query with the combined embedding
+	# Perform the text query with the combined embedding
 	text_results = collection.query(
-        query_embeddings=[combined_text_query_embedding], 
-        n_results=10
-    )
+		query_embeddings=[combined_text_query_embedding], 
+		n_results=10
+	)
 	# print("Text Query Results:", text_results)
 
-    # Load the user input image query embedding (which is 1024-dimensional)
+	# Load the user input image query embedding (which is 1024-dimensional)
 	image_embedding_path = "user_inputs/ALS0537-030775M.npy"
-	image_query_embedding = np.load(image_embedding_path)
+	try:
+		image_query_embedding = np.load(image_embedding_path)
+	except Exception as e:
+		print(f"Image vector not found")
+		image_query_embedding = np.array([0.0] * 1024)
 
-    # Concatenate dummy text embedding (256-dimensional zero vector) to the image query embedding
+	# Concatenate dummy text embedding (256-dimensional zero vector) to the image query embedding
 	dummy_text_embedding = [0.0] * EMBEDDING_DIMENSION  # 256-dimensional zero vector
 
-    # Concatenate the dummy text embedding with the image query embedding
+	# Concatenate the dummy text embedding with the image query embedding
 	combined_image_query_embedding = dummy_text_embedding + image_query_embedding.tolist()
 
-	 # Perform the image query with the combined embedding (1280-dimensional)
+		# Perform the image query with the combined embedding (1280-dimensional)
 	image_results = collection.query(
-        query_embeddings=[combined_image_query_embedding], 
-        n_results=10
-    )
+		query_embeddings=[combined_image_query_embedding], 
+		n_results=10
+	)
 	# print("Image Query Results:", image_results)
 
-    # Re-rank the results based on both text and image queries
+	# Re-rank the results based on both text and image queries
 	ranked_results = re_rank_results(text_results, image_results, text_weight=0.6, image_weight=0.4)
-    
+
 	# print("Ranked Combined Results:", ranked_results)
 
 	# Extract document IDs from ranked results
 	result_ids = [result['id'] for result in ranked_results]
 	print("Result IDs:", result_ids)
 
-    # Retrieve documents by IDs from the collection
+	# Retrieve documents by IDs from the collection
 	retrieved_data = collection.get(ids=result_ids, include=['documents', 'embeddings'])
 
 	# Extract the embedded texts and embeddings
@@ -325,7 +335,7 @@ def query():
 	# 		"query_embeddings": [query_embedding]  # The text query embedding
 	# 	},
 	# 	"output": embedded_texts  # Assuming the first embedded text is the desired output
-    # }
+	# }
 
 	combined_text_chunks = ' '.join(embedded_texts)
 
@@ -334,7 +344,13 @@ def query():
 	}
 
 	# Output the data to a JSON file
-	json_filename = "json_outputs/retrieved_data.json"
+	# json_filename = "json_outputs/retrieved_data.json"
+	# Define the directory and file name
+	json_dir = "json_outputs"
+	json_filename = os.path.join(json_dir, "retrieved_data.json")
+
+	# Ensure the directory exists
+	os.makedirs(json_dir, exist_ok=True)
 	with open(json_filename, 'w') as json_file:
 		json.dump(output_data, json_file, indent=4)
 
