@@ -94,16 +94,12 @@ def train_llama():
     import os
     from datasets import Dataset
     from PIL import Image
-    import base64
-    import io
     import torch  
-    from transformers import AutoModelForCausalLM, AutoProcessor, Trainer, TrainingArguments, TrainerCallback, TrainerState, TrainerControl
+    from transformers import AutoProcessor
     from huggingface_hub import login
     import torch  
     from transformers import AutoModelForVision2Seq, AutoProcessor, BitsAndBytesConfig
     import logging
-    import base64
-    from pathlib import Path
 
     # Initialize logging
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
