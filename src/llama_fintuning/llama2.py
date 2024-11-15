@@ -12,60 +12,6 @@ cache_dir_local = f"{local_base_path}/cache"
 import os
 os.makedirs(cache_dir_local, exist_ok=True)
 
-# from transformers import TrainerCallback, TrainerState, TrainerControl
-# import torch
-# import logging
-# import time
-
-# class TokenCounterCallback(TrainerCallback):
-#     def __init__(self):
-#         super().__init__()
-#         self.total_tokens = 0
-#         self.current_epoch = 0
-#         self.start_time = None
-
-#     def on_train_begin(
-#         self,
-#         args,
-#         state: TrainerState,
-#         control: TrainerControl,
-#         **kwargs,
-#     ):
-#         self.total_tokens = 0
-#         self.start_time = time.time()
-#         logging.info("Training started. Token counting initialized.")
-
-#     def on_step_end(
-#         self,
-#         args,
-#         state: TrainerState,
-#         control: TrainerControl,
-#         **kwargs,
-#     ):
-#         global CURRENT_BATCH_TOKENS
-#         if CURRENT_BATCH_TOKENS > 0:
-#             self.total_tokens += CURRENT_BATCH_TOKENS
-#             elapsed_time = time.time() - self.start_time
-#             tokens_per_second = self.total_tokens / elapsed_time if elapsed_time > 0 else 0
-#             allocated = torch.cuda.memory_allocated() / (1024 ** 3)  # in GB
-#             reserved = torch.cuda.memory_reserved() / (1024 ** 3)    # in GB
-#             logging.info(f"Processed {CURRENT_BATCH_TOKENS} tokens. Total tokens so far: {self.total_tokens}")
-#             logging.info(f"Training Speed: {tokens_per_second:.2f} tokens/sec")
-#             logging.info(f"GPU Memory - Allocated: {allocated:.2f} GB, Reserved: {reserved:.2f} GB")
-#             # Reset the counter
-#             CURRENT_BATCH_TOKENS = 0
-
-#     def on_epoch_end(
-#         self,
-#         args,
-#         state: TrainerState,
-#         control: TrainerControl,
-#         **kwargs,
-#     ):
-#         self.current_epoch += 1
-#         logging.info(f"Epoch {self.current_epoch} completed. Total tokens processed so far: {self.total_tokens}")
-
-
 @app.function(gpu="H100:2", 
               timeout=7200,
               secrets=[modal.Secret.from_name("my-huggingface-secret")],
@@ -88,7 +34,8 @@ os.makedirs(cache_dir_local, exist_ok=True)
                       "bitsandbytes==0.44.0",
                       "trl==0.11.1",
                       "qwen_vl_utils",
-                      "tensorboard"  
+                      "tensorboard",
+                      "wandb"
                       ))
 def train_llama():
     import os
@@ -152,10 +99,23 @@ def train_llama():
         image = Image.open(image_path)
         return image
 
-    prompt= """You are a crochet expert, and your role is to create detailed, accurate, and original crochet instructions.  
-                Create a detailed instruction on the provided ##IMAGE DESCRIPTION## and image.
+    prompt = """
+    You are an AI assistant specialized in crochet knowledge. Your primary task is to generate original crochet pattern instructions based on the provided image and following image description, covering every detail necessary for someone to recreate the piece accurately, using your expertise in crochet. 
 
-                ##IMAGE DESCRIPTION##: {description}"""
+    When generating crochet instructions:
+    1. Focus on creating a new pattern or providing instructions based on the specific item mentioned in the user's prompt.
+    2. You are not limited to summarizing the provided text chunks. Instead, use them as background information to inform your crochet expertise.
+    3. Prioritize crafting clear, step-by-step pattern instructions, including stitch types, materials, and any special techniques, as appropriate for the item in the prompt.
+    4. If the provided chunks do not offer enough information to generate a full pattern, fill in the gaps with plausible crochet knowledge based on common techniques.
+    5. Ensure that your responses are creative and provide detailed crochet instructions from start to finish.
+    6. Do not summarize content from the chunks unless explicitly asked to; your primary goal is to generate new instructions.
+
+    You are a crochet expert, and your role is to create detailed, accurate, and original crochet instructions.
+    Here is the image description to base your instructions on:
+
+    ## IMAGE DESCRIPTION ##
+    {description}
+    """
 
     # from pathlib import Path
     def format_data(sample):
