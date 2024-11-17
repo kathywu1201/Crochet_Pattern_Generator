@@ -61,9 +61,8 @@ O
 V
 IC
 0
-2 = 2153
+2 = 153
 13
-7
 End
 STITCH KEY
 37 stitches

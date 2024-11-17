@@ -6,38 +6,85 @@ local_base_path = "/Users/ciciwxp/Desktop/AC215/Crochet_Pattern_Generator/src/ll
 descriptions_path = f"{local_base_path}/descriptions"
 images_path = f"{local_base_path}/images"
 instructions_path = f"{local_base_path}/instructions"
+cache_dir_local = f"{local_base_path}/cache"
 
-@app.function(gpu="A10G", timeout=3600,
-              secrets=[modal.Secret.from_name("my-huggingface-secret")],
+
+import os
+os.makedirs(cache_dir_local, exist_ok=True)
+
+@app.function(gpu="H100:4", 
+              timeout=72000,
+              secrets=[
+                  modal.Secret.from_name("my-huggingface-secret"),
+                  modal.Secret.from_name("wandb-secret")  # Added wandb secret
+                  ],
               mounts=[
                   modal.Mount.from_local_dir(descriptions_path, remote_path="/root/dataset/descriptions"),
                   modal.Mount.from_local_dir(images_path, remote_path="/root/dataset/images"),
                   modal.Mount.from_local_dir(instructions_path, remote_path="/root/dataset/instructions"),
+                  modal.Mount.from_local_dir(cache_dir_local, remote_path="/root/.cache/huggingface"),  # Mount cache
                   ],
                   image=modal.Image.debian_slim().pip_install(
                       "Pillow",  
-                      "datasets",
-                      "peft",
-                      "torch",
-                      "transformers>=4.30.0",
-                      "huggingface_hub>=0.26.2"
+                      "datasets==3.0.1",
+                      "peft==0.13.0",
+                      "torch==2.4.0",
+                      "torchvision==0.19.0",
+                      "transformers==4.45.1",
+                      "huggingface_hub>=0.26.2",
+                      "accelerate==0.34.2",
+                      "evaluate==0.4.3",
+                      "bitsandbytes==0.44.0",
+                      "trl==0.11.1",
+                      "qwen_vl_utils",
+                      "tensorboard",
+                      "wandb"
                       ))
 def train_llama():
     import os
     from datasets import Dataset
     from PIL import Image
-    import base64
-    import io
     import torch  
-    from transformers import AutoModelForCausalLM, AutoProcessor, Trainer, TrainingArguments
+    from transformers import AutoProcessor
     from huggingface_hub import login
+    import torch  
+    from transformers import AutoModelForVision2Seq, AutoProcessor, BitsAndBytesConfig, AutoConfig
+    import logging
+    import wandb
+    from accelerate.big_modeling import infer_auto_device_map, init_empty_weights
 
+    # Initialize logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
+
+    # Clear CUDA cache at the very start
+    torch.cuda.empty_cache()
+
+    # Set environment variable for PyTorch CUDA memory management
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+    os.system('nvidia-smi')
     # Hugging Face login
     token = os.getenv("HF_TOKEN")
     if token:
         login(token=token)
     else:
         raise ValueError("Hugging Face token not found. Set the HF_TOKEN environment variable.")
+    
+    wandb_api_key = os.getenv("WANDB_API_KEY")
+    if wandb_api_key:
+        wandb.login(key=wandb_api_key)
+        wandb.init(
+            project="Crochet-AI",  # Replace with your project name
+            # entity="cici-wsq-brown-university-org",          # Replace with your wandb username or team name
+            config={
+                "learning_rate": 2e-4,
+                "epochs": 8,
+                "batch_size": 2,
+                "gradient_accumulation_steps": 32
+            }
+        )
+        logging.info("wandb initialized successfully.")
+    else:
+        raise ValueError("wandb-secret not found. Set the wandb-secret environment variable.")
 
 
     # Paths for images and data
@@ -46,135 +93,241 @@ def train_llama():
     instruction_folder = "/root/dataset/instructions"
 
     # Helper function to read files and map by filename
-    def load_data_from_folder(folder_path):
-        data = {}
-        for filename in os.listdir(folder_path):
-            filepath = os.path.join(folder_path, filename)
-            file_key = os.path.splitext(filename)[0]  # Remove file extension to use as key
-            try:
-                # Attempt to read in UTF-8
-                with open(filepath, 'r', encoding='utf-8') as file:
-                    data[file_key] = file.read().strip()
-            except UnicodeDecodeError:
-                # Fallback to ISO-8859-1 or another encoding if UTF-8 fails
-                with open(filepath, 'r', encoding='ISO-8859-1') as file:
-                    data[file_key] = file.read().strip()
-        return data
 
-    # Load data from each folder
-    image_descriptions = load_data_from_folder(image_description_folder)
-    instructions = load_data_from_folder(instruction_folder)
+    def load_data():
+        data = []
+        for filename in os.listdir(image_description_folder):
+            base_name = os.path.splitext(filename)[0]
+            description_path = os.path.join(image_description_folder, filename)
+            image_path = os.path.join(image_folder, f"{base_name}.png")  # Assuming images are .png
+            instruction_path = os.path.join(instruction_folder, f"{base_name}.txt")
 
-    # Load images and convert to base64 format for inclusion in the dataset
-    def load_images_as_base64(image_folder):
-        images = {}
-        for filename in os.listdir(image_folder):
-            filepath = os.path.join(image_folder, filename)
-            file_key = os.path.splitext(filename)[0]
-            
-            # Check if the file has an image extension
-            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
-                with open(filepath, 'rb') as img_file:
-                    image = Image.open(img_file).convert("RGB")
-                    buffered = io.BytesIO()
-                    image.save(buffered, format="JPEG")
-                    img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
-                    images[file_key] = img_base64
-            else:
-                print(f"Skipping non-image file: {filename}")
-        return images
-
-    images = load_images_as_base64(image_folder)
-
-    # Create a dataset by combining the data based on filename
-    combined_data = []
-    for key in image_descriptions.keys():
-        if key in images and key in instructions:
-            sample = {
-                "Image Description": image_descriptions[key],
-                "image": images[key],
-                "Instruction": instructions[key],
-            }
-            combined_data.append(sample)
+            if os.path.exists(description_path) and os.path.exists(image_path) and os.path.exists(instruction_path):
+                try:
+                    with open(description_path, 'r') as f:
+                        description = f.read().strip()
+                    with open(instruction_path, 'r') as f:
+                        instruction = f.read().strip()
+                    data.append({"description": description, "image_path": image_path, "instruction": instruction})
+                except Exception as e:
+                    logging.error(f"Error reading files for '{base_name}': {e}")
+                    continue
+        return Dataset.from_list(data)
 
 
+    dataset = load_data()
 
-    from datasets import load_dataset
+    def encode_image(image_path):
+        image = Image.open(image_path)
+        return image
 
+    prompt = """
+    You are an AI assistant specialized in crochet knowledge. Your primary task is to generate original crochet pattern instructions based on the provided image and following image description, covering every detail necessary for someone to recreate the piece accurately, using your expertise in crochet. 
+
+    When generating crochet instructions:
+    1. Focus on creating a new pattern or providing instructions based on the specific item mentioned in the user's prompt.
+    2. You are not limited to summarizing the provided text chunks. Instead, use them as background information to inform your crochet expertise.
+    3. Prioritize crafting clear, step-by-step pattern instructions, including stitch types, materials, and any special techniques, as appropriate for the item in the prompt.
+    4. If the provided chunks do not offer enough information to generate a full pattern, fill in the gaps with plausible crochet knowledge based on common techniques.
+    5. Ensure that your responses are creative and provide detailed crochet instructions from start to finish.
+    6. Do not summarize content from the chunks unless explicitly asked to; your primary goal is to generate new instructions.
+
+    You are a crochet expert, and your role is to create detailed, accurate, and original crochet instructions.
+    Here is the image description to base your instructions on:
+
+    ## IMAGE DESCRIPTION ##
+    {description}
+    """
+
+    # from pathlib import Path
     def format_data(sample):
-        return {
+        encoded_image = encode_image(sample["image_path"])
+        # print(encoded_image)
+        dic = {
             "messages": [
-                {
-                    "role": "system",
-                    "content": [{"type": "text", "text": "You are a crochet expert, and your role is to create detailed, accurate, and original crochet instructions."}],
-                },
                 {
                     "role": "user",
                     "content": [
                         {
                             "type": "text",
-                            "text": f"You are an AI assistant specialized in crochet knowledge. Generate original crochet pattern instructions.\n\n##IMAGE DESCRIPTION##: {sample['Image Description']}"
+                            "text": prompt.format(description=sample['description']),
                         },
                         {
                             "type": "image",
-                            "image": sample["image"],
+                            "image": encoded_image,  # Using the base64 encoded image
                         }
                     ],
                 },
                 {
                     "role": "assistant",
-                    "content": [{"type": "text", "text": sample["Instruction"]}],
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": sample["instruction"]
+                        }
+                    ],
                 },
             ]
         }
+        # print(">>>>formatted dictionary", dic)
+        return dic
+
 
     # dataset_id = "philschmid/amazon-product-descriptions-vlm"
     # dataset = load_dataset(dataset_id, split="train")
-    dataset = [format_data(sample) for sample in combined_data]
+    dataset = [format_data(sample) for sample in dataset]
+    print("dataset length", len(dataset))
+    print(dataset[1]['messages'])
 
-
-    import torch  
-    from transformers import AutoProcessor
+##### models ########
 
     model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
-    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16).cuda()
-    processor = AutoProcessor.from_pretrained(model_id)
-    model.gradient_checkpointing_enable()
-    model.gradient_checkpointing_enable()
 
+    new_model="fine-tuned-visionllama-v1"
 
-    # Define Training Arguments
-    training_args = TrainingArguments(
-        output_dir="fine-tuned-visionllama",
-        num_train_epochs=3,
-        per_device_train_batch_size=4,
-        gradient_accumulation_steps=8,
-        gradient_checkpointing=True,
-        fp16=True,
-        save_steps=10,
-        save_total_limit=2,
-        logging_dir="./logs",
+        # BitsAndBytesConfig int-4 config
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_use_double_quant=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.bfloat16
     )
 
-    # Data Collator
-    def collate_fn(examples):
-        texts = [processor(text=example["messages"][0]["content"][0]["text"], images=None, return_tensors="pt", padding=True) for example in examples]
-        return texts
+    # Load model and tokenizer
+    config = AutoConfig.from_pretrained(model_id)
+    with init_empty_weights():
+        model = AutoModelForVision2Seq.from_config(config)
+    model.tie_weights()
+    device_map = infer_auto_device_map(
+        model,
+        # Force splits model.encoder into separate layers and devices
+        max_memory={0: "6GIB", 1: "30GIB", 2: "30GIB", 3: "30GIB"},
+        no_split_module_classes=model._no_split_modules + ["VisionEncoderLayer", "VisionDecoderLayer"]
+    )
+    # Demonstrate that only "model.encoder.layer_norm" and "model.encoder.embed_tokens"
+    # needs to be on the same device as the input
+    for module, device in device_map.items():
+        if module in {"model.encoder.layer_norm", "model.encoder.embed_tokens"}:
+            if device != 0:
+                device_map[module] = 0
+        else:
+            if device == 0:
+                device_map[module] = 1
+   
+    model = AutoModelForVision2Seq.from_pretrained(
+            model_id,
+            # cache_dir="/root/.cache/huggingface",
+            device_map=device_map,
+            # attn_implementation="flash_attention_2", # not supported for training
+            torch_dtype=torch.bfloat16,
+            quantization_config=bnb_config
+        )
+    processor = AutoProcessor.from_pretrained(model_id, cache_dir="/root/.cache/huggingface")  # Use the same cache directory
+ 
 
-    # Initialize Trainer
-    trainer = Trainer(
+
+
+    from peft import LoraConfig
+    # LoRA config based on QLoRA paper & Sebastian Raschka experiment
+    peft_config = LoraConfig(
+            lora_alpha=16,
+            lora_dropout=0.05,
+            r=8,
+            bias="none",
+            target_modules=["q_proj", "v_proj"],
+            task_type="CAUSAL_LM",
+    )
+
+    from trl import SFTConfig
+
+# Define SFTConfig with all necessary parameters
+    sft_config = SFTConfig(
+        output_dir=new_model,  # Directory to save and repository ID
+        num_train_epochs=8,                     # Number of training epochs
+        per_device_train_batch_size=2,          # Batch size per device during training
+        gradient_accumulation_steps=32,         # Steps before performing a backward/update pass
+        gradient_checkpointing=True,            # Use gradient checkpointing to save memory
+        optim="adamw_torch_fused",              # Optimizer
+        logging_steps=1,                        # Log every 5 steps
+        save_strategy="epoch",                  # Save checkpoint every epoch
+        learning_rate=2e-4,                     # Learning rate
+        bf16=True,                              # Use bfloat16 precision
+        tf32=True,                              # Use tf32 precision
+        max_grad_norm=0.3,                      # Max gradient norm
+        warmup_ratio=0.03,                      # Warmup ratio
+        lr_scheduler_type="constant",           # Learning rate scheduler
+        push_to_hub=True,                       # Push model to hub
+        report_to=["tensorboard", "wandb"],                # Report metrics to TensorBoard
+        gradient_checkpointing_kwargs={"use_reentrant": False},  # Reentrant checkpointing
+        dataset_text_field="",                  # Dummy field for collator
+        dataset_kwargs={"skip_prepare_dataset": True},  # Skip dataset preparation
+        max_seq_length=1024                     # Set max_seq_length to eliminate the warning
+    )
+
+    sft_config.remove_unused_columns=False
+
+    from transformers import Qwen2VLProcessor
+    from qwen_vl_utils import process_vision_info
+
+    def collate_fn(examples):
+        # Get the texts and images, and apply the chat template
+        texts = [processor.apply_chat_template(example["messages"], tokenize=False) for example in examples]
+        #image_inputs = [encode_image(example["image_path"]) for example in examples]
+        image_inputs = [process_vision_info(example["messages"])[0] for example in examples]
+
+        # Tokenize the texts and process the images
+        batch = processor(text=texts, images=image_inputs, return_tensors="pt", padding=True)
+        for i in batch:
+            if torch.is_tensor(batch[i]):
+                batch[i] = batch[i].to("cuda:0")
+        # batch = {key: val.to("cuda:0") for key, val in batch.items()}
+        ### Calculate number of tokens
+        # batch_size, seq_length = batch["input_ids"].size()
+        # num_tokens = batch_size * seq_length
+        # if hasattr(torch.distributed, "get_rank"):  # Check if distributed training is active
+        #     rank = torch.distributed.get_rank()
+        # else:
+        #     rank = 0
+        # global CURRENT_BATCH_TOKENS
+        # CURRENT_BATCH_TOKENS = num_tokens
+
+        # The labels are the input_ids, and we mask the padding tokens in the loss computation
+        labels = batch["input_ids"].clone()
+        labels[labels == processor.tokenizer.pad_token_id] = -100  #
+        # Ignore the image token index in the loss computation (model specific)
+        if isinstance(processor, Qwen2VLProcessor):
+            image_tokens = [151652,151653,151655]
+        else:
+            image_tokens = [processor.tokenizer.convert_tokens_to_ids(processor.image_token)]
+        for image_token_id in image_tokens:
+            labels[labels == image_token_id] = -100
+        batch["labels"] = labels
+
+        # print("batch", batch)
+        return batch
+
+
+    from trl import SFTTrainer
+    trainer = SFTTrainer(
         model=model,
-        args=training_args,
+        args=sft_config,
         train_dataset=dataset,
         data_collator=collate_fn,
-        tokenizer=processor.tokenizer,
+        peft_config=peft_config,
+        tokenizer=processor.tokenizer
     )
 
     # Train the model
     trainer.train()
 
     # Save the model
-    model.save_pretrained("/Users/ciciwxp/Desktop/AC215/Crochet_Pattern_Generator/src/llama_fintuning")
+
+    model.save_pretrained(new_model)
+    processor.save_pretrained(new_model)
+    model.push_to_hub(new_model, use_temp_dir=False)
+    processor.push_to_hub(new_model, use_temp_dir=False)
+
+    wandb.finish()
 
 if __name__ == "__main__":
     with app.run():

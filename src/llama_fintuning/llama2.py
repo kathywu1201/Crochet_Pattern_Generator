@@ -12,9 +12,12 @@ cache_dir_local = f"{local_base_path}/cache"
 import os
 os.makedirs(cache_dir_local, exist_ok=True)
 
-@app.function(gpu="H100:2", 
-              timeout=7200,
-              secrets=[modal.Secret.from_name("my-huggingface-secret")],
+@app.function(gpu="H100:4", 
+              timeout=72000,
+              secrets=[
+                  modal.Secret.from_name("my-huggingface-secret"),
+                  modal.Secret.from_name("wandb-secret")  # Added wandb secret
+                  ],
               mounts=[
                   modal.Mount.from_local_dir(descriptions_path, remote_path="/root/dataset/descriptions"),
                   modal.Mount.from_local_dir(images_path, remote_path="/root/dataset/images"),
@@ -47,6 +50,7 @@ def train_llama():
     import torch  
     from transformers import AutoModelForVision2Seq, AutoProcessor, BitsAndBytesConfig
     import logging
+    import wandb
 
     # Initialize logging
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
@@ -56,13 +60,30 @@ def train_llama():
 
     # Set environment variable for PyTorch CUDA memory management
     os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
-
+    os.system('nvidia-smi')
     # Hugging Face login
     token = os.getenv("HF_TOKEN")
     if token:
         login(token=token)
     else:
         raise ValueError("Hugging Face token not found. Set the HF_TOKEN environment variable.")
+    
+    wandb_api_key = os.getenv("WANDB_API_KEY")
+    if wandb_api_key:
+        wandb.login(key=wandb_api_key)
+        wandb.init(
+            project="Crochet-AI",  # Replace with your project name
+            # entity="cici-wsq-brown-university-org",          # Replace with your wandb username or team name
+            config={
+                "learning_rate": 2e-4,
+                "epochs": 8,
+                "batch_size": 2,
+                "gradient_accumulation_steps": 32
+            }
+        )
+        logging.info("wandb initialized successfully.")
+    else:
+        raise ValueError("wandb-secret not found. Set the wandb-secret environment variable.")
 
 
     # Paths for images and data
@@ -161,6 +182,8 @@ def train_llama():
 
     model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
 
+    new_model="fine-tuned-visionllama-v1"
+
         # BitsAndBytesConfig int-4 config
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
@@ -172,14 +195,14 @@ def train_llama():
     # Load model and tokenizer
     model = AutoModelForVision2Seq.from_pretrained(
         model_id,
-        cache_dir="/root/.cache/huggingface",
+        # cache_dir="/root/.cache/huggingface",
         device_map="auto",
         # attn_implementation="flash_attention_2", # not supported for training
         torch_dtype=torch.bfloat16,
         quantization_config=bnb_config
     )
     processor = AutoProcessor.from_pretrained(model_id, cache_dir="/root/.cache/huggingface")  # Use the same cache directory
-
+    
 
     from peft import LoraConfig
     # LoRA config based on QLoRA paper & Sebastian Raschka experiment
@@ -196,13 +219,13 @@ def train_llama():
 
 # Define SFTConfig with all necessary parameters
     sft_config = SFTConfig(
-        output_dir="fine-tuned-visionllama",  # Directory to save and repository ID
-        num_train_epochs=3,                     # Number of training epochs
-        per_device_train_batch_size=4,          # Batch size per device during training
-        gradient_accumulation_steps=16,          # Steps before performing a backward/update pass
+        output_dir=new_model,  # Directory to save and repository ID
+        num_train_epochs=8,                     # Number of training epochs
+        per_device_train_batch_size=2,          # Batch size per device during training
+        gradient_accumulation_steps=32,         # Steps before performing a backward/update pass
         gradient_checkpointing=True,            # Use gradient checkpointing to save memory
         optim="adamw_torch_fused",              # Optimizer
-        logging_steps=5,                        # Log every 5 steps
+        logging_steps=1,                        # Log every 5 steps
         save_strategy="epoch",                  # Save checkpoint every epoch
         learning_rate=2e-4,                     # Learning rate
         bf16=True,                              # Use bfloat16 precision
@@ -211,7 +234,7 @@ def train_llama():
         warmup_ratio=0.03,                      # Warmup ratio
         lr_scheduler_type="constant",           # Learning rate scheduler
         push_to_hub=True,                       # Push model to hub
-        report_to="tensorboard",                # Report metrics to TensorBoard
+        report_to=["tensorboard", "wandb"],                # Report metrics to TensorBoard
         gradient_checkpointing_kwargs={"use_reentrant": False},  # Reentrant checkpointing
         dataset_text_field="",                  # Dummy field for collator
         dataset_kwargs={"skip_prepare_dataset": True},  # Skip dataset preparation
@@ -231,7 +254,7 @@ def train_llama():
 
         # Tokenize the texts and process the images
         batch = processor(text=texts, images=image_inputs, return_tensors="pt", padding=True)
-
+        # batch = {key: val.to("cuda:0") for key, val in batch.items()}
         ### Calculate number of tokens
         # batch_size, seq_length = batch["input_ids"].size()
         # num_tokens = batch_size * seq_length
@@ -272,7 +295,13 @@ def train_llama():
     trainer.train()
 
     # Save the model
-    model.save_pretrained("/Users/ciciwxp/Desktop/AC215/Crochet_Pattern_Generator/src/llama_fintuning")
+
+    model.save_pretrained(new_model)
+    processor.save_pretrained(new_model)
+    model.push_to_hub(new_model, use_temp_dir=False)
+    processor.push_to_hub(new_model, use_temp_dir=False)
+
+    wandb.finish()
 
 if __name__ == "__main__":
     with app.run():
