@@ -2,13 +2,14 @@
 
 # exit immediately if a command exits with a non-zero status
 set -e
+source ../env.dev
 
 # Set vairables
-export BASE_DIR=$(pwd)
-export PERSISTENT_DIR=$(pwd)/../persistent-folder/
-export SECRETS_DIR=$(pwd)/../secrets/
-export GCP_PROJECT="crochetai-438515" #our-shield-436522-f2
-export GOOGLE_APPLICATION_CREDENTIALS="/secrets/crochet_prompts_generate.json" # llm-service-account-rag
+# export BASE_DIR=$(pwd)
+# export PERSISTENT_DIR=$(pwd)/../persistent-folder/
+# export SECRETS_DIR=$(pwd)/../secrets/
+# export GCP_PROJECT="crochetai-438515" #our-shield-436522-f2
+# export GOOGLE_APPLICATION_CREDENTIALS="/secrets/crochet_prompts_generate.json" # llm-service-account-rag
 export IMAGE_NAME="llm-rag-cli"
 
 

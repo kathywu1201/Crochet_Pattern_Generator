@@ -1,0 +1,32 @@
+# PIPELINE DEFINITION
+# Name: llm-rag-pipeline
+components:
+  comp-llm-rag-component:
+    executorLabel: exec-llm-rag-component
+deploymentSpec:
+  executors:
+    exec-llm-rag-component:
+      container:
+        args:
+        - --bucket crochet-patterns
+        command:
+        - python
+        - cli.py
+        - --chunk
+        - --embed
+        - --load
+        image: your-repo/llm-rag
+pipelineInfo:
+  name: llm-rag-pipeline
+root:
+  dag:
+    tasks:
+      llm-rag-component:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-llm-rag-component
+        taskInfo:
+          name: llm-rag-component
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.3.0
