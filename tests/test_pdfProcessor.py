@@ -24,10 +24,6 @@ TEST_IMAGES_FOLDER = "test_images"
 TEST_TXT_OUTPUTS = "test_txt_outputs"
 TEST_BUCKET_NAME = "test-bucket"
 
-# def makedirs():
-#     os.makedirs(input_files, exist_ok=True)
-#     os.makedirs(images_folder, exist_ok=True)
-#     os.makedirs(txt_outputs, exist_ok=True)
 
 @pytest.fixture(scope="module")
 def setup_folders():

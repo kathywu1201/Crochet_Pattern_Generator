@@ -21,15 +21,48 @@ test_main_system_flow: Tests the end-to-end flow with main, covering download, p
 test_rag.py
 ----------------------------------------------------------------------------
 
+1. Unit Tests：
+test_generate_query_embedding: Verifies that the generate_query_embedding function produces a 256-dimensional embedding in a list format.
+test_generate_text_embeddings: Ensures generate_text_embeddings creates embeddings for a batch of text chunks, with consistent size and format.
+test_load_text_and_image_embeddings: Tests loading text and image embeddings into a mock collection, ensuring no errors and data is correctly added.
+test_re_rank_results: Verifies that re_rank_results correctly combines and prioritizes results from text and image embeddings based on their distances.
 
+2. Integration Tests:
+test_chunk_creation: Validates the chunk function by ensuring output files are created after processing a sample text file.
+test_embedding_and_loading: Ensures the embed function generates embeddings, saves them in the output directory, and integrates correctly with other components.
 
-
-
+3. System Test:
+test_full_pipeline: Tests the entire pipeline from downloading, chunking, embedding, loading, querying, and uploading, ensuring all steps function end-to-end without errors.
 
 ----------------------------------------------------------------------------
 test_ImageVector.py
 ----------------------------------------------------------------------------
 
+1. Unit Tests:
+test_makedirs: Checks if directories are created.
+test_upload_to_gcs: Verifies the upload_to_gcs function's file upload functionality.
+test_image_to_vector: Validates the functionality of image_to_vector, which converts an image to a vector.
+test_download_images: Mocks the image-to-vector function in the process_images function to verify vector processing for images. 
+test_upload_vectors:  Checks if upload_vectors correctly uploads vector files to GCS.
+
 2. Integration Tests:
 test_process_images: Validates the full functionality of process_images, integrating file creation, processing, and storage verification. 
 test_download_images: Verifies the integration of Google Cloud Storage client functionality with the local file system, checking that image blobs are successfully downloaded and stored in the designated folder.
+
+----------------------------------------------------------------------------
+test_pdfProcessor.py
+----------------------------------------------------------------------------
+
+1. Unit Tests:
+test_download_from_gcs: Verifies that the download function successfully downloads PDFs from a mocked GCS bucket.
+test_extract_text_from_pdf_gcs: Ensures that extract_text_from_pdf_gcs correctly initiates the Google Vision API process for text extraction from a PDF.
+test_download_results_from_gcs: Tests if the download_results_from_gcs function correctly retrieves text extraction results from GCS and saves them locally.
+test_extract_largest_image: Verifies that extract_largest_image identifies and saves the largest image from a PDF page.
+test_upload_pdf: Tests the upload_pdf function to confirm it uploads a PDF file to GCS.
+
+2. Integration Tests:
+test_process_pdf: Ensures that the process_pdf function integrates multiple components (text extraction, image extraction, and result download) to process a PDF end-to-end.
+
+3. System Test:
+test_main_system_flow: Tests the entire pipeline from downloading PDFs, uploading them to GCS, processing them, and uploading the results back to GCS, ensuring all steps execute correctly in sequence.
+
