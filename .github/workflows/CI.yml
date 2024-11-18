@@ -3,8 +3,8 @@ name: CI on Push or Merge to Main
 on:
   push:
     branches:
-      - main
-      - 7-testing  # Triggers when code is pushed to the main branch
+      - main # Triggers when code is pushed to the main branch
+      - 7-testing # Triggers when code is pushed to branch 7-testing
 
 jobs:
   test:
@@ -25,21 +25,22 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # Step 3: Install dependencies - pylint, pytest, and pytest-cov
+      # Step 3: Install dependencies - pylint, pytest, and pytest-cov (also numpy pandas)
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pylint pytest pytest-cov
+          pip install pipenv
+          pipenv install --dev  # Installs all dependencies including dev packages 
 
       # Step 4: Lint code with Pylint
       - name: Lint code with Pylint
         run: |
-          pylint $(git ls-files '*.py') || true  # Run linting, log output in GitHub Actions
+          pipenv run pylint $(git ls-files '*.py') || true  # Run linting, log output in GitHub Actions
 
       # Step 5: Run pytest with coverage and generate HTML report
       - name: Run tests with coverage
         run: |
-          pytest --cov=. --cov-report=html
+          pipenv run pytest --cov=. --cov-report=html
 
       # Step 6: Upload coverage report as an artifact
       - name: Upload coverage report

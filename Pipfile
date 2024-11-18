@@ -24,6 +24,7 @@ pytest = "*"
 opencv-python-headless = "*"
 pdfplumber = "*"
 pytest_docker_tools = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.9"
