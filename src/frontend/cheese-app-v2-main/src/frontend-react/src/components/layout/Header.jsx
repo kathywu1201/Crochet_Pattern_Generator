@@ -149,12 +149,122 @@
 //     )
 // }
 
+// version1
+// 'use client';
+
+// import { useState, useEffect } from 'react';
+// import Link from 'next/link';
+// import { usePathname } from 'next/navigation';
+// import { Home, Info, Podcasts, Email, SmartToy } from '@mui/icons-material';
+// import styles from './Header.module.css';
+
+// const navItems = [
+//     { name: 'Home', path: '/', icon: <Home fontSize="small" /> },
+//     { name: 'About', path: '/about', icon: <Info fontSize="small" /> },
+//     { name: 'Podcasts', path: '/podcasts', icon: <Podcasts fontSize="small" /> },
+//     { name: 'Newsletters', path: '/newsletters', icon: <Email fontSize="small" /> },
+//     { name: 'Cheese Assistant', path: '/chat', icon: <SmartToy fontSize="small" /> }
+// ];
+
+// export default function Header() {
+//     const pathname = usePathname();
+//     const [isScrolled, setIsScrolled] = useState(false);
+//     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+//     useEffect(() => {
+//         if (window) {
+//             const handleScroll = () => {
+//                 setIsScrolled(window.scrollY > 50);
+//             };
+
+//             window.addEventListener('scroll', handleScroll);
+//             return () => window.removeEventListener('scroll', handleScroll);
+//         }
+//     }, []);
+
+//     return (
+//         <header
+//             className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+//                 isScrolled ? 'bg-black/90' : 'bg-transparent'
+//             }`}
+//         >
+//             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+//                 <Link href="/" className="text-white hover:text-white/90 transition-colors">
+//                     <h1 className="text-2xl font-bold font-montserrat">🧀 Formaggio</h1>
+//                 </Link>
+
+//                 {/* Desktop Navigation */}
+//                 <div className={styles.navLinks}>
+//                     {navItems.map((item) => (
+//                         <Link
+//                             key={item.name}
+//                             href={item.path}
+//                             className={`${styles.navLink} ${
+//                                 pathname === item.path ? styles.active : ''
+//                             }`}
+//                         >
+//                             <span className={styles.icon}>{item.icon}</span>
+//                             <span className={styles.linkText}>{item.name}</span>
+//                         </Link>
+//                     ))}
+//                 </div>
+
+//                 {/* Mobile Menu Button */}
+//                 <button
+//                     className="md:hidden p-2"
+//                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+//                     aria-label="Toggle mobile menu"
+//                 >
+//                     <div
+//                         className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${
+//                             isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+//                         }`}
+//                     />
+//                     <div
+//                         className={`w-6 h-0.5 bg-white mb-1.5 ${
+//                             isMobileMenuOpen ? 'opacity-0' : ''
+//                         }`}
+//                     />
+//                     <div
+//                         className={`w-6 h-0.5 bg-white transition-all ${
+//                             isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+//                         }`}
+//                     />
+//                 </button>
+
+//                 {/* Mobile Menu */}
+//                 <div
+//                     className={`
+//                         fixed md:hidden top-20 left-0 w-full bg-white shadow-lg transform transition-transform duration-300
+//                         ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}
+//                     `}
+//                 >
+//                     <nav className="flex flex-col p-4">
+//                         {navItems.map((item) => (
+//                             <Link
+//                                 key={item.name}
+//                                 href={item.path}
+//                                 className="py-3 text-gray-800 border-b border-gray-200"
+//                                 onClick={() => setIsMobileMenuOpen(false)}
+//                             >
+//                                 {item.name}
+//                             </Link>
+//                         ))}
+//                     </nav>
+//                 </div>
+//             </div>
+//         </header>
+//     );
+// }
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Info, Podcasts, Email, SmartToy } from '@mui/icons-material';
+import About from '@/components/home/About'; // Import About component directly
+import PodcastsComponent from '@/components/home/Podcasts'; // Import Podcasts for routing example
 import styles from './Header.module.css';
 
 const navItems = [
@@ -181,77 +291,94 @@ export default function Header() {
         }
     }, []);
 
+    // Dynamically render the correct content based on the route
+    function renderContent() {
+        if (pathname === '/about') {
+            return <About />;
+        }
+        if (pathname === '/podcasts') {
+            return <PodcastsComponent />;
+        }
+        // Add more conditions for other routes if necessary
+        return null; // Fallback for unmatched routes
+    }
+
     return (
-        <header
-            className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-                isScrolled ? 'bg-black/90' : 'bg-transparent'
-            }`}
-        >
-            <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-                <Link href="/" className="text-white hover:text-white/90 transition-colors">
-                    <h1 className="text-2xl font-bold font-montserrat">🧀 Formaggio</h1>
-                </Link>
+        <>
+            <header
+                className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+                    isScrolled ? 'bg-black/90' : 'bg-transparent'
+                }`}
+            >
+                <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+                    <Link href="/" className="text-white hover:text-white/90 transition-colors">
+                        <h1 className="text-2xl font-bold font-montserrat">🧀 Formaggio</h1>
+                    </Link>
 
-                {/* Desktop Navigation */}
-                <div className={styles.navLinks}>
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.name}
-                            href={item.path}
-                            className={`${styles.navLink} ${
-                                pathname === item.path ? styles.active : ''
-                            }`}
-                        >
-                            <span className={styles.icon}>{item.icon}</span>
-                            <span className={styles.linkText}>{item.name}</span>
-                        </Link>
-                    ))}
-                </div>
-
-                {/* Mobile Menu Button */}
-                <button
-                    className="md:hidden p-2"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    aria-label="Toggle mobile menu"
-                >
-                    <div
-                        className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${
-                            isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
-                        }`}
-                    />
-                    <div
-                        className={`w-6 h-0.5 bg-white mb-1.5 ${
-                            isMobileMenuOpen ? 'opacity-0' : ''
-                        }`}
-                    />
-                    <div
-                        className={`w-6 h-0.5 bg-white transition-all ${
-                            isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-                        }`}
-                    />
-                </button>
-
-                {/* Mobile Menu */}
-                <div
-                    className={`
-                        fixed md:hidden top-20 left-0 w-full bg-white shadow-lg transform transition-transform duration-300
-                        ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}
-                    `}
-                >
-                    <nav className="flex flex-col p-4">
+                    {/* Desktop Navigation */}
+                    <div className={styles.navLinks}>
                         {navItems.map((item) => (
                             <Link
                                 key={item.name}
                                 href={item.path}
-                                className="py-3 text-gray-800 border-b border-gray-200"
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                className={`${styles.navLink} ${
+                                    pathname === item.path ? styles.active : ''
+                                }`}
                             >
-                                {item.name}
+                                <span className={styles.icon}>{item.icon}</span>
+                                <span className={styles.linkText}>{item.name}</span>
                             </Link>
                         ))}
-                    </nav>
+                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        className="md:hidden p-2"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="Toggle mobile menu"
+                    >
+                        <div
+                            className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${
+                                isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                            }`}
+                        />
+                        <div
+                            className={`w-6 h-0.5 bg-white mb-1.5 ${
+                                isMobileMenuOpen ? 'opacity-0' : ''
+                            }`}
+                        />
+                        <div
+                            className={`w-6 h-0.5 bg-white transition-all ${
+                                isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                            }`}
+                        />
+                    </button>
+
+                    {/* Mobile Menu */}
+                    <div
+                        className={`
+                            fixed md:hidden top-20 left-0 w-full bg-white shadow-lg transform transition-transform duration-300
+                            ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}
+                        `}
+                    >
+                        <nav className="flex flex-col p-4">
+                            {navItems.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.path}
+                                    className="py-3 text-gray-800 border-b border-gray-200"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </nav>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+
+            {/* Dynamically Render Content Based on Route */}
+            <main>{renderContent()}</main>
+        </>
     );
 }
