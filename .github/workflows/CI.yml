@@ -24,6 +24,16 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+      
+      # Step 2.1: Set PYTHONPATH
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV
+
+      # Step 2.2: Load Environment Variables from env.dev
+      - name: Load Environment Variables
+        run: |
+          source src/env.dev
+        shell: bash
 
       # Step 3: Install dependencies - pylint, pytest, and pytest-cov (also numpy pandas)
       - name: Install dependencies
