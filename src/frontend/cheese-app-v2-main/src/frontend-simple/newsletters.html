@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧀 Formaggio.me</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="newsletters-style.css">
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>🧀 Formaggio</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#podcasts" class="nav-link">Podcasts</a>
+                <a href="/newsletters.html" class="nav-link">Newsletters</a>
+                <a href="/chat.html" class="nav-link">Cheese Assistant</a>
+            </div>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <a href="#" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#podcasts" class="mobile-link">Podcasts</a>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Cheese Chronicles</h1>
+            <p>Explore our collection of articles about the fascinating world of cheese and AI</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2>About Newsletters</h2>
+            <p>
+                Welcome to Formaggio.me's Cheese Chronicles, your weekly digest of all things cheese!
+                Our newsletters dive deep into the fascinating world of artisanal cheese-making,
+                featuring expert insights, tasting notes, and the latest innovations in cheese technology.
+            </p>
+        </div>
+    </section>
+
+    <!-- Newsletter Grid -->
+    <section id="newsletter-section" class="newsletter-section">
+        <div id="newsletter-grid" class="grid">
+            <!-- Newsletters will be dynamically inserted here -->
+        </div>
+
+        <!-- Subscription Box -->
+        <div class="subscription-box">
+            <h3>Stay Updated</h3>
+            <p>Subscribe to receive our latest newsletters directly in your inbox.</p>
+            <form class="subscription-form">
+                <input type="email" placeholder="Enter your email" class="email-input" required />
+                <button type="submit" class="subscribe-button">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    <script src="newsletters-main.js"></script>
+</body>
+
+</html>

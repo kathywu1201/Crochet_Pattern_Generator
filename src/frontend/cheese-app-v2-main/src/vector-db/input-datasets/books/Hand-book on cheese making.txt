@@ -1,0 +1,2519 @@
+﻿The Project Gutenberg eBook of Hand-book on cheese making
+    
+This ebook is for the use of anyone anywhere in the United States and
+most other parts of the world at no cost and with almost no restrictions
+whatsoever. You may copy it, give it away or re-use it under the terms
+of the Project Gutenberg License included with this ebook or online
+at www.gutenberg.org. If you are not located in the United States,
+you will have to check the laws of the country where you are located
+before using this eBook.
+
+Title: Hand-book on cheese making
+
+Author: George E. Newell
+
+Release date: May 20, 2023 [eBook #70813]
+
+Language: English
+
+Original publication: United States: The Michigan Dairyman, 1889
+
+Credits: Bob Taylor, Charlene Taylor and the Online Distributed Proofreading Team at https://www.pgdp.net (This file was produced from images generously made available by The Internet Archive/American Libraries.)
+
+
+*** START OF THE PROJECT GUTENBERG EBOOK HAND-BOOK ON CHEESE MAKING ***
+
+
+
+
+
+  Transcriber’s Note
+  Italic text displayed as: _italic_
+  Bold text displayed as: =bold=
+
+
+
+
+  HAND-BOOK
+
+  ——ON——
+
+  CHEESE MAKING,
+
+  ——BY——
+
+  GEO. E. NEWELL.
+
+
+  PUBLISHED BY
+  THE MICHIGAN DAIRYMAN,
+  GRAND RAPIDS.
+
+
+
+
+ACKNOWLEDGMENT.
+
+
+Thanks are due Messrs. Hunter, Walton & Co., of New York; Childs &
+Jones, of Utica, and D. H. Burrell & Co., of Little Falls, N. Y., for
+some statistical information contained in these pages.
+
+  COPYRIGHT 1889,
+  BY
+  E. A. STOWE & BRO.
+
+  PRESS OF
+  FULLER & STOWE CO.
+
+
+
+
+PREFACE.
+
+
+This little work on cheese manufacture is inscribed to makers,
+dealers and consumers, in the hope that its careful perusal may be
+of aid to one and all. The prestige that American cheese holds in
+the markets of the world has been threatened from many quarters, but
+we who inaugurated the Cheddar system on this side of the Atlantic
+are not prepared to succumb to competition, however sharp, or to
+prejudice, however strong. American cheese will hold its own as long
+as it has a square quality basis to stand upon. We possess the most
+natural and privileged dairy regions on earth. Let us utilize to
+their fullest extent the great advantages within our grasp. Dairymen
+have of late been struck with consternation by the ascendency of
+Canadian cheese over the States’ product. The dairy press have been
+pounding away at the gruesome situation so vigorously that many
+cheese men have been frightened into the belief that Canada has a
+corner on gilt-edged quality and fancy quotations that is liable to
+continue indefinitely. The writer has no such apprehension, however,
+and sees no reason why an American cheese should not always be a
+peer of the best. There has been unanimous action all over the
+dairy portions of the Dominion to effect the slight advantage they
+now hold. If, in a strenuous endeavor to improve the product, our
+friends across the border have succeeded and at the same time have
+stimulated us to a like movement, then thanks be to them. Legitimate
+competition aids all mankind.
+
+As the caption indicates, this treatise is from the pen of a
+practical maker, who analyzes cheese manufacture from a standpoint of
+practice and experience, and not theory. In elucidating to my readers
+the fundamental and collateral fabric of milk manufacture, I write
+from the desk of a cheese factory, with milk, utensils and product
+under my immediate and daily supervision. In these pages, I shall
+discard everything theoretic, and base the whole value of the book
+on its practicability. In doing so my constant thought shall be the
+elevation and supremacy of American cheese to the highest standard
+attainable. To this manual I especially invite the criticism of the
+cheese profession in general, trusting that it may be a convenient
+book of reliable reference to the experienced and a work of utility
+to the novice.
+
+  GEO. E. NEWELL.
+
+LEONARDSVILLE, N. Y.
+
+
+
+
+THE FACTORY BUILDING AND SITE.
+
+
+The site for a cheese factory should be a well-drained, slightly
+elevated location, convenient to a copious and perpetual flow of
+water. The size of the building is, of course, to be measured by the
+amount of milk to be manufactured therein, but the same internal
+arrangement is needed alike in both small and large factories. The
+building should rest on a substantial stone foundation, with a free
+circulation of air underneath, and a complete system of troughs be
+appendent to carry all slops and whey beyond contaminating distance.
+It is unnecessary that the building be more than a story and a half
+high, unless the upper apartment is required for something besides
+curing cheese. The make-room should be ceiled, and the curing-room
+plastered. The make-room should be in the front of the building,
+with the engine-room on one side of it and the milk delivery window
+on the other. The curing-room should be in the back. Cut off all
+superfluous space about the building and have just enough room to be
+nicely convenient. Put an awning roof over the delivery window, wide
+and long enough to cover wagon and team. Set the vats broadside to
+the milk scales, with ends towards the outer door. The platform for
+the weighing-can and scales should be on a level with the top of the
+vats. A small office desk should be hung to the wall near the weigh
+can, and close at hand, so that every patron can see them, should
+be arranged the cream tubes, and lactometer. Tin utensils can be
+hung on pegs in the wall, and a stout, low shelf in one corner will
+support rennet and annottoine jars. Have the aisle between the vats
+wide enough to permit of easy passage, and at the farther ends of
+the vats sink a trough into the floor to carry off the whey. Have
+similar troughs under the presses. The floor should be full enough
+in the center to gravitate all slop toward the drains. It is useless
+to have a factory floor wet all of the time; keep it dry by a system
+of neatness. The curing-room should have an outside door, from
+which cheese can be loaded. An adjoining lean-to shed, for storing
+empty cheese boxes and housing fuel, is also a needed addition to
+the building. For a one day milk delivery factory, no ice-house is
+required. Build substantially and paint neatly, aiming to have a
+model-looking factory.
+
+
+Beginning of the Cheese Factory System in America.
+
+About the year 1853, a gentleman residing near Rome, Oneida county,
+N. Y., Jesse Williams by name, conceived the idea of manufacturing
+his neighbors’ milk in common with his own. This is the first known
+instance of manufacture in this country by associated dairies,
+although the method was previously in vogue in Switzerland. I quote
+from an old report: “It required a long time to create the demand
+which now exists in England for American cheese, and to Herkimer
+county, New York, belongs the credit of creating it and securing the
+trade. It was mainly effected by bringing a high degree of skill to
+bear upon the manufacture generally, thus producing not only a good
+article, but uniformly good, or as near uniform as is possible when
+made in different families. Cheese had been sent abroad in small
+amounts for many years, but when once by good quality and uniformity
+it had secured a firm foothold, the amount exported increased with
+astonishing rapidity. By gradual growth it had come to nine million
+pounds in 1859, in 1860 it amounted to twenty-three millions, in
+1861 to forty millions, and the demand and supply have steadily
+increased ever since. It is a noteworthy fact that systematic
+attempts to improve the manufacture of cheese began to be made both
+in Somersetshire, England, and in Herkimer county, New York, about
+the same time; and also, that with no knowledge on the part of either
+of the progress made by the other, after lengthened experiments, both
+should have adopted substantially the same method; for it is a fact
+that the Cheddar and Herkimer methods so closely resemble each other
+that the only differences of any consequence are such as necessarily
+grow out of the difference of climate. Their process differs from
+most methods mainly in two particulars; first, in employing milk
+which has attained a proximate degree of acidity, although never
+enough to be sensible to the taste, instead of such as is quite
+new; and, second, in the separation of the whey from the curd by
+causing its contraction and precipitation, instead of depending
+mainly on mechanical means. The improvements thus introduced within
+a comparatively recent period have resulted in several important
+advantages: First, a material reduction of labor; second, the
+production of a larger amount and a better quality of cheese from a
+given quantity of milk; and, lastly, the cheese made by this method
+requires less time for the ripening process, and thus is sooner ready
+for the market.
+
+
+Utensils Necessary to Stock a Factory.
+
+A boiler of moderate capacity, with fittings complete; milk vats with
+steam pipes and connections; patent galvanized iron cheese hoops; a
+gang press; weigh can with large gate; milk conductor to convey the
+lacteal fluid from the weigh can to the cloth strainer over the vat;
+common sized scales that will weigh at least 600 pounds; small sized
+scales for weighing cheese; two curd knives, one with horizontal
+and the other with perpendicular blades; large wheel with crank and
+endless rope for hoisting milk; two stone rennet jars of a capacity
+of ten gallons each; two thermometers, one for the make and the other
+for the curing-room; jar for keeping annottoine; syphon and tin
+strainer for drawing whey from the vat; a self-salting curd mill—a
+curd mill is now indispensable to a factory, and a self-salting one
+is indispensable where only one man is employed; rubber mop, curd
+broom and floor broom; milk book for keeping accurate account of all
+business transacted in the establishment, including daily receipts
+of milk from patrons; a set of glass tubes in a case, for testing
+milk as to the amount of cream it contains and comparing its state
+of maturity; two water pails and one curd pail; a heavy curd scoop;
+two dippers, one of three and the other of six quarts capacity; glass
+graduated jar and lactometer for testing milk to locate water—be sure
+and purchase a lactometer gauged for trying milk at 80° Fahrenheit,
+many being gauged for 60° Fahrenheit, and of little use in hot
+weather unless you have ice handy to chill the milk designed for the
+test; stencils, case and brush for dating cheese and branding boxes;
+tin funnel for conveying whey from the vat to the outside tank; curd
+rake for agitating the product when cooking; a cheese tryer; a curd
+sink is not now strictly essential, although some makers still prefer
+to use one.
+
+In glancing over the above list we will mention some of the articles
+that can be supplemented by utensils of a more primitive and cheaper
+make. Such a retrograde change is not, however, desirable, although
+sometimes in a small factory where the receipts to the manufacturer
+are limited, strict economy has to be practiced in order to leave
+a margin of profit. With economists of necessity the boiler can
+be discarded and an old-fashioned under-heater vat, with a hot
+water tank attached, made to do service. I know of dozens of small
+factories throughout Central New York who get along admirably with
+such apparatus. In the matter of press and hoops you can do better
+without the gang press than you can without the patent hoops.
+Remember that it is no economy to go back to the primitive hoop that
+makes necessary the hand bandaging of every cheese. If obliged to go
+without the gang press, get hoops that can be bandaged before the
+curd is put in them, so that two cheese can be pressed under one
+screw in an old-fashioned press. In such a case wooden followers
+would be required. One pair of scales can be got along with at a
+pinch, although two pairs would save a great deal of transferring
+and extra work. Do not get along with one curd knife—you need both
+the horizontal and the perpendicular, in order to cut the raw curd
+evenly and economically. A crane can take the place of a large wheel
+for hoisting milk if you consider it more convenient. Keep rennet
+in nothing but stone jars or vessels and keep at least ten gallons
+always prepared ahead. Jugs are often used for annottoine, although
+an open jar admits of easy dipping and accurate measurement. Have
+your tinner make you a long, narrow gill cup, to which should be
+soldered an upright six-inch handle with a shepherd’s crook in the
+end. Use the cup for measuring out the coloring; the long handle,
+which can be hung by the crook on the inside of the jar, precludes
+soiling the hands, clothing and floor with the scarlet dye. A curd
+mill of some sort is positively necessary in order to facilitate
+good, even stock; do not leave one out of the list of apparati under
+any consideration. I prefer a self-salting mill, not only on account
+of the ease with which curd can be ground but also for its superior
+mechanism in thoroughly mixing the salt into the curd as fast as it
+is torn by the teeth. In grinding curd with a common machine, the
+torn shreds quickly re-amalgamate into an almost solid mass that
+often requires harsh manipulation to separate. Then, again, the salt
+being sprinkled by hand over the outer surface of the freshly-torn
+curd sears and burns it before it can be worked into the mass. With a
+self-salter, the saline condiment is equally distributed through all
+parts at the proper limit of acid formation, thus preventing the curd
+from packing solidly and making the quality even and fine.
+
+
+
+
+MANUFACTURE OF CHEESE.
+
+
+COAGULATION OF MILK.
+
+If the milk you have in your vat is mature, or, in other words,
+slightly tending toward sour, heat it as rapidly as possible when
+preparing for the application of rennet. In the cool extremes of the
+season heat milk to 86° Fahrenheit and in warm weather to 85° before
+rennet is applied. If the milk is all right as to sweetness, as the
+bulk of milk is, heat it up to the desired point gradually, stirring
+it gently at frequent intervals with a long-handled dipper. You stir
+for the purpose of keeping down the cream and evenly distributing the
+warmth that is permeating the lacteal mass. You stir it with great
+gentleness and care because milk globules are eggs in miniature, and,
+like their large relatives of biped production, they must be handled
+with care. If you wish to heat to 85° and have an under-heater vat
+or fire flue beneath the milk, withdraw the fire before it has quite
+reached that point, as the after warmth will carry it up a degree
+or two. Be perfectly precise in all such little points, for on them
+hinge big results.
+
+With milk in normal condition as to maturity, standing at a
+temperature of 85° in both ends of the vat, and with no cream visible
+on the surface, you are ready to take another step in the course
+of manufacture. If colored cheese are desired, now apply annottoine
+sufficient to give a rich, golden hue. Know exactly by experiment
+its strength as a dye, always know the quantity of milk to a pound
+and portion out accordingly. Work the coloring into the fluid with
+the same gentleness with which you have heretofore manipulated it
+while raising the temperature. When the milk is all of one even,
+yellow tinge, attesting that the annotto is represented equally in
+every part, it is ready for the real inceptor of cheese, rennet.
+The tendency of modern cheese making is toward quick coagulation
+of milk. The larger infusion of rennet necessary for this purpose
+begets cheese that can be quickly cured for a market where they are
+expected to be soon consumed. The old rule of coagulation in twenty
+minutes is now nearly obsolete, although it will always hold good for
+cheese of long keeping qualities. Fall made cheese that are expected
+to be consumed during the winter months should be strengthened for
+age by coagulation in from fifteen to eighteen minutes. When we are
+dealing with the average spring and summer make, trade demands more
+perishable stock and we must cater to it. If you do not know the
+strength of your rennet and you want the milk to thicken in eight or
+nine minutes, as it should do, previously test the lactic juice by
+putting a teaspoonful into a tumbler of milk kept warm at 85°. If
+the glass of fluid thickens in five minutes, you need one quart of
+such rennet juice for every 800 pounds of milk to effect coagulation,
+as stated above. If the tested quantity thickens in less or longer
+time, a proportionate less or greater amount is required for your
+purpose. Measure the rennet extract with exactness, so that there
+will be no miss in its proper adjustment to the milk, and then
+incorporate it into the vat of lacteal fluid. In infusing it into the
+milk structure, manipulate your dipper with the same caution that has
+characterized your former attitude toward the fragilely constructed
+fluid under your hand. After stirring for five minutes, withdraw the
+dipper and let the surface of the milk come to a calm. Then pass
+the bottom of the empty dipper lightly over the vat to drive back
+any particles of cream that may be struggling to the surface. The
+milk will soon begin to roll up in the wake of the tin utensil in
+your hand in a rapidly thickening wave. Immediately withdraw the
+dipper, for the rennet has accomplished its mission. Turning to your
+vat cover, stretch it tightly over the fermenting milk. The cover
+mentioned should consist of a strip of canvas cloth or sheeting
+running the entire length of the vat and lapping slightly over its
+width. The cloth should be tacked to lath or other light wooden
+strips the width of the vat, and these supports should be about
+two feet apart. When not in use, the cover can be rolled up like
+a section of carpeting and is not at all awkward to handle. Place
+the cover in a closed form on one end of the vat, and, unrolling it
+as fast as you walk, you can stretch it to the other end in half a
+minute, thus keeping your milk snug and close. I prefer to use such
+a cover every day during the season, and they are indispensable in
+spring and fall. Without some such device the crust of the rapidly
+forming curd is chilled, retarding the action of the rennet, and
+the temperature of the whole mass is perceptibly lowered, which is
+not only undesirable but positively detrimental to the natural and
+perfect formation of cheese.
+
+In the course of twenty or thirty minutes after coagulation examine
+your crude cheese material and see if it is ready to cut up. Thrust
+the forefinger into the mass, and if the curd will split cleanly in
+front of it, it is ready for the knives. Milk should stand about
+forty-five minutes after the infusion of rennet before it is cut, but
+if the milk is very mature in quality rennet will act on the caseine
+more spontaneously. It may be firm enough to cut before that time;
+if, in such a case, the same amount of rennet had previously acted
+slowly on a proportionate quantity of milk, you can at once consider
+the quick action as a fair warning from nature that you must scald
+your curd in haste to keep ahead of the swiftly multiplying acid
+germs. As previously stated, as soon as the curd mass will cleave
+brittlely over the finger prepare your knives. First pick up the
+one with horizontal blade and hold it a second in hot water. This
+will warm the steel so that it will not chill the curd. Cut the mass
+lengthwise, turning corners deftly without lifting the instrument
+once until you are through. Then lay this knife aside for its work
+is done. Insert the perpendicular knife also in hot water and with
+it cut the curd first crosswise, then lengthwise, then crosswise
+again, being sure to lap over the course of each cut. The curd is
+now in small cubes that are fast discharging whey from their severed
+cellular system. They gravitate toward the bottom of the vat. If the
+curd has been cleft by the blades, gently and with great care, the
+rising whey has a clear, greenish cast, attesting that it is freed
+from most of the albuminous substances of the milk and will render a
+good ratio to the patrons.
+
+
+SCALDING.
+
+If the milk was mature, or too much rennet was incorporated with
+perfectly sweet milk, the whey will separate from the solids very
+rapidly. In either case it wants an immediate application of heat
+after cutting. Curd from fairly good milk, with a proper infusion of
+rennet, should stand for a few moments after cutting before heat is
+turned on. Never apply heat under any circumstances until the raw
+curd has all disappeared beneath the whey’s surface. As soon as the
+heat has warmed the bottom of the vat, bare your arms and with the
+hands gently lift the new cut mass to the surface. In this lifting
+give it a rolling motion, so that the cubes will all fall apart and
+exchange positions with one another.
+
+Two dangers now arise and you must be prepared to steer straight
+between them. First, as the heat comes surging up from beneath
+against the tin bottom of the vat it makes it very hot below and cool
+on top. If the raw curd settles but a moment against the hot bottom
+it is liable to be blistered and seared over, to the subsequent
+detriment of the whole mass. Of course, it needs a slow application
+of heat on the start and almost constant agitation, and here comes
+danger number two. If you do not stir your curd sufficiently in
+heating, the quality of your goods is at stake, and if you do not
+stir judiciously, or stir too often and too harshly, your milk ratio
+is in jeopardy. By exercising good judgment, care and caution you can
+avoid the two extremes and make each danger your willing servant. If
+your milk on the start is sweet and pure, allow the heat to go up
+slowly until it touches the desired point. If, on the other hand,
+it is ripe, old or sour, push the heat with all vigor and scald as
+quickly as possible. With milk all right, about three-fourths of
+an hour’s time should be consumed in bringing up the heat to the
+scalding limit, but if otherwise get it there in fifteen minutes or
+half an hour, according to the exigency of the case.
+
+But, to return to the subject of scalding a vat of curd in normal
+condition. On the start, using your hands as described, manipulate
+it with such care that the tender cubes are not bruised and yet
+are kept separate enough so that they will not form into a compact
+mass on the warm bottom. All this time the whey is percolating from
+the blocks and they are shrinking in size and becoming of tougher
+texture. As soon as the curd begins to assume a slightly elastic
+consistency begin operations with a rake. If you have an idea that
+curd wants to be stirred all of the time through the scalding period,
+at once disabuse your mind of it. Such a notion is antediluvian in
+its conception and disastrous in its results, but, strange to say,
+it is the predominating feature of the know-it-all young maker’s
+knowledge. Novices at the business are sure to stir too often and too
+violently. This knocks off the yield and also injures the quality of
+the cheese. For myself, above all patent devices in the shape of wire
+rakes for agitating curd, I prefer a simple wooden hand hay rake. Get
+one made of wood throughout and saw off the handle, leaving the stub
+about four feet long; this will insure convenient handling. When the
+moment arrives in the early cooking departure to use the rake, take
+the utensil described and, inserting it teeth up in the whey and curd
+midway of the vat at one end, push it gently from you to within two
+inches of the farther edge, letting the back of the rake head slide
+on the bottom of the vat. Be sure and do not let the teeth and head
+of the agitator hit the side of the vat, as curd is pushed before it
+which does not want the substance and nutriment crushed out of it
+that way. As the rake approaches the side of the vat give it an easy,
+undulating, upward swing, ending by a draw of the rake toward you.
+This will cause the curd that you have been pushing from you along
+the bottom of the vat to boil up with the whey in the wake of the
+retreating rake. If the motion has been gone through with easily and
+carefully, you will at once see that the curd within the rake’s sweep
+has been thoroughly agitated without bruising. After the manoeuvre
+described, do not change position but drawing the rake toward you,
+with its head scraping the bottom of the vat, produce a gentle
+ebullition of curd and whey in the same way as that just manifested.
+Step along, repeating the pushing and drawing of the rake until the
+farther end of the vat is reached. Then, push the curd with the rake
+up on one side and down on the other of the vat, changing ends, as
+it were, with the cooking cheese. Once over a vat in this way, if
+accomplished properly, thoroughly separates the curd particles and
+evens up the heat through the whole mass. Now, let the rake rest
+but have the heat go on for a few moments. When the curd begins to
+pack slightly (perhaps in five minutes, more or less, according to
+the previous maturity of the milk), again stir it up in the manner
+described and again let it rest, repeating the periods of agitation
+until it is scalded up to the desired temperature. In regard to
+the right temperature at which to scald cheese we cannot hope to
+give on paper much more than superficial information. Every phase
+of cheese making, to be thoroughly understood, requires practical
+experience, but hints and pointers on paper are often just what are
+needed to help puzzled ones out of awkward dilemmas encountered in
+the business. Hence, we shall, in the most clear and logical manner
+possible, give the reader our views, derived from experience, on
+scalding temperature.
+
+
+RIGHT TEMPERATURE.
+
+In the spring of the year, hay produced milk is comparatively poor
+and thin. When it reaches the manufacturer’s hands it is generally
+as sweet as a rose in regard to acid, although not always so in
+regard to stable tang. When it has been transformed into curd
+it must be scalded high enough to cook it, whether that takes a
+temperature of 98°, 100° or 110° Fahrenheit. Don’t think, as some
+do, that the curd is cooked when it has reached the temperature
+you are using—generally it is not more than half cooked then. We
+will say you began making cheese on the first day of April. You are
+not an expert at the business and, being anxious to make a good
+beginning, feel a trifle nervous over the situation. Keep cool and
+bring the temperature of the curd up to 100°. On reaching this heat
+immediately cover up the vat with the carpet-like canopy previously
+described. Be sure and give it a thorough rake stirring the last
+thing on reaching the scalding point. If the make-room is reasonably
+warm the canvas roof will keep the whey at a mercurial heat of 100°
+for a long while. After a few minutes examine the curd and see how
+it is progressing. Stir it up occasionally—once in fifteen minutes
+or so is sufficient—and after it has stood an hour and a half at
+100°, if it does not squeak sharply between the teeth when chewed or
+immediately fall apart when squeezed dry of whey in a double-handful,
+you may be assured that 100° was too low a temperature at which to
+cook it. The object is to cook at the lowest temperature which will
+do the business within a reasonable time. The higher the temperature
+used, the quicker it will be cooked, but it will require more milk to
+make a pound of cheese. A good yield and a good quality must both be
+gotten out of the milk—these are fine points in cheese making. The
+curd we have spoken of has stood in the whey at 100° degrees for one
+hour and a half and is yet insufficiently cooked. An hour longer at
+the same temperature would probably cook it to the right degree, but
+there are objections to letting curd stand in the whey so long—it
+gets whey soaked and begins to disintegrate slightly, even when no
+acid is perceptible. So, after a ninety minute test, (or, better yet,
+before), raise the temperature two, four, six or ten degrees, as your
+judgment warrants, and bring it to a firm consistency as quickly as
+possible.
+
+We are now supposed to be working spring or fall milk that is
+obstinately sweet and very hard to cook. In summer or warm weather,
+milk is, of course, mature; this aids and hastens the cooking process
+while sweetness retards it. In cool weather and with good milk,
+having found that a minimum of 100° will not cook the curd after
+standing at that temperature an hour and a half, fix your standard
+higher and bring it within the rule prescribed. Be sure that your
+curd is thoroughly cooked. Thousands of boxes of weak, half raw
+cheese are thrown on the market every spring that are deficient in
+quality through a lack of heat in the vat. The most convenient and
+sure test of which I am aware, to tell that the curd is “done,” so
+to speak, is to grasp a large double-handful and compress it dry of
+whey; if it quickly, after pressure is withdrawn, falls easily apart
+on the palm of the outstretched hand, you may be sure that your curd
+is thoroughly cooked in every way.
+
+Now we come to acid.
+
+
+ACID.
+
+Acid microbes are inherent in the lacteal structure and come dormant
+in the milk from the udder. As soon as they feel the atmosphere
+they spring into spontaneous activity, however retarded by cold or
+fostered by heat. Acid in milk is a species of yeast fermentation and
+is the first step toward decomposition. It is the best servant the
+cheese maker has and is also his worst enemy when the relation is
+changed to that of master. In a temperate climate, in hay produced
+milk, in the spring of the year, acid is nearly dormant and there
+is but little use for it. Hay cheese are expected to be thrown on
+the market in cool weather when they will be quickly consumed;
+therefore, the additional firmness given by acid is not required
+to be applied as a safeguard against heat. If early hay cheese are
+cooked enough and salted about two pounds to the thousand, it is all
+that is desirable. On the border between hay and grass the weather
+is gradually moderating and there is torrid temperature in sight in
+the immediate future. Acid now begins to appear in the whey and curd
+you are working by the time you have it scalded. It has a right to
+be there for it is your friend and you now need its timely proffered
+assistance. If, through unusually good quality of milk, it does not
+come to the front, coax it a little in the following way: After the
+curd is cooked and before whey is drawn, turn on steam and re-warm
+the whole mass, then draw the whey and pack the curd in bulk as much
+as possible, covering it up with a cloth. This will soon set the acid
+to working in good shape. Always rely on the hot iron test to locate
+acid. It takes an expert to get the amount of acid even from mess
+to mess by an olfactory measurement. On March and the first half of
+April stock I do not care for any acid to show, but on later April
+and beginning of May goods acid should show on the hot iron clearly
+and perceptibly. When the curd is pressed to the metal, fine strings
+should just start from it immediately prior to salting. At this time
+you want just a little acid but not too much—too much will surely
+spoil spring made cheese.
+
+The question arises, “How far must a cheese maker probe into the
+hidden mysteries that shroud the digestive assimilation of the
+product he manufactures?” We answer that he cannot probe too deeply
+or extend his researches too far into the minute. There are too many
+makers now with only a superficial knowledge of their craft, and
+before there can be any perceptible elevation of quality in American
+cheese the shoes of these novices must be filled by such men as we
+now term “experts.” Take, for example, the subject of acid which
+we are here discussing. A maker who can perceive it only as it is
+revealed by stringing on the iron is not competent to be in charge
+of a factory, for anybody could detect it there. The development of
+lactic acid is a species of fermentation induced by the spontaneous
+increase of inherent minute bacteria. It takes the same experience
+to perceive and govern it in milk and cheese as it does practice
+with square and compass to become a carpenter. We cannot _tell_ you
+all about it—it will take many days of careful observation and fine
+testing to understand its nature enough to make it your servant
+in the cheese making art. That is why makers without practical
+experience are always incompetent. Hold curd in the whey until it
+shows at least a quarter of an inch of acid by the hot iron and then
+draw off whey as quickly as possible. It is always a good plan where
+you have large vats and they are pretty well filled to have a third
+of the whey drawn off before acid develops, for then you can more
+quickly lay bare your curd. As the whey recedes, push the curd with
+the rake head toward the upper end of the vat and then tip the vat
+down, so that the whey will flow out from the lowest corner. Make
+a gutter with your hands through the center of the curd mass and
+distribute it in an even pack on each side of the vat. Now, take a
+knife and cut it into strips eight inches wide, drawing the knife
+from the center gutter toward the side of the vat. Flop these strips
+upside down and, to farther facilitate drainage, cut a longitudinal
+canal next to the sides of the vat. Examine by the iron and see how
+the curd is working as to acid; if it is maturing slowly and the curd
+is not hot, shut off all draughts of air, cut the curd into “bricks”
+or blocks the size of a brick, and scatter them over the bottom of
+the vat. Then cover the vat up with the same cloth that you used
+when scalding. If, on the other hand, the curd is hot and maturing
+rapidly, cut into small bricks, scatter well and give it all the
+air possible, frequently turning the bricks over. Unless positively
+unavoidable on account of overplus of acid never grind curd until
+you have cooled it down to a temperature of 80°. Above that heat the
+fine texture of the curd is torn and mutilated so that it will give
+out white whey, and, as a consequence, waste of quality and substance
+ensues.
+
+The curd being first well drained and cooled to 80° by subdivision
+of pieces and having also developed acid sufficient for the season,
+it is ready for the mill. Grind with deliberation, and if you have a
+self-salter, so much the better. Incorporate the salt into the curd
+by thorough, although not violent, mixing and then air your curd.
+This is one of the most important processes of all and yet the one
+most neglected by negligent makers. A curd requires airing, not so
+much to expel heat as to expunge the gaseous odors that have followed
+it down from its animal origin. Stir it well at frequent intervals
+and spread it out well over the surface of the vat. So calculate that
+it can lay twenty minutes or half an hour before it has sunk to the
+temperature of 70°, when it is just right for the hoops. Allowing it
+to lay this length of time gives the salt an opportunity to strike
+into the pores and impregnate the product with its saline properties
+before being put under pressure.
+
+
+HOOPING CURD.
+
+On placing curd in the hoop measure it all in a pail and then you
+will get the cheese of nearly an exact weight. When spreading on the
+cap cloth wring it out of warm water, that last thing stirring up the
+surface curd from below, so that there will be warmth to form a good
+rind. Apply the pressure slowly at first, and as soon as the whey
+starts from the hoops with a “gush,” desist and let them rest for a
+few moments. The reason for this is to retain the salt and not expel
+it with the whey by an injudicious display of strength. You have,
+perhaps, considered two pounds or two and a half of salt per 1,000
+pounds of milk just right for the curd and the season of the year,
+and it would be most unwise and foolish to let it dribble away to the
+detriment of the product. As soon as the whey ceases to start freely
+come down snugly on them with the lever and then turn your attention
+to washing up the vat and utensils.
+
+
+CLEANING TIN UTENSILS.
+
+This part of a maker’s duties has an important bearing on cheese
+manufacture, for if he is a sloven it does but little good for
+patrons to strive to furnish him with pure, sweet milk. Wash the vat
+and utensils through two waters and scald with that which is boiling.
+The vat and all utensils should be scoured at least once a week with
+salt, to prevent the propagation of a yellow and white fungus growth
+that is a persistent parasite of factories. Milk strainers should
+be hung out where the bright sunshine can reach them, and all the
+windows and outside doors to the make-room should be opened, to drive
+out the dampness that has accumulated during the forepart of the day.
+
+
+PULLING UP THE BANDAGE CLOTH.
+
+In from fifteen to twenty minutes after hooping curd turn your
+attention to them again. If the old style hoops are used you will
+be obliged to bandage them by hand; if not, to pull up the bandage
+cloth. As the former way is nearly obsolete, we will simply discuss
+the _modus operandi_ of the latter.
+
+Set a pailful of clean warm water near you, and as you remove the cap
+cloths rinse them vigorously in this, to wash out all sour whey. Pull
+the margin of the bandage up and turn it neatly over the edge of the
+cheese; then, wringing the cap slightly, to remove only the surplus
+water, spread it over the surface, smoothing out all wrinkles. Apply,
+now, all the power that you have, that is, reasonable power. You do
+not want to press so hard that the butter will be crushed out of the
+cheese structure, but you want to press so as to expel all whey and
+permanently solidify the cheese. I examined 1888 made cheese this
+spring that were of fine quality but insufficiently pressed. The
+seams and cracks were mouldy and damp with whey, which damaged an
+otherwise fancy product 50 per cent.
+
+
+CLEANING UP.
+
+Cleaning up is the last duty of the cheese maker for the day. I use
+hot water freely on any portion of the floor with which whey has
+come in contact, and especially should it be used about the spouts
+and drains, for it is here that filth lurks and easily conceals
+itself. Boiling water will search it out and eradicate it; dash it on
+copiously all around. Sal-soda and potash are helpful aids to keep
+the make-room sweet, and a liberal supply should be counted among the
+necessities of every factory.
+
+
+
+
+THE CURING ROOM.
+
+
+It is just as easy to have a model curing room as one that is
+defective in structure. A cheese may be turned out of the hoop
+the acme of perfection in every detail of manufacture, and yet
+subsequently be damaged partly or wholly ruined by inhabiting a
+faulty curing apartment. The curing room should not be in a loft,
+or above the make-room. It should be on the ground floor, and for
+convenience it should open direct from the make-room, the door being
+easy of access to the press. The partition between the two rooms
+must be impervious to the steam arising from the cheese vats, as the
+animal vapor is detrimental to the maturing product on the shelves.
+The room should by all means be plastered, and have windows that can
+be lowered from the top when necessary for proper ventilation. In
+these times when cheese are frequently shipped when only ten days
+from the hoop, a large curing room is not necessary even for a large
+factory. The smaller you can have it without crowding, the better.
+If you want a room that will hold 300 cheese, lay shelves 2½ feet
+above the floor that will accommodate 100, put in stout uprights 7½
+feet high, and on cross pieces above lay two more tiers of shelves of
+the same surface capacity as the bottom counter. When it is finished
+you have three tiers of shelves encircling the room, save for two
+doors, with space left in the center for a box stove. The object of
+arranging shelves one above another is not so much to utilize space
+as it is to scientifically cure the product. It, however, answers
+for both purposes. In a room, temperature rises with height, and the
+atmosphere is, of course, several degrees warmer near the ceiling
+than in the region of the floor. Hang a reliable thermometer on a
+range with the second tier of shelves, in a portion of the room where
+it will not be affected by direct heat from the stove. In this
+position the mercury should range from 65° to 70° Fahrenheit, the
+temperature on the top shelf at the same time rising to the vicinity
+of 75° Fahrenheit. We will be supposed to carry a day’s make of
+cheese into such a room when it is empty. Place them all on the top
+shelf in regular order, two deep. Continue to add from day to day
+until the top shelf is completely filled all around. Then begin at
+the end where you first started, and take down the first day’s make
+and place on the second shelf, arranging those fresh from the hoop
+in their place. Continue this process all around until the second
+tier is filled. Your next move will necessitate two removals, leaving
+the oldest on the bottom tier and the greenest on top. As soon as a
+cheese leaves the hoop a certain warmth of atmosphere is necessary to
+assist the process of fermentation that should at once begin. If this
+warmth is lacking green cheese will sour on the shelves before they
+can cure. Therefore, always place them in the most favorable position
+for assistance in the direction of maturity that you have at command.
+
+
+
+
+CARE OF CHEESE.
+
+
+Take cheese from the hoops after they have been under pressure about
+eighteen hours. If they have been properly made and thoroughly
+cooked, and the cap cloths are sweet and clean, the latter will peel
+from the ends without making an abrasion of the rind. Allow them
+to stand an hour or so on the shelves before greasing; the surface
+moisture will then have evaporated, and the rinds will deepen to a
+golden color and become crisp and slightly rough under the touch.
+Heat whey butter as hot as you can bear your hand in it, and, using
+a large piece of bandage cloth (no other cloth is as good), dip it
+in the hot grease and apply by a thorough rubbing-in to the cheese
+surface. The butter being hot will strike in and lend toughness and
+elasticity to the rind. Date the cheese after they have been on the
+shelves a day. The bandage cloth will then have become dry, and the
+dates can be made to show clear and distinct. Turn cheese over every
+day and rub them thoroughly with a sponge of bandage cloth, well
+oiled. Dealers, retailers and consumers insist on a good, perfect
+rind, and, as makers, we must give it to them. Appearance sometimes
+goes farther than quality, but we want both, and want them united.
+Sometimes cheese will mould on the sides during damp, muggy weather
+in summer. It will not do to drive out the dampness with fire, so
+establish a free circulation of air through the room and the mould
+will cease to accumulate. In a curing room it is easier to keep
+temperature where you want it during cool than in hot weather. If the
+mercury gets to running up above 75° Fahrenheit, sprinkle the floor
+vigorously with cold water, take out the window sashes, and on the
+south side keep the blinds closed, or a shade down. Good cheese can
+endure a temperature of 80° for a while without deteriorating, but
+such a heat is not desirable; keep it below that if possible during
+a hot wave. The shelves on which the cheese rest should be of sound
+lumber, smoothly planed basswood or pine, and each board a little
+wider than the diameter of the cheese. Care should be taken to have
+the bandages the exact circumference of the inside of the hoop. If
+the band is contracted, the cloth will split open under pressure and
+expose the cheese to the attack of skipper flies; if too large, the
+cheese will expand on the shelf and make it difficult to be jammed
+into a box for shipment. The reason the curing room should not be
+over the make apartment, or in a loft, is that in the former the
+vapor and odors generated below are not desirable curing factors, and
+in both cases excessive heat is unavoidable, due to the elevation and
+the direct rays of the sun on the roof. When cheese get so warmed
+up that the butter starts, the flavor is deteriorating also. While
+curing, cheese need ventilation, draughts of air should be avoided,
+as thereby the surfaces are dried up and checked. Too much light is
+not desirable in a curing room; shades should be used at the windows
+to regulate this. It is now customary to ship cheese as soon as they
+cease to be curdy, which occurs in from ten to fifteen days from the
+hoop.
+
+
+
+
+EXPERIENCED HELP.
+
+One great set-back to good cheese making is inexperienced and
+careless labor. This is another cog in the wheel that has been
+retrograding the reputation of our goods during the last few years.
+A medical student cannot obtain a diploma authorizing him to take
+under his charge the welfare of the sick without three years’ study
+aided by ocular demonstrations of his especial science. Then, he
+is expected not to have a dim idea of a patient’s condition when
+diagnosing his case, but to know and understand all about it. No
+cheese maker is fit for duty unless he can diagnose the condition
+of a vat of milk on a quick examination. The natural odor of pure
+milk has a peculiar animal smell, whose nature can be acquired by
+careful olfactory tests indulged in as the student draws the fluid
+from the cow’s teats. After an apprentice at the business can tell
+pure, sweet, untainted milk in any spot or place, he must learn to
+distinguish between that which is tainted and that which is verging
+on the sour. Tainted milk is radically different from sour milk,
+and infused in the product they each tend toward utterly diverse
+results. To pass a correct judgment on milk quality is thus essential
+No. 1 in a maker’s practical knowledge. Requirement No. 2, is to
+have a thorough understanding of the constituents and influence of
+all of the foreign ingredients that go into cheese. Rennet, the
+most potent auxiliary of the cheese maker’s craft, should never be
+handled or applied by ignorant hands. The amateur maker should gain a
+physiological insight into the lactic portion of animal anatomy, and
+have an intelligent comprehension of the active force of the peptic
+secretion. When such knowledge is acquired he will see the importance
+of never countenancing any coagulating fluid that is not immaculately
+pure in extraction and free from any subsequent taint. He will also
+understand its nature enough to always make a judicious application
+of it to the milk designed for manufacture. Here the necessity of
+step No. 1 joining hands with No. 2 is apparent, for he cannot make
+a judicious application unless his olfactory sense is trained to
+perceive and gauge every variation of the milk quality. Necessity No.
+3, is in following the quality variation of milk into the cooking and
+maturing curd. It is a well-known fact with cheese makers that no two
+vats of curd will scarcely ever work exactly alike in succession. If
+one is to know absolutely just what to do and what to leave undone at
+certain moments of assimilation and maturity in curd, he must have
+gained that knowledge not from books but from continued practical
+experience. Here the necessity for previous learning arises. No
+pettifogger would be expected to argue legal points before the
+Supreme Court, because lack of advancement in the rudiments of his
+profession would make him as unfit for such a pleader as a farmer
+or merchant. Every man to his business, and no man to be trusted
+in any trade capacity until he has proved himself competent. So,
+if an amateur lawyer or doctor is not to be trusted, why should
+responsibility be placed on the shoulders of a green hand at cheese
+making? He is expected to properly prepare an important article of
+human food, and, inexperienced and ignorant of the rudiments of the
+trade, he stumbles along in the dark, doing, perhaps, the best that
+he can, and not so much to blame for the failures that accrue as are
+his employers.
+
+Wide dispersion of training schools for both butter and cheese makers
+is not far off, and I, for one, hail that day with delight.
+
+
+
+
+WHERE OUR CHEESE GOES TO.
+
+
+After contemplating the immensity of our annual cheese output, the
+question naturally arises, “Where does it all go to?” The earliest
+shipments of American cheese were made from New York to England in
+1835 and 1836. The beginning was very limited; shipments of cheese
+were made in casks; $60,000 would probably comprise the value of all
+shipments made in those years. As England still remains our principal
+foreign customer, we will come down to the year 1882 and give the
+official figures of the port of New York of the annual receipts and
+exports. We do not mean to intimate that England takes _all_ of our
+exports, but she absorbs the major portion of them.
+
+                                  Year.    Receipts.    Exports.
+  Receipts of Cheese in New York, 1882,    2,350,559    1,898,192
+     ”          ”         ”       1883,    2,456,232    1,957,967
+     ”          ”         ”       1884,    2,407,550    1,932,702
+     ”          ”         ”       1885,    2,122,187    1,658,696
+     ”          ”         ”       1886,    1,943,260    1,575,262
+     ”          ”         ”       1887,    1,994,857    1,450,955
+     ”          ”         ”       1888,    1,993,462
+
+The 1888 export is not recorded yet. It is hard to get at the home
+trade quantity used throughout the country. There are many cheese
+distributed from factories to neighboring towns in Ohio, Wisconsin,
+Michigan and other states of which no account is kept, and there are
+no statistics covering the entire make, but at a guess we should
+say it was about 4,000,000 boxes annually. The cause of decline in
+receipts at the port of New York since 1882, is largely due to the
+fact that a good many cheese made in the northern part of this State
+(N. Y.) are bought by Canadians and shipped _via_ Montreal. It is
+said that Englishmen eat twelve pounds of cheese _per capita_ a year,
+while Americans eat three pounds. Cheese consumption is, however,
+on the increase here, as the healthy and nutritive qualities of
+the product are more and more appreciated. One of the most serious
+drawbacks to universal cheese consumption is the large profits
+exacted by middlemen when they dispense it to the public. If cheese
+could be had at the grocery for 9 or 10 cents per pound instead of
+14 or 15 cents, it would be found in abundance on the poor man’s
+table, and a heavy decrease in the export trade would result. We
+believe that such a time is coming, and with it will come a vast
+improvement in the average quality of the national make. This is not
+a mere speculation, but a distinctive pointer of the times, and its
+verification is already at hand. Thirty-five years ago the innovation
+of the cheddar process gave cheese quality its first great advance.
+That advance remains yet to be perfected in detail, and then a cheese
+millennium will reign.
+
+
+
+
+MOISTURE IN CHEESE.
+
+
+One of the most essential points in determining the quality of a
+cheese is the amount of moisture it contains. A proper retention of
+moisture by the product in a cured state depends primarily on the
+rennet that separated it from the watery serum of milk, and secondly
+on the amount of heat applied in cooking, and the quantity of salt
+afterwards added. To adjust all these little niceties to a minimum
+of fine, even quality of which moisture is an adjunct, requires
+experience and long familiarity with the handling and treatment of
+milk. Butter, moisture and caseine should exist in about equal parts
+to make a mellow cheese, and, to fix the proportion rightly, enough
+rennet should be incorporated into the milk to expel all excess of
+moisture, and yet leave enough to withstand the effect of a heat
+judiciously gauged to cook it. Thus, rennet influences moisture on
+the start, and other forces afterward are introduced that either aid
+or retard it. When rennet diffuses itself through milk its power and
+potency are largely measured by the temperature of the fluid body
+surrounding it. As cheese making is merely an imitation of nature’s
+workings in curdling milk in a calf’s stomach, the nearer we can
+follow that process on the start, the closer to perfection we get.
+Long experience has demonstrated that a temperature between 80° and
+85° Fahrenheit is the best degree of warmth for milk to have attained
+when it receives the peptic fluid. A temperature above that expels
+the butter globules into the whey, and below, the active principle
+of rennet is not brought out and tardily and incompletely coagulates
+the mild solids. By afterward applying the lowest degree of heat that
+will cook it within a reasonable time to a consistency of contraction
+and expansion, the moisture still remains in proper proportion. A few
+degrees of excess heat will produce a dry, hard curd, and a future
+dry, hard cheese. Judgment, discretion, and experience are necessary
+in applying salt to retain moisture. Salt itself is, of course, a
+moisture retainer, but a too heavy application hardens and stiffens
+the cheese structure and retards the curing of the product. Never
+salt more than enough to give and retain flavor and preserve quality.
+If the points we have given above have all been observed, then the
+proper proportion of moisture in cheese will be assured.
+
+Prominent English cheese judges have passed verdicts on fine
+cheese in the following words: “We want cheese rich, solid, fine
+flavored, true colored, that is, of an even color throughout, sound,
+handsome, that will go on to improve for twelve months or longer if
+desired.” “A good cheese is close and firm in texture, yet mellow;
+in character or quality it is rich with a tendency to melt in the
+mouth; the flavor full and fine, apparently that of a hazel-nut.”
+“The characteristics of a good cheese are mellow and rich in taste
+and flavor, and firm and full in texture, solid but not tough.”
+“A good cheese is rich without being greasy, with a sweet, nutty
+flavor, clear and equal color throughout, and of a compact, solid
+texture, without being waxy; firm, and yet melts easily in the mouth,
+leaving no rough or ill-flavor on the palate.” The English conception
+of peerless cheese is ours, too, and we must continue to grind away
+on the road of improvement until we bring the united product to the
+standard of unimpeachable quality and uniformity.
+
+
+
+
+RULE FOR MAKING OUT DIVIDENDS.
+
+
+Many makers are now expected to figure out the milk dividends for
+the patrons, and issue fortnightly statements. A quick, easy rule
+to follow in doing this business, is to first foot up each patron’s
+milk for the number of days’ delivery in one or two sales, as the
+case may be, draw a line across the page of the factory account
+book opposite the date sold up to, and, as you add each man’s milk,
+set the amount down opposite his name on the tally slate. After you
+have summed it all up, go over it again, adding from the top of the
+columns downward. This will correct any mistakes you may have made.
+Next, add the separate sums of milk together into one grand total
+and, using this united sum for a dividend, take the number of pounds
+of cheese in the sale or sales for a divisor, and the quotient will
+be the ratio or the number of pounds of milk it has taken to make a
+pound of cheese. Then, multiply the number of pounds of cheese by the
+price per 100 pounds you get for making, and deduct the product from
+the full cash amount that the cheese has brought. The residue money
+divide up proportionately among the patrons as follows: Using the
+grand total of milk for a divisor, see how many times it is contained
+in the money, minus cost of making. The quotient will be the net
+price of one hundred pounds of milk. Multiply each patron’s separate
+amount of milk by this price per hundred pounds, and the product
+will be the net monied income on that sale or sales for the patron.
+In getting the price of a pound of milk it is seldom necessary to
+carry decimally beyond mills. In a measure, the work all proves
+itself, for, if, by adding together the face value of each patron’s
+check, the amount does not agree with the cheese returns, less
+making, your figuring will need a review.
+
+It is customary now to send out with each check a statement
+demonstrating and setting forth just how the factory business is
+running. Thus, each patron becomes a critic of the secretary. I
+append a statement properly filled out:
+
+
+SALE STATEMENT.
+
+  _Plainfield, N. Y., June 20, 1889._
+
+E. W. WRIGHT’S CHEESE FACTORY.
+
+IN ACCOUNT WITH
+
+MR. JOHN WILLIAMS.
+
+  Sold from May 14th to 29th.
+  ===================================================
+  No. Boxes,                                     168
+  Total Milk,                                 69,779
+  Total Cheese,                                7,026
+  Price per pound, 3,434 @ 8¼-c. 3,592 @ 8⅛-c.
+  Ratio,                                        9.93
+  Net price per 100 pounds Milk,                71.3
+  Your Milk,                                   8,336
+  Amount less making,                         $59.43
+
+
+
+
+THE WHEY VAT.
+
+
+The whey vat may be regarded as a necessary evil, but with
+means at hand to relieve ourselves of some of its putrefactive
+characteristics. We trust that the day for having this swill tub
+harnessed to the factory will soon be an item of the shady past.
+Whey is all right in its place, but its place, as soon as it is
+drained from the curd, is a long distance from the factory building.
+I would place the whey vat ten rods away from the factory, and if
+night delivery of milk was the rule, I would move it _twenty_ rods
+off. Get it at least beyond contaminating distance, and then have
+the whey carried to it in open tin troughs. If the troughs are
+thoroughly painted you need not fear rust, and as they are of metal
+they cannot dry up, warp and leak. Have the spouts about the factory
+perfectly tight so that no whey can fall to the ground, for it is
+fearful stuff to generate offensive effluvia. Try and keep the whey
+receptacle as neat and clean as possible. Have it roofed, but open
+on the sides. Skim the cream from it every morning, and it would be
+much better if you would churn it fresh instead of keeping it for
+weeks to be rendered out in a kettle by fire. Scrub the vat out every
+day with a broom; it will take five minutes’ time and a pailful of
+hot water. Make it a rule for each patron to draw away no more than
+three pails of whey for every hundred pounds of milk delivered. Also,
+make it a rule to yard nobody’s pigs or calves about the premises for
+convenient whey slopping. Insist on it that if your patrons insist on
+drawing sour whey home in their milk cans they put on extra “elbow
+grease” afterward in cleansing them. A cheese maker hardly likes to
+make the imputation to patrons that their wives are not neat (only,
+perhaps, when they are in a great hurry) about scalding out the sour
+whey from milk cans, and yet such insinuations on his part are often
+necessary.
+
+
+
+
+WHYS AND WHEREFORES.
+
+
+Curd is first cut with the horizontal knife, to facilitate easy
+expulsion of the whey.
+
+Cheese is a good edible, because, besides being highly nutritive,
+the rennet or gastric juice it contains aids digestion and the
+assimilation of other foods.
+
+Whey should never be fed to cows, because, having once been secreted
+in their mammillary glands in the form of milk, it has now taken on
+the nature of an excrement; consequently, a re-secretion would be
+highly prejudicial to the quality and healthfulness of the product.
+
+It was formerly supposed that febrine was exclusively a constituent
+of animal blood; but now the theory that slight traces of it in milk
+induce rennet coagulation is generally accepted as authentic.
+
+If a cheese is misshapen, by uneven pressing or otherwise, when taken
+from the hoop, put it back and press it over again. Remember that
+appearance goes a long way with dealers. Do not tolerate any cheese
+in the room that are deformed.
+
+Cheese makers should insist that patrons with large messes of milk
+set their night’s yield in two cans, thoroughly air the fluid, by
+stirring or dipping immediately subsequent to milking, and then dump
+both portions together in the morning, so as not to mix night’s and
+morning’s milk until it is mixed in common in the cheese vat. If
+this rule is insisted upon and faithfully observed, a great deal of
+damaged milk will be avoided.
+
+A quack doctor should as soon be granted a diploma to practice, as an
+ignorant apprentice at cheese making be given the responsibility of
+the manufacture of a vat of milk. The health of the community is in
+great danger from both frauds.
+
+Cheese that are surface mottled, spread the bandage and show a soft,
+weak rind, have been insufficiently cooked. The remedy lies in a more
+upward tendency of the mercury.
+
+The art of cheese making cannot be learned wholly from paper, because
+variations of milk quality constantly clash with regular modes of
+procedure. Here the practical experience and sound judgment of the
+maker must intervene and offset the lacteal variation, by appropriate
+changes in the manner of working the product.
+
+Making good cheese out of poor milk is much talked of by makers
+and considered quite an accomplishment. It consists in clothing
+the product in a glamour of deception, propagating dyspepsia and
+shielding careless dairymen.
+
+Skimmed cheese is dry and tasteless and unfit for human food, because
+the meat has been extracted, and the shell left. It should take a
+back seat on the bench of humiliation beside oleomargarine.
+
+When whey sparkles it is sour.
+
+When raw curd settles quickly after being cut up, it is a signal
+that it is aging rapidly and developing acid. White scum on the whey
+indicates the presence of acid.
+
+Butter exuding slightly from the hoops of pressing cheese tells
+of acid and bespeaks a fine quality of goods. Butter exuding in
+excessive quantity from the hoops is proof that the milk has either
+been violently shaken up over rough roads or has been set at a very
+high temperature.
+
+You cannot get a good rind on a poor quality of cheese; you can
+always have a perfect rind on one of good quality. Thus, in one
+sense, the rind indicates the quality.
+
+“Cleanliness is next to godliness” about a factory, because, milk
+being an animal fluid it is of nitrogenous composition, and the waste
+that accrues from it on decomposition becomes the most fetid carrion.
+
+Buttermilk added to sweet milk in making cheese is a diabolical
+habit, the object, nowadays, being not to produce cheese from slop
+but from pure, wholesome milk alone.
+
+Airing curds thoroughly after salting is necessary to expel gaseous
+odors. The improved quality of the cheese will repay every maker for
+doing it.
+
+Never cease to agitate the question of only six days’ labor in the
+week for the cheese maker. Agitate it, because God has laid it down
+as a commandment for all mankind, and nature inexorably exacts from
+the physical forces every violation of the rule.
+
+Keep the curing room at an even temperature of from 65° to 70°
+Fahrenheit, because a less amount of heat might sour the green cheese
+on the shelves and more warmth might cause them to lose butter to the
+point of off flavor.
+
+Keep the surface of cheese impervious to fly attacks and you will
+never be troubled with skippers.
+
+Never use sour press clothes on cheese, not only from sense of
+neatness, but because the rank acid will check the rind.
+
+If you are caught with a soft curd on your hands, one that has
+soured so quickly that you have had no opportunity to give it a firm
+cook, grind it twice and stir it more than usual. This will reduce
+pulpy lumps, add stability to the curd and prevent the cheese from
+spreading out of shape in the bandage.
+
+Rennet is the life and soul of cheese, as much depending on its
+efficacy as on yeast in bread. Excessive heat stifles and kills out
+its virtue and leaves the cheese structure dead and indigestible.
+Makers should bear this fact in mind and never allow the cooking curd
+to rest long on the bottom of the vat.
+
+The rennet jar should never be covered, as nothing can be mentioned
+that is more liable to contract fetid taint than these skins.
+Exclusion of air from the vessel in which they are soaking is
+extremely liable to spoil them in spite of the salt the liquor
+contains.
+
+In weighing patrons’ milk at the factory, the scales should be
+balanced down and up weight taken. To the uninitiated this might at
+first seem an injustice, but a little experience will soon show that
+it is imperatively necessary. The dealers to whom the cheese are
+consigned exact stiff up weight, and if the same is not taken at the
+milk delivery window, woe be to the ratio. As all patrons are served
+alike in the premises, no loss or injustice accrues to any one and
+the maker is in a position to deal as he is being dealt with.
+
+Pulverize salt thoroughly before sprinkling it over the curd. Hard
+lumps will not dissolve and will produce cauterized spots through the
+cheese.
+
+During the hot weather of summer remember that curd will stand a
+third more souring, and yet come down into mellow cheese, than it
+would earlier or later in the season. Bearing this fact in mind gives
+a maker mental relief when he has a curd that has the start of him on
+acid and yet afterward comes out all right, perhaps making the best
+cheese in the room.
+
+Saving curd over to mix in with the next day’s cheese is not
+desirable, but it is often unavoidable, as cheese of as even weight
+as possible are always wanted. Take the curd to be saved over and put
+it in a bag of bandage cloth. Mix into it an extra handful of salt,
+in order to prevent too much souring, and hang the sack in a cool,
+dry place. The next day, just prior to drawing the whey, empty the
+old curd into the vat and stir it up with the new.
+
+There are sometimes extreme cases of butter separation from the
+cooked caseine. I have seen where butter would settle in the seams
+and cavities of cheese, to the almost utter ruination of the product
+and the distraction of the maker because he could not discern and
+stop the cause. There are many causes, some of which are beyond the
+power of the maker to remedy, such as churning the milk in drawing
+it to the factory over stony roads, etc. But he can prevent too high
+heat at setting time, and he can manipulate milk with gentleness
+before the rennet is added.
+
+In consigning cheese to market always put the consignor’s name on the
+side instead of one cover of the box. Covers are apt to come off in
+transit and get mixed with those of other consignments, entailing
+much trouble to those concerned.
+
+When coagulated milk has reached the right consistency to cut up,
+draw the curd knife through it at a moderate speed, truly and
+unwaveringly. The cutting behind an experienced hand will expel whey
+clear and green in color. In this item of procedure let your hand be
+counted among the experienced.
+
+
+
+
+POTENT MAXIMS FOR THE CHEESE MAKER.
+
+
+Keep a perfectly sweet, clean vat and spotless, shining apparatus and
+utensils.
+
+Make an olfactory test of every mess of milk before it is dumped into
+the weighing can, and reject all that is tainted, unclean or tending
+toward the sour, as by the acceptance of such injured milk you damage
+your own trade reputation, detract from the dividend of every patron
+who furnishes perfect milk and irreparably wrong every consumer of
+the cheese.
+
+Insist on each one of your patrons straining their milk through a
+fine cloth strainer of double thickness, and use the same yourself
+for it to pass through into the vat.
+
+In heating up your milk to a temperature to meet a reception of the
+rennet, stir it frequently and gently.
+
+Never set above 86° Fahrenheit in spring and fall and 84° in summer.
+
+Remember that too high heat before setting separates the butter
+globules from the milk structure and that they are subsequently lost
+in the whey.
+
+Use nothing but stone jars for keeping rennet. If a mess of rennet
+worth, perhaps, a dollar should get slightly tainted, throw it away
+rather than impregnate it through $200 worth of cheese and cause
+serious illness among numerous human beings.
+
+Use only annottoine cut directly from the seed by the chemical action
+of potash.
+
+The imputation that urine is used in the paste preparation should
+make every manufacturer shun it with loathing until the vile stigma
+is disproved.
+
+Be at least five minutes in stirring the rennet into milk. Stir
+it with great gentleness, so that the butter globules will not be
+displaced.
+
+Curd should stand not less than forty or more than sixty minutes
+after the application of rennet before cutting, the variation in
+time to be governed by season, condition of milk and desired keeping
+qualities. Curd is fit to cut up when it will split clean before
+the finger but is not so brittle as to break before the advancing
+knife. Cut first with the horizontal knife lengthways, then crossway,
+then lengthways with the perpendicular blade. If milk is very ripe,
+and a quick scald is necessary, cut once more crossway with the
+perpendicular blade. Never slash curd in cutting, as it starts milky
+whey and lowers your yield.
+
+After cutting curd if milk is in normal condition, it is, perhaps,
+better to agitate the curd gently for a few moments before heat is
+applied. If milk has already taken on acid, apply heat immediately
+after cutting. In agitating curd use the hands for the first fifteen
+minutes, then manipulate it with a rake.
+
+Stir only enough to keep it separated and prevent it from scorching
+on the hot bottom of the vat.
+
+Remember that cooking curd thoroughly is, without doubt, the most
+important part of the whole programme of cheese making.
+
+Do not place sole reliance on thermometer figures—let your judgment
+rule supreme above that. See that every day’s curd—the product of
+milk in all stages of maturity—does not part with the whey until it
+is cooked to a state of contractibility in which the cubes will
+separate by expansion after pressure by squeezing in the hand. No
+maker considers his bread free from rawness until it has received a
+certain amount of heat in the oven, and no cheese maker can expect
+to get a mellow, firm cheese unless he cooks his curd as above
+described. By using the smallest amount of heat possible to cook curd
+within a reasonable time, a finer quality of cheese is secured and a
+better yield.
+
+Hold curd in the whey until it will string fine threads, one-fourth
+of an inch in length, on the hot iron.
+
+Aim to have the whey well drained out of the curd before it is
+ground. Do not grind curd when it is too hot. If necessary, cut into
+small blocks or strips and scatter over the bottom of the vat, to
+cool to a temperature to about 85° Fahrenheit before grinding.
+
+Cheese makers should not be too much wedded to fixed rules. For
+instance, do not always hold curd in the whey until it shows a
+quarter of an inch of acid by the iron simply because it may be a
+rule. Let your judgment rise supreme over all rules. Frequently,
+through the summer there are cool nights when the milk keeps so sweet
+that the next day no acid will show by the time you have the curd
+thoroughly cooked. At such times, as an experiment, draw off the whey
+sweet and let the curd develop acid in the pack. For your particular
+locality, quality of milk and character of feed, such a method may
+produce finer cheese than if soured in the whey, and it may not. You
+must test all of these little details to find out.
+
+Two pounds of salt and the fractional parts of a third pound, up to
+sixteen ounces per 1,000 pounds of milk, covers the cheese maker’s
+scale for the season in this department. As a rule, two pounds in
+the spring, with a gradual ascendancy in quantity as the apex of hot
+weather approaches, and then a declination in quantity toward fall,
+is about the average amount used per 1,000 pounds of milk for the
+Cheddar process. There are more makers who do not salt above two and
+a half pounds in hot weather than there are who use three pounds.
+High salting retards curing, and the object now is to get a new
+cheese onto the market as quickly as possible. With a wet curd salt a
+little more than the rule by which you are running, so as to make up
+the loss that goes out with the whey.
+
+
+
+
+CHEESE FOR THE BRITISH MARKET.
+
+
+This quality of goods, generally known as “shipping cheese,” is made
+by the same process that we have described in this book with the
+exception that it is, or should be, worked down more. “Worked down”
+implies that a firmer cheese is produced, one cooked more, salted a
+trifle higher and soured more. These requisites lend a cheese body
+and prolong its keeping qualities. With all this, it must be mellow,
+close textured and fine flavored. The English consumer wants such a
+cheese, or he wants none. “A word to the wise is sufficient.”
+
+
+
+
+SKIMMED CHEESE.
+
+
+Making edible skimmed cheese is an effort to supply a constituent
+for the product that does not exist, namely, oleaginous matter. The
+butter or cream in milk is what gives rich flavor and mellow body to
+cheese. When a part or whole of this is removed by the skimmer, the
+depleted fluid, if manufactured into cheese, just as that containing
+all of the cream would be, will make dry, tasteless stuff. Skimmed
+cheese must be cooked, soured and salted less than full cream. Flat
+skims can often be scalded at 93° and 94° Fahrenheit. But, of course,
+this must be governed entirely by the rules relating to thorough
+cooking.
+
+
+
+
+FLOATING CURD.
+
+
+Floating curd emanates from the rankest known species of tainted
+milk. The curd is surfeited with offensive, poisonous gas, that
+holds in check the acid and will inhabit the curd until its life has
+died out. All the cheese maker can do is to wait patiently until its
+existence has ended and the curd, ceasing to be inflative, develops
+acid. Then grind and salt the usual amount, airing by thorough
+stirring for an hour or more, with doors and windows open, to expel
+the taint. Let it sour in the pack. If ground and salted before gas
+has left it, the cheese will huff up like puff balls.
+
+
+
+
+BOXING CHEESE FOR MARKET.
+
+
+After the cheese designed for shipment are selected, examine every
+one and look to it that there are no surface shortcomings; if there
+are, the discrepancy must be remedied. Aim to have the cheese go into
+the package neat and attractive in appearance. A firm, elastic rind,
+well oiled, and a spotless bandage cloth, if forming the cuticle
+of a squarely-built, well-shaped cheese, is all in the line of the
+appearance that is desired by dealers and retailers. In weighing the
+cheese, give good up weight, taking no account of anything less than
+a pound. Use the best quality of scale boards and boxes obtainable,
+and have the latter fit the cheese snugly. After a cheese is weighed,
+place a scale board on the top end and shove a box onto it. Flop box
+and cheese over and, as the latter settles into the case, mark the
+weight on the side of the box. If the box is too high, shave the rim
+down to the cheese surface and place on a scale board and then cover.
+It is imperative that the covers fit tightly and snugly, and that
+any superfluous rim on the box be shaved off. No cheese is properly
+prepared for transportation unless it is so tight in the box that it
+cannot shift and knock about. Brand the boxes in a neat, workman-like
+manner, having the lettering show plainly and distinctly. Then your
+cheese are ready for the freight car or the vessel’s hold.
+
+Cheese are often slightly mouldy on their bandaged sides when cured
+in damp, warm weather. To obviate this, when boxing, rub the sides
+thoroughly with a dry, soft cloth and do not box until just before
+shipping. No cheese should be placed in boxes in hot weather until a
+few hours before transportation. Standing for several days in tight
+packages and exposed to a high temperature, will not only try the
+quality of cheese but will positively injure the flavor of the very
+best. If they could all go to their destination in refrigerator cars,
+this evil would be greatly ameliorated. With the facilities at hand,
+however, aim to place them on the market in as neat a shape as they
+rested on your curing room shelves.
+
+
+
+
+THE HOT IRON TEST.
+
+
+I do not know what cheese makers would do nowadays without the
+hot iron to guide them in evenly maturing curd. It is one of the
+most essential attributes of making. It should, of course, be most
+judiciously used.
+
+In 1845, Mr. L. M. Norton, of Goshen, Conn., discovered that the acid
+in curd could be gauged by stringing threads from a heated iron. He
+kept the discovery a secret for a long time but at last divulged it.
+
+To supply yourself with a handy instrument for testing acid, take
+a three-quarter inch bar of iron a foot long and set one end into
+a ferrule on a wooden handle. It can then be conveniently handled
+without burning the fingers. Heat the metal a little hotter than
+desired and then thrust for a moment into a bucket of water, to
+thoroughly clean the surface. Holding it in the left hand, take a
+piece of curd squeezed dry of whey and press against the iron. If it
+does not adhere at all, the curd is perfectly sweet, no matter how it
+may smell to you. If it clings slightly, you may be assured that acid
+is beginning to develop, so keep close watch of it. Curd ought never
+to string out threads more than one-fourth of an inch long before
+whey is drawn, and oftentimes less is desirable.
+
+Have the iron at just the right temperature or you cannot make an
+accurate test. A right temperature implies that the iron is so hot
+that the curd will fry around the edges when pressed against it, but
+not so hot that it will scorch over.
+
+Tainted and floating curds will often string threads six inches and
+more in length, and then not be fitted to grind and salt. As soon
+as acid has overcome the gaseous condition of such curd so that the
+inflation will subside, it is ready to grind, but not before. Cheese
+makers should not be afraid of souring and airing such curd too much.
+
+
+
+
+MILK.
+
+
+In the manufacture of cheese the constituents of milk demand our
+first attention, as we cannot intelligently study a subject without
+investigating its primary principles. Cow’s milk contains:
+
+  Water                                         864 parts.
+  Nitrogenous matter (caseine and albumen)       43   ”
+  Sugar of milk                                  52   ”
+  Fat                                            37   ”
+  Mineral salts                                   4   ”
+                                              —————
+                                              1,000
+
+The solids represented above are in the form of minute globules, and
+the serum in which they float is the water or “whey.” It is to unite
+these globules and separate them from the whey that is the primary
+function of cheese making. It so happens that rennet, the active
+agent in this process, besides exerting an automatic, chemical action
+on milk, imparts to the solids new and vigorous properties that give
+cheese a medicinal value to the human stomach, namely, an inceptor of
+digestion. It is imperative that a cheese maker understands enough
+about milk to instantly detect the slightest change from its sweet,
+pure, normal condition. Milk as a fluid is highly sensitive to
+unclean odors, and when it absorbs them in a greater or less degree,
+the maker should, by an olfactory test, discover the taint. Milk
+that has been tainted by a retention of the animal heat, not having
+been cooled when freshly drawn, will give off a rank, burned smell,
+nauseous in the extreme. If the taint was absorbed from odors, the
+peculiar scent of the particular stench will be indelibly impressed
+on the fluid. Mature or sour milk is more to be desired for cheese
+manufacture than milk poisoned by taint. In fact, a _slight_ maturity
+of milk is necessary—or, at least, desirable—to produce a fine
+cheese, the same as mature cream is required to develop good butter,
+only in the former the “ripeness” must be scarcely perceptible,
+while in the latter it must be well advanced. All tainted milk, and
+all milk that is “old” and nearly sour, should be unconditionally
+rejected at the cheese factory for manufacture. Do not be afraid of
+financially losing by such a rule. It is none too stringent, and
+in the end it will give your goods a trade reputation that will be
+secure and impregnable. The idea that really good cheese can be made
+out of poor milk is disproved by chemistry and common sense.
+
+
+
+
+SALT.
+
+
+One of the most important factors in cheese making is the saline
+mineral known as salt. A cheese can be manufactured gilt-edged in
+every way, but if it contains no salt, an insufficient quantity of
+it or that which is of weak, inferior quality, it is simply a mass
+of perishable, nitrogenous matter that will soon go to putrefaction.
+Salt checks the growth of the lactic acid as quickly as a rush of
+air snuffs out a candle; therefore, it has complete control over the
+quality of the cheese in this direction. It preserves that quality
+for an indefinite time, provided it exists in a sufficient proportion
+and the cheese has been scientifically made. Then, again, salt gives
+firmness and flavor to the cheese.
+
+Thus, perceiving that cheese, as a component of human food, could not
+exist without salt, the analogy between the purity of that article
+and the fine quality of cheese is at once apparent. It is needless to
+advise the use of nothing but a fine, pure grade of salt for savoring
+cheese. Perhaps, instead of needless, it is _needful_ to admonish
+manufacturers in this regard. I regret to say that I have observed
+many who held false ideas of economy about so cheap an article as
+this briny product. A difference of twenty-five cents on a barrel
+would turn their judgment in favor of the cheaper, coarser article,
+and, while really the losers thereby, they would feel complacent over
+a supposed gain.
+
+It is just such little slights as this—substituting poor for good
+salt—that help make up the discrepancy in quality already perceptible
+in American cheese. The dairymen of this country possess the most
+advantageous position of any class of dairymen in the world. For
+years their milch cattle have been bred toward the extinction of beef
+characteristics, and toward the fostering and enlargement of lacteal
+tendencies, until now, in point of blood, the general average is
+high. Intelligence, skilled labor and ingenuity are at command and
+should so leaven the products of our dairies that they should stand
+above all competitors. Then, why be “Penny wise and pound foolish,”
+when so grand a prize as national trade reputation is at stake?
+Cheese manufacturers, employ only the most experienced and careful
+help obtainable, and be willing to pay them liberally for their
+services. Look only to _the quality_ of your cheese and let the ratio
+take care of itself. No matter if it takes eleven or twelve pounds of
+milk to produce a pound of cheese, provided that cheese is gilt-edged
+in every particular. Use nothing but first-class material, from the
+rennet, coloring matter and salt that goes into the cheese to the
+scale board and the box that covers it. Let the foreign demand wane
+if it wants to—we know how to relish good cheese here at home just
+as well as our English brothers, and, in the future, we are going to
+consume more of the product _per capita_, too.
+
+
+
+
+HOME-MADE CHEESE.
+
+
+Exhaustive rules for manufacturing cheese on a small scale at home
+occasionally go the rounds of the agricultural press. Some of them
+contain ideas of real merit and some do not. All middle-aged people
+who have in younger days lived in localities where dairying reached
+even modest pretensions can recall the sweet-savored cheese room, an
+adjunct of the kitchen, whose furnishing of primitive milk utensils
+was then considered ample for the housewife’s use. Associated dairies
+or factories soon came upon the stage, and their vast superiority of
+method, coupled with the adoption of the cheddar system, marked an
+era in cheese improvement, which said in effect, if not in words,
+that “home dairy cheese must go.” The innovation of factories
+undermined and swept out of existence this small fry of amateur
+production, because home dairymen would not or could not adopt the
+cheddar improvement and manipulate their milk with skilled labor.
+Dairies associated together under factory regime facilitated such
+an easy and quick disposal of one’s milk, and at such a greatly
+enhanced profit, that the obvious convenience and economy of the new
+order of things, more than any inimical characteristic it possessed,
+pulled down the one and set up the other. It matters not, though,
+to consumers in America or England, whether the cheese they eat is
+made under the roof of a farm house on a small scale, or in a mammoth
+factory on a large one, provided the quality is good. But there are
+serious drawbacks about making up milk in diminutive quantity that
+are hard to overcome. Let us discuss them and analyze their leading
+features:
+
+I think it is safe to assume that not one person out of fifty who
+attempts to make home dairy cheese to-day but will manufacture it
+just as his fathers did fifty years ago. In their minds the whole
+process is covered by coagulation of the milk, quick cooking of the
+curd, salting it and pressing it. There is no thought of having the
+milk moderately mature, the curd thoroughly cooked and then properly
+soured, and the salt judiciously applied. The amateur knows nothing
+about the fine yet necessary points of manufacture, and so his cheese
+lacks the fine but requisite points of quality to insure it trade
+recognition. We all like good cheese to eat, but in this country,
+thanks to the skimmer, it is getting so that the good article is very
+scarce and promises to be scarcer if the skimmer’s relations with the
+factory are not soon done away with.
+
+A great many readers who live in non-cheese manufacturing districts
+appreciate mellow, rich cheese when they sometimes at long intervals
+find it on their groceryman’s counter, and vow that they would eat
+the article more if the price was cheapened and the general quality
+raised. You should, if you live a hundred miles or so from any
+factory, and if you have a few cows and your neighbor has a few more,
+club together and make up some cheese for your own use. You have a
+vivid remembrance of how your mother used to manage it years ago.
+Discard the wooden tub that she used, for now we have tin vessels
+that are far preferable. Get two or three hundred pounds of milk
+together, if possible, but do not rob it of a bit of cream—keep that
+well worked into the fluid. Have a heavy bottomed tin box with round
+corners, made at the tinner’s, one that is so shaped that it will
+fit into a large caldron kettle and yet leave a couple of inches of
+space between its outside surface and the iron sides of the kettle.
+This space is for water, which should be used as the best conductor
+to raise the temperature of the milk. Set the kettle in a brick or
+stone arch, in which kindle a slow fire. With the tin vessel filled
+with milk, and water about it in the way described, you have a cheese
+vat in miniature. Have a thermometer handy. Stir the milk often and
+do not let it get above 85° before setting. Draw the fire out before
+it has fairly reached that temperature, as the after heat will raise
+it a degree or two. Do not trust to your knowledge of the strength
+of rennet. Buy some Rennetine and carefully follow directions as
+to the amount necessary to coagulate 100 pounds of milk. Work the
+rennet in thoroughly and then cover the little “vat” up with a piece
+of sheeting. It is very important to have just enough rennet as too
+much or too little will spoil the cheese. Have your tinner make you
+two curd knives, one with perpendicular and the other with horizontal
+blades. When the coagulated milk will break squarely over the finger,
+and whey begins to start around the edges, cut it quite finely with
+the knives, using first the perpendicular and then the horizontal
+one. Raise the temperature slowly, not to 100° or 110°, but to a
+point where the curd is thoroughly cooked but not to dryness. Stir
+the curd and whey up at frequent intervals to keep it from packing.
+Do not hustle it into the press now just because you have it cooked,
+unless it is sour. Remember that the curd must mature, or, in other
+words, generate acid. Therein lies the future good quality of the
+cheese. Do not rely on your olfactory sense to gauge the sourness.
+Press a little piece of the curd against a hot iron. When it pulls
+out strings one-half of an inch long in spring, one inch long in
+midsummer and one-half inch in fall, it is sour enough to be salted.
+Have the whey all dipped off and the curd drained before it has
+reached a maturity sufficient to salt. Do not salt in hot weather
+higher than one-fourth of a pound to a hundred pounds of milk, and in
+spring and fall less. As you have, at the most, only a little curd
+to manipulate, do not let it get cold but put it in the hoop at a
+temperature of at least 75°. Do not try to save over curd for another
+batch the next day. Better have two twenty-pound cheese in two days
+than one forty-pounder during the same time. You cannot graft new
+curd onto old without lowering the quality of the whole. After you
+have a curd in the hoop do not try to press it with stone weights
+because there is so little of it. Have a small press frame and a
+screw for that purpose. These small cheese will cure quickly. Keep
+the ends well oiled, and lay them on a shelf in a warm room, where
+they should be turned and rubbed every day.
+
+The foregoing pointers are intended for persons who have some
+previous knowledge of making dairy cheese, and, therefore, minute
+details of explanation have not been given. The trouble with most
+home dairy makers is that they do not realize the importance of
+souring the curd, and so make weak, off-flavored, perishable stock.
+
+
+
+
+OCTOBER CHEESE.
+
+
+How are we to make as good cheese in October as we have been turning
+out in September? This is the mental query that will sometimes arise
+in the minds of makers whose experience is not measured by length of
+years. A one-twelfth turn of the wheel of the yearly chronological
+table ought not to produce such a vast change in lacteal affairs as
+to exert a radical change in the manufacturing process. Of course,
+the artificial subdivisions of the season would be of but small
+moment in the case if they were not to a certain extent analogous
+to natural atmospheric changes. As September wanes into October the
+summer is insidiously but surely attaining its maturity. The grass
+roots having in a prolific manner fulfilled their annual mission,
+fail to send forth the tender blade of earlier months. Blighting
+frosts sear the pastures and sap the succulence from the feed. It
+is but natural that such an alteration in climatic influence should
+leave its effect on the milk. It is a maxim of cheese making that
+you must work milk according to its condition, not expecting one
+invariable rule to cover the whole science, but keeping in mind
+numberless distinct methods of treatment, for instant application as
+exigencies arise.
+
+As a general thing, less acid is deemed necessary for the October
+make than was applied to the September product. I believe that in
+making this important change the majority of manufacturers are too
+abrupt in method and reduce the standard of ripeness prematurely in
+point of time. A certain amount of acid is necessary to impart flavor
+and insure good keeping qualities, hence more of it is required in
+hot weather than in cold, as a defense against high temperature.
+Many think that as soon as the hot days are passed the need of an
+advanced curd maturity is passed also, and make almost sweet cheese.
+If there is any thing that is fraught with dire consequences in
+cheese making, it is extremes practiced in the _modus operandi_.
+Avoid anything so derogatory and let conservatism characterize your
+movements. Despite seasons and weather, and climate, we have got to
+apply just so much acid to cheese to make it palatable and mellow,
+and if the product is liable to encounter crucial weather enough more
+sourness to retain the flavor established is imperative. But what
+weakens fall goods is that in decreasing the acid scale in view of
+cold weather ahead the retrograde is pushed beyond its own needs
+and infringes on the quality of the cheese. In their zeal to have
+the standard just right, I have known old makers to produce a lot
+of weak October cheese before they realized where the trouble was.
+Better have a little fullness of acid on fall stock than not enough.
+“Doctor, why is it that you always buy a late fall cheese for winter
+family use?” was asked one of the medical fraternity by a factory
+employee as he delivered a forty pounder at his door. “We have in
+my estimation far better goods on the shelves made in August and
+September, and the price is the same.” “Well, you see, young man,”
+said the Doctor, pouring some quinine into a vial, “I have a notion
+that late fall cheese is healthier; the milk is no richer, perhaps,
+than in September but the air is cool and pure, and, of course, you
+know what a debilitating effect heat waves and miasmatic atmospheric
+currents have on milk. Well, the less poison there is in the air,
+the less there will be in the milk and subsequently in the cheese,
+consequently my choice.” I believe the man of pills argued in the
+right direction there, but then there is happily a way of expunging
+from the curd infections absorbed by the milk from the atmosphere,
+namely, airing.
+
+The most diabolical enemy of October cheese is the skimmer. In
+factories where that is unused there is a clear field for developing
+fine stock, but there is no concealing the fact that all attempts to
+smooth over the impoverishing effects of its use by the most skilled
+treatment are futile and unavailing. If all of the good endeavor
+to make mellow, rich cheese out of substance that is but dross was
+expended in divorcing the illegitimate union of creamery and cheese
+factory, incalculable benefit would accrue to dairy interests.
+
+This month avoid cold draughts through the make-room during the
+scalding process, as a vat presents a large surface for a current
+of air to exert a chilling effect upon. Be sure and cook the curd
+enough. There is a vast amount of fall made cheese that comes to
+grief through insufficient scalding. If you do not bake a loaf of
+bread thoroughly, you have a doughy and unpalatable article of food,
+and if curd is not cooked until it has passed the raw state, it
+will retain a certain quantity of whey and damage the product on
+the shelves. This is the cause of strong-flavored, flabby-textured
+cheese. A gentleman of long experience in the trade has said: “The
+truth is, as it is difficult to cure cheese in cold weather, it ought
+to be cooked more than will answer in hot weather, and sour less, as
+the tendency is to acidulation in a cool atmosphere, in consequence
+of the moisture not drying out soon enough.” To this we can append
+the suggestion of never trying to cure a cheese in a cool atmosphere,
+for the result will be a failure. A cheese cannot help but grow old
+in a cold room but it will never cure.
+
+
+
+
+A SIGNIFICANT REPORT.
+
+
+A recent issue of the Utica _Herald_ contains the following:
+
+  A New York gentleman, who has recently returned from Liverpool,
+  writes to a friend in this city and reports the situation healthy
+  on the other side, but says New York State cheese are done for
+  as far as fine cheese goes. It is the same old trouble we have
+  mentioned time and again, too much cheese to the pound of milk—no
+  body. Canada, and even New Zealand, are taking the trade of fine
+  cheese from the States. Our factory men will wake up to the fact
+  some day and find their goods are only second class. In fact, it is
+  about so now. New York State cheese sell under Canada all the way
+  from ½ @ 1c. a pound. We have preached this a long while but it is
+  beginning to be realized now. This accounts for the large shipments
+  from Canada during the last two months, and the small ones from
+  here.
+
+Cheese industry is not yet of sufficient magnitude to exert any
+marked influence on the European markets, but as the dairy industry
+is constantly expanding here, and the State’s product must stand on
+its own merits, it behooves manufacturers to avoid the pit that their
+brothers of the Empire State have inadvertently stumbled into. We
+consume a large amount of cheese here at home, and why are not our
+stomachs as worthy to be catered to as are the digestive receptacles
+of our English cousins across the pond? Yet there is no alarm in
+cheese circles as to deteriorated quality until British buyers find
+something that suits them better and for which they are willing to
+pay more. Truly cheese-eating New Yorkers are a very patient people.
+We have before us the file of a leading American cheese report of
+1868—twenty years ago. It says: “We are behind the Canadians as
+regards firmness, but ahead of them in point of flavor. The same
+relation exists between American and Swedish cheese; also, between
+American and English cheese, and other European makes, with the
+exception of a few of the best English brands, which are equal if
+not superior to our finest grades, as regards flavor, and superior
+in fineness and firmness of texture.” This was America’s prestige
+a score of years ago. Why has it not been sustained? The cause is
+clear to the most obdurate. Producers supposed their cheese supreme
+in the English markets and have been abusing an established trade
+reputation with impunity. Their folly is now apparent, and the
+question naturally arises, Will they play the role of the prodigal
+son and return to a path of trade rectitude? That implies that the
+banns that unite the creamery and the cheese factory be irrevocably
+severed—send the skimmer higher than Gilroy’s kite, as it were.
+The American people can appreciate good cheese just as well as the
+English. We want good butter, too, but not at the cost of the cheese
+quality. That is not necessary, and a few years ago we did not deem
+it so, either. Why should there be a tendency in that direction
+now? We are now better equipped in every department to send out
+better cheese than we did in 1868, yet notice the difference in the
+two reports quoted. We are better equipped, because we have more
+scientific appliances for handling milk. Our milk is better, because
+the pastures are improved, and a finer grade of stock feeds upon
+them. Makers of to-day who rely on the accumulated cheese wisdom
+handed down through two decades of experience should be rich enough
+in knowledge to at least not retrograde from the standard of 1868.
+Let us for one moment lay reform in the tariff, and reform in the
+civil service on the table and talk, think and act about reform in
+cheese. Michigan always takes a front seat when reformation of any
+kind is agitated. We are satisfied she will not take a back seat
+now. There has probably not been such a tendency in this State as in
+other localities to rob milk at both ends and on the sides before
+it is suffered to coagulate in cheese, but let us smother what
+infection there is before it becomes an established blight on the
+Wolverine product. We are satisfied that our dairymen are alive to
+their interests here, and will not drift away from safe anchorage. A
+shipping cheese requires more body, or, in other words, more acid and
+firmness than a cheese designed for home consumption. This is partly
+due to the fact that such a quality is demanded by European consumers
+and partly because an ocean voyage necessitates it. It takes more
+milk to make such cheese, and less milk to produce the softer and
+more perishable home trade goods. In thrusting the cheaper article on
+the foreign market, New Yorkers have staked a hazardous venture and
+lost. Nothing is said about the skimmer, but it gets in its insidious
+work all the same—not under full cream brands, probably. We do not
+insinuate that, but the markets are crowded with night and flat
+skims, occupying space that should be filled with richer goods. Skims
+are sent over to England when they really want full cream. Canada and
+New Zealand step in with a fine quality of the latter brand, and
+they take it even in preference to the States’ best offering. We hold
+skimmed cheese greatly responsible for the trade depression under
+which the American article is now laboring. It is high time that the
+dry, hard stuff was known no more in all the earth.
+
+
+
+
+PREPARED RENNET AND COLOR.
+
+
+The value to the cheese trade of scientifically prepared rennet and
+annotto color cannot be over estimated. Rennet extract, and one
+quality annottoine, are not in general use, but they should be. With
+the home prepared infusion of both articles, we have a thousand
+diverse shades of quality and degrees of strength, and, worst of
+all, they are often applied to the milk, hit or miss. The result is
+unevenness in cheese quality and color, where there should be perfect
+uniformity. We advise all makers to renounce as fast as practicable
+the old, often unsatisfactory method of soaking rennet skins, and
+steeping annotto seed, and adopt reliably prepared extracts of these
+essential cheese ingredients.
+
+
+
+
+CHEESE THAT HUFF.
+
+
+A good, properly manufactured cheese will never huff up on the
+surface, or swell the bandage to the point of protuberance. Cheese
+often huff slightly when curing, and afterward flatten into a
+smooth, firm surface, but they are never No. 1 stock. The writer can
+remember fifteen years back when makers did not understand working
+gaseous curds as they do now. Sales and shipments were far between
+then, and cheese accumulated in great numbers in factories. It was
+no uncommon thing in the years ’73 and ’74, in passing through a
+curing room containing 500 or 600 cheese, to find a large percentage
+of the umber covered with immense blisters, that held in retention
+offensive smelling gases. Every day the maker would lance these
+unhealthy swellings with a wire or goose quill, only to have them
+shortly after bulge out in another place. Besides these partially
+affected cheese, there were often days’ makes of those that would
+huff all over, swell out like huge puff balls till a slight jar
+would have rolled them from the shelves. These were the product of
+floating curds with the gas all left in. A decade and a half ago
+farmers did not take the same care of their milk that they do now.
+They were not versed in dairy literature to any extent, and did not
+see the importance of speedily expelling animal heat from milk or of
+always furnishing their cows with wholesome drinking water. Hence,
+tainted milk was more often the rule than the exception. With the
+present bettered quality of milk and the improved skill of makers in
+handling it, inflative cheese ought to now be foreign to the curing
+room. Bad taints are at present seldom met with, but slight ones
+creep in unawares, unless the maker is vigilant, and then it is his
+business to eradicate the ill-savor. Sour until acid has completely
+overcome the gas, grind twice, and give the curd a prolonged airing
+by frequent stirring. Try the prolonged stirring on common curds that
+are hot—too hot to go immediately to press—and notice how it will
+enhance the flavor of the cheese.
+
+
+
+
+FACTORY UTENSILS.
+
+
+As a maker, I have had opportunities of seeing milk in all stages and
+in all conditions, and I have found it an invariable rule that the
+milk furnished by farmers who read and studied the dairy question
+in all of its phases; who were conversant with dairy literature and
+adopted the most improved methods extant for producing an abundant,
+pure and rich flow of milk, were enough affected by the ideas
+absorbed from library and press to be unconsciously moulded by their
+influence. On the other hand, farmers who never read; who avoided
+all progressive methods as “new-fangled notions” and clung to the
+primitive ways of their ancestors, forgetful that those ancestors
+adopted nothing new because there was no new thing to adopt,
+furnished milk sometimes good, often poor, and never profitable to
+themselves. A man who doesn’t have an opinion on the relative value
+of milch breeds, who doesn’t know how to feed scientifically and who
+has narrow conceptions of systematic dairying, generally is, in this
+competitive epoch, an agricultural cipher.
+
+The other day the writer inspected two cheese factories, separated
+by only a few miles, each being located on admirable sites and
+accessible to water. Previous to my visit I had been told that the
+maker in B——’s factory had, during the past season, produced poor,
+uneven stock, which was a surprise to his friends, as his trade
+reputation was excellent. On the other hand, I knew that the cheese
+from W——’s factory, although manufactured by a man of less experience
+than his rival, had sold at prices above the former’s and footed up
+a lower ratio. As soon as I had seen the interior of each building
+the sequel was made plain to me, and subsequent investigation proved
+it. The first named factory was a mere shell, furnished with utensils
+both primitive and worn out; the second was a tight, plastered
+structure and equipped with all of the paraphernalia essential to
+a modern cheese building. The competition was like running a pony
+express against a United States mail train.
+
+A cheese factory needs good, improved utensils, just the same as a
+farm requires machinery of the latest patterns. It should have a
+boiler, because steam heating is cheaper, more under control and,
+consequently, safer for scalding than where fire under heating is
+employed. It should be furnished with a curd mill, because with one
+the maker has the acid almost completely under control. Without
+a mill, the whey must be retained until nearly enough acid has
+developed to meet the requisite gauge. Then it must be hastily drawn
+and hastily salted, with the whey not all out of it; too often the
+acid is in advance of the maker’s expectations. Cheese made in this
+way from day to day cannot help but be uneven in flavor, in salt and
+in acid. “Salting in the whey,” as it is called, without a mill is
+wasteful, too. As the whey flows off, the constant tendency of the
+curd is to pack, and hand manipulation to prevent this will start
+white whey, the life blood of the cheese, in wasteful quantities.
+With a mill to use, all this is changed. The whey can be drawn when
+but very little acid has appeared, and the curd, packed and drained,
+waits for the sourness to develop there. It matures more slowly than
+when submerged in whey, and when the right point is reached the iron
+teeth of the mill attack it and tear it up and salt it when in a _dry
+state_, which is a great advantage. The make-room should be supplied
+with a gang press and patent hoops, because one screw will compress a
+dozen cheese and solidify them more firmly than old fashioned single
+screws. A good cheese can be spoiled after it is in the hoop by
+insufficient pressing.
+
+I consider the latest milk handling devices almost as essential
+in a modern factory or creamery as the practical knowledge of the
+maker. Not merely for labor saving purposes should manufactories be
+so supplied, but because the demands of present trade require dairy
+products of a complexion difficult to attain without. It is a “penny
+wise and pound foolish” policy to scantily furnish a butter or cheese
+plant when thereby the loss on one under price sale would have more
+than covered the deficiency in tools.
+
+
+
+
+TO CHEESE MAKERS.
+
+
+The main point why Canadian cheese is lately quoted higher than
+American is that they are ahead of us =on uniformity=. To obtain this
+a uniform Rennet and a uniform Color are most essential. No matter
+how careful the maker is, he can never get it as uniform as our
+
+
+  Chr. Hansen’s Rennet Extract
+
+  ——AND——
+
+  CHEESE COLOR.
+
+Taking into account the poor Rennets in the market, the saving by
+making your own Extract is very small; and as to Cheese Color, even
+if you did save 60 cents a gallon it would only cost you =5 cents
+more to color 1000 pounds of cheese=, a mere nothing if ours is
+at all more uniform and of a more natural shade, =bright, clean,
+creamy=, and not dull reddish.
+
+Consider this, and give our Extract and Color a fair trial.
+
+If you prefer Rennet in dry shape try our Rennet Tablets, which are
+quite as cheap and a great deal handier to use than powder.
+
+Send for Price List to
+
+
+  CHR. HANSEN’S LABORATORY,
+  (Little Falls, N. Y.,) or
+  17 Dearborn Street,       CHICAGO, ILL.
+
+  J. D. FREDERIKSEN, ESQ.,       BROCKVILLE, Ont., July 17, 1886.
+
+  CHR. HANSEN’S LABORATORY, LITTLE FALLS, N. Y.:
+
+  _Dear Sir_—Your Rennet and Color are positively the finest
+  that have ever been introduced into this section. I know this
+  personally. Our cheese are finer this year than ever before in
+  consequence of using those goods.
+
+  Yours respectfully,
+  D. DERBYSHIRE, Pres’t E. O. D. A.
+
+
+
+
+  CREAMERY, CHEESE FACTORY AND
+  DAIRY
+
+  MACHINERY AND SUPPLIES.
+
+  [Illustration: Decoration]
+
+  D. H. ROE & CO.,
+
+  CHICAGO, ILL.,
+
+  CARRY A FULL LINE OF ALL KINDS OF SUPPLIES, SUCH AS
+
+  Butter Cloth, Cheese Cloth, Cloth Circles,
+
+  RENNETS,
+
+  RENNET EXTRACT, RENNET TABLETS, CHEESE
+  COLOR, BUTTER COLOR, CHEESE GREASE,
+  SALT, BUTTER TUBS, CHEESE
+  BOXES, CHEESE BOX
+  STOCK, &c., &c.
+
+  ALSO A FULL LINE OF
+
+  Cream Vats, Milk Vats, Self Heating Vats, Churns,
+  Steam Boilers, Steam Engines, Separators,
+  Cheese Presses, Butter Printers,
+  Etc., Etc., Etc.
+
+  Send for Price List, and mention the “Hand-Book.”
+
+[Illustration: Barrels]
+
+Acknowledged to be the only proper CHEESE DRESSING on the market.
+
+  _Manufactured only by_ =B. J. JOHNSON & CO.,
+  MILWAUKEE, WIS.=
+
+
+
+
+THE MICHIGAN DAIRYMAN.
+
+_Official Organ of the Michigan Dairyman’s Association._
+
+50 CENTS PER YEAR IN ADVANCE.
+
+_Sample Copies sent Free._
+
+
+  _Address the Publishers_,
+  E. A. STOWE & BRO.,
+  Grand Rapids,       Michigan.
+
+
+
+
+  Transcriber’s Notes
+
+  pg 12 Changed: the whole mass is preceptibly
+             to: the whole mass is perceptibly
+
+  pg 15 Changed: been thoroughly agitated vithout bruising
+             to: been thoroughly agitated without bruising
+
+  pg 16 Changed: slightly (perpaps in five minutes
+             to: slightly (perhaps in five minutes
+
+  pg 17 Changed: sure test of which I are aware
+             to: sure test of which I am aware
+
+  pg 19 Changed: A maker who can preceive
+             to: A maker who can perceive
+
+  pg 20 Changed: expel heat as to expugn the gaseous odors
+             to: expel heat as to expunge the gaseous odors
+
+  pg 21 Changed: tht last thing stirring up the surface
+             to: that last thing stirring up the surface
+
+  pg 33 Changed: the rennet or gastic juice it contains
+             to: the rennet or gastric juice it contains
+
+  pg 34 Changed: been secreted in their mammilary glands
+             to: been secreted in their mammillary glands
+
+  pg 35 Changed: seat on the bench of humilation
+             to: seat on the bench of humiliation
+
+  pg 36 Changed: inexorably exacts from the physicial
+             to: inexorably exacts from the physical
+
+  pg 37 Changed: As all patirons are served
+             to: As all patrons are served
+
+  pg 39 Changed: lengthway to lengthways (two times)
+
+  pg 45 Changed: afraid af financially losing
+             to: afraid of financially losing
+
+  pg 52 Changed: a way of expugning from the curd
+             to: a way of expunging from the curd
+
+  pg 52 Changed: benefit would accrue to dairy interetes
+             to: benefit would accrue to dairy interests
+
+  pg 55 Changed: scientific appliances for handling miik
+             to: scientific appliances for handling milk
+
+  pg 55 Changed: before it becomes an establisted
+             to: before it becomes an established
+
+  pg 58 Changed: who does’t know how to feed scientifically
+             to: who doesn’t know how to feed scientifically
+
+
+
+*** END OF THE PROJECT GUTENBERG EBOOK HAND-BOOK ON CHEESE MAKING ***
+
+
+    
+
+Updated editions will replace the previous one—the old editions will
+be renamed.
+
+Creating the works from print editions not protected by U.S. copyright
+law means that no one owns a United States copyright in these works,
+so the Foundation (and you!) can copy and distribute it in the United
+States without permission and without paying copyright
+royalties. Special rules, set forth in the General Terms of Use part
+of this license, apply to copying and distributing Project
+Gutenberg™ electronic works to protect the PROJECT GUTENBERG™
+concept and trademark. Project Gutenberg is a registered trademark,
+and may not be used if you charge for an eBook, except by following
+the terms of the trademark license, including paying royalties for use
+of the Project Gutenberg trademark. If you do not charge anything for
+copies of this eBook, complying with the trademark license is very
+easy. You may use this eBook for nearly any purpose such as creation
+of derivative works, reports, performances and research. Project
+Gutenberg eBooks may be modified and printed and given away—you may
+do practically ANYTHING in the United States with eBooks not protected
+by U.S. copyright law. Redistribution is subject to the trademark
+license, especially commercial redistribution.
+
+
+START: FULL LICENSE
+
+THE FULL PROJECT GUTENBERG LICENSE
+
+PLEASE READ THIS BEFORE YOU DISTRIBUTE OR USE THIS WORK
+
+To protect the Project Gutenberg™ mission of promoting the free
+distribution of electronic works, by using or distributing this work
+(or any other work associated in any way with the phrase “Project
+Gutenberg”), you agree to comply with all the terms of the Full
+Project Gutenberg™ License available with this file or online at
+www.gutenberg.org/license.
+
+Section 1. General Terms of Use and Redistributing Project Gutenberg™
+electronic works
+
+1.A. By reading or using any part of this Project Gutenberg™
+electronic work, you indicate that you have read, understand, agree to
+and accept all the terms of this license and intellectual property
+(trademark/copyright) agreement. If you do not agree to abide by all
+the terms of this agreement, you must cease using and return or
+destroy all copies of Project Gutenberg™ electronic works in your
+possession. If you paid a fee for obtaining a copy of or access to a
+Project Gutenberg™ electronic work and you do not agree to be bound
+by the terms of this agreement, you may obtain a refund from the person
+or entity to whom you paid the fee as set forth in paragraph 1.E.8.
+
+1.B. “Project Gutenberg” is a registered trademark. It may only be
+used on or associated in any way with an electronic work by people who
+agree to be bound by the terms of this agreement. There are a few
+things that you can do with most Project Gutenberg™ electronic works
+even without complying with the full terms of this agreement. See
+paragraph 1.C below. There are a lot of things you can do with Project
+Gutenberg™ electronic works if you follow the terms of this
+agreement and help preserve free future access to Project Gutenberg™
+electronic works. See paragraph 1.E below.
+
+1.C. The Project Gutenberg Literary Archive Foundation (“the
+Foundation” or PGLAF), owns a compilation copyright in the collection
+of Project Gutenberg™ electronic works. Nearly all the individual
+works in the collection are in the public domain in the United
+States. If an individual work is unprotected by copyright law in the
+United States and you are located in the United States, we do not
+claim a right to prevent you from copying, distributing, performing,
+displaying or creating derivative works based on the work as long as
+all references to Project Gutenberg are removed. Of course, we hope
+that you will support the Project Gutenberg™ mission of promoting
+free access to electronic works by freely sharing Project Gutenberg™
+works in compliance with the terms of this agreement for keeping the
+Project Gutenberg™ name associated with the work. You can easily
+comply with the terms of this agreement by keeping this work in the
+same format with its attached full Project Gutenberg™ License when
+you share it without charge with others.
+
+1.D. The copyright laws of the place where you are located also govern
+what you can do with this work. Copyright laws in most countries are
+in a constant state of change. If you are outside the United States,
+check the laws of your country in addition to the terms of this
+agreement before downloading, copying, displaying, performing,
+distributing or creating derivative works based on this work or any
+other Project Gutenberg™ work. The Foundation makes no
+representations concerning the copyright status of any work in any
+country other than the United States.
+
+1.E. Unless you have removed all references to Project Gutenberg:
+
+1.E.1. The following sentence, with active links to, or other
+immediate access to, the full Project Gutenberg™ License must appear
+prominently whenever any copy of a Project Gutenberg™ work (any work
+on which the phrase “Project Gutenberg” appears, or with which the
+phrase “Project Gutenberg” is associated) is accessed, displayed,
+performed, viewed, copied or distributed:
+
+    This eBook is for the use of anyone anywhere in the United States and most
+    other parts of the world at no cost and with almost no restrictions
+    whatsoever. You may copy it, give it away or re-use it under the terms
+    of the Project Gutenberg License included with this eBook or online
+    at www.gutenberg.org. If you
+    are not located in the United States, you will have to check the laws
+    of the country where you are located before using this eBook.
+  
+1.E.2. If an individual Project Gutenberg™ electronic work is
+derived from texts not protected by U.S. copyright law (does not
+contain a notice indicating that it is posted with permission of the
+copyright holder), the work can be copied and distributed to anyone in
+the United States without paying any fees or charges. If you are
+redistributing or providing access to a work with the phrase “Project
+Gutenberg” associated with or appearing on the work, you must comply
+either with the requirements of paragraphs 1.E.1 through 1.E.7 or
+obtain permission for the use of the work and the Project Gutenberg™
+trademark as set forth in paragraphs 1.E.8 or 1.E.9.
+
+1.E.3. If an individual Project Gutenberg™ electronic work is posted
+with the permission of the copyright holder, your use and distribution
+must comply with both paragraphs 1.E.1 through 1.E.7 and any
+additional terms imposed by the copyright holder. Additional terms
+will be linked to the Project Gutenberg™ License for all works
+posted with the permission of the copyright holder found at the
+beginning of this work.
+
+1.E.4. Do not unlink or detach or remove the full Project Gutenberg™
+License terms from this work, or any files containing a part of this
+work or any other work associated with Project Gutenberg™.
+
+1.E.5. Do not copy, display, perform, distribute or redistribute this
+electronic work, or any part of this electronic work, without
+prominently displaying the sentence set forth in paragraph 1.E.1 with
+active links or immediate access to the full terms of the Project
+Gutenberg™ License.
+
+1.E.6. You may convert to and distribute this work in any binary,
+compressed, marked up, nonproprietary or proprietary form, including
+any word processing or hypertext form. However, if you provide access
+to or distribute copies of a Project Gutenberg™ work in a format
+other than “Plain Vanilla ASCII” or other format used in the official
+version posted on the official Project Gutenberg™ website
+(www.gutenberg.org), you must, at no additional cost, fee or expense
+to the user, provide a copy, a means of exporting a copy, or a means
+of obtaining a copy upon request, of the work in its original “Plain
+Vanilla ASCII” or other form. Any alternate format must include the
+full Project Gutenberg™ License as specified in paragraph 1.E.1.
+
+1.E.7. Do not charge a fee for access to, viewing, displaying,
+performing, copying or distributing any Project Gutenberg™ works
+unless you comply with paragraph 1.E.8 or 1.E.9.
+
+1.E.8. You may charge a reasonable fee for copies of or providing
+access to or distributing Project Gutenberg™ electronic works
+provided that:
+
+    • You pay a royalty fee of 20% of the gross profits you derive from
+        the use of Project Gutenberg™ works calculated using the method
+        you already use to calculate your applicable taxes. The fee is owed
+        to the owner of the Project Gutenberg™ trademark, but he has
+        agreed to donate royalties under this paragraph to the Project
+        Gutenberg Literary Archive Foundation. Royalty payments must be paid
+        within 60 days following each date on which you prepare (or are
+        legally required to prepare) your periodic tax returns. Royalty
+        payments should be clearly marked as such and sent to the Project
+        Gutenberg Literary Archive Foundation at the address specified in
+        Section 4, “Information about donations to the Project Gutenberg
+        Literary Archive Foundation.”
+    
+    • You provide a full refund of any money paid by a user who notifies
+        you in writing (or by e-mail) within 30 days of receipt that s/he
+        does not agree to the terms of the full Project Gutenberg™
+        License. You must require such a user to return or destroy all
+        copies of the works possessed in a physical medium and discontinue
+        all use of and all access to other copies of Project Gutenberg™
+        works.
+    
+    • You provide, in accordance with paragraph 1.F.3, a full refund of
+        any money paid for a work or a replacement copy, if a defect in the
+        electronic work is discovered and reported to you within 90 days of
+        receipt of the work.
+    
+    • You comply with all other terms of this agreement for free
+        distribution of Project Gutenberg™ works.
+    
+
+1.E.9. If you wish to charge a fee or distribute a Project
+Gutenberg™ electronic work or group of works on different terms than
+are set forth in this agreement, you must obtain permission in writing
+from the Project Gutenberg Literary Archive Foundation, the manager of
+the Project Gutenberg™ trademark. Contact the Foundation as set
+forth in Section 3 below.
+
+1.F.
+
+1.F.1. Project Gutenberg volunteers and employees expend considerable
+effort to identify, do copyright research on, transcribe and proofread
+works not protected by U.S. copyright law in creating the Project
+Gutenberg™ collection. Despite these efforts, Project Gutenberg™
+electronic works, and the medium on which they may be stored, may
+contain “Defects,” such as, but not limited to, incomplete, inaccurate
+or corrupt data, transcription errors, a copyright or other
+intellectual property infringement, a defective or damaged disk or
+other medium, a computer virus, or computer codes that damage or
+cannot be read by your equipment.
+
+1.F.2. LIMITED WARRANTY, DISCLAIMER OF DAMAGES - Except for the “Right
+of Replacement or Refund” described in paragraph 1.F.3, the Project
+Gutenberg Literary Archive Foundation, the owner of the Project
+Gutenberg™ trademark, and any other party distributing a Project
+Gutenberg™ electronic work under this agreement, disclaim all
+liability to you for damages, costs and expenses, including legal
+fees. YOU AGREE THAT YOU HAVE NO REMEDIES FOR NEGLIGENCE, STRICT
+LIABILITY, BREACH OF WARRANTY OR BREACH OF CONTRACT EXCEPT THOSE
+PROVIDED IN PARAGRAPH 1.F.3. YOU AGREE THAT THE FOUNDATION, THE
+TRADEMARK OWNER, AND ANY DISTRIBUTOR UNDER THIS AGREEMENT WILL NOT BE
+LIABLE TO YOU FOR ACTUAL, DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE OR
+INCIDENTAL DAMAGES EVEN IF YOU GIVE NOTICE OF THE POSSIBILITY OF SUCH
+DAMAGE.
+
+1.F.3. LIMITED RIGHT OF REPLACEMENT OR REFUND - If you discover a
+defect in this electronic work within 90 days of receiving it, you can
+receive a refund of the money (if any) you paid for it by sending a
+written explanation to the person you received the work from. If you
+received the work on a physical medium, you must return the medium
+with your written explanation. The person or entity that provided you
+with the defective work may elect to provide a replacement copy in
+lieu of a refund. If you received the work electronically, the person
+or entity providing it to you may choose to give you a second
+opportunity to receive the work electronically in lieu of a refund. If
+the second copy is also defective, you may demand a refund in writing
+without further opportunities to fix the problem.
+
+1.F.4. Except for the limited right of replacement or refund set forth
+in paragraph 1.F.3, this work is provided to you ‘AS-IS’, WITH NO
+OTHER WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PURPOSE.
+
+1.F.5. Some states do not allow disclaimers of certain implied
+warranties or the exclusion or limitation of certain types of
+damages. If any disclaimer or limitation set forth in this agreement
+violates the law of the state applicable to this agreement, the
+agreement shall be interpreted to make the maximum disclaimer or
+limitation permitted by the applicable state law. The invalidity or
+unenforceability of any provision of this agreement shall not void the
+remaining provisions.
+
+1.F.6. INDEMNITY - You agree to indemnify and hold the Foundation, the
+trademark owner, any agent or employee of the Foundation, anyone
+providing copies of Project Gutenberg™ electronic works in
+accordance with this agreement, and any volunteers associated with the
+production, promotion and distribution of Project Gutenberg™
+electronic works, harmless from all liability, costs and expenses,
+including legal fees, that arise directly or indirectly from any of
+the following which you do or cause to occur: (a) distribution of this
+or any Project Gutenberg™ work, (b) alteration, modification, or
+additions or deletions to any Project Gutenberg™ work, and (c) any
+Defect you cause.
+
+Section 2. Information about the Mission of Project Gutenberg™
+
+Project Gutenberg™ is synonymous with the free distribution of
+electronic works in formats readable by the widest variety of
+computers including obsolete, old, middle-aged and new computers. It
+exists because of the efforts of hundreds of volunteers and donations
+from people in all walks of life.
+
+Volunteers and financial support to provide volunteers with the
+assistance they need are critical to reaching Project Gutenberg™’s
+goals and ensuring that the Project Gutenberg™ collection will
+remain freely available for generations to come. In 2001, the Project
+Gutenberg Literary Archive Foundation was created to provide a secure
+and permanent future for Project Gutenberg™ and future
+generations. To learn more about the Project Gutenberg Literary
+Archive Foundation and how your efforts and donations can help, see
+Sections 3 and 4 and the Foundation information page at www.gutenberg.org.
+
+Section 3. Information about the Project Gutenberg Literary Archive Foundation
+
+The Project Gutenberg Literary Archive Foundation is a non-profit
+501(c)(3) educational corporation organized under the laws of the
+state of Mississippi and granted tax exempt status by the Internal
+Revenue Service. The Foundation’s EIN or federal tax identification
+number is 64-6221541. Contributions to the Project Gutenberg Literary
+Archive Foundation are tax deductible to the full extent permitted by
+U.S. federal laws and your state’s laws.
+
+The Foundation’s business office is located at 809 North 1500 West,
+Salt Lake City, UT 84116, (801) 596-1887. Email contact links and up
+to date contact information can be found at the Foundation’s website
+and official page at www.gutenberg.org/contact
+
+Section 4. Information about Donations to the Project Gutenberg
+Literary Archive Foundation
+
+Project Gutenberg™ depends upon and cannot survive without widespread
+public support and donations to carry out its mission of
+increasing the number of public domain and licensed works that can be
+freely distributed in machine-readable form accessible by the widest
+array of equipment including outdated equipment. Many small donations
+($1 to $5,000) are particularly important to maintaining tax exempt
+status with the IRS.
+
+The Foundation is committed to complying with the laws regulating
+charities and charitable donations in all 50 states of the United
+States. Compliance requirements are not uniform and it takes a
+considerable effort, much paperwork and many fees to meet and keep up
+with these requirements. We do not solicit donations in locations
+where we have not received written confirmation of compliance. To SEND
+DONATIONS or determine the status of compliance for any particular state
+visit www.gutenberg.org/donate.
+
+While we cannot and do not solicit contributions from states where we
+have not met the solicitation requirements, we know of no prohibition
+against accepting unsolicited donations from donors in such states who
+approach us with offers to donate.
+
+International donations are gratefully accepted, but we cannot make
+any statements concerning tax treatment of donations received from
+outside the United States. U.S. laws alone swamp our small staff.
+
+Please check the Project Gutenberg web pages for current donation
+methods and addresses. Donations are accepted in a number of other
+ways including checks, online payments and credit card donations. To
+donate, please visit: www.gutenberg.org/donate.
+
+Section 5. General Information About Project Gutenberg™ electronic works
+
+Professor Michael S. Hart was the originator of the Project
+Gutenberg™ concept of a library of electronic works that could be
+freely shared with anyone. For forty years, he produced and
+distributed Project Gutenberg™ eBooks with only a loose network of
+volunteer support.
+
+Project Gutenberg™ eBooks are often created from several printed
+editions, all of which are confirmed as not protected by copyright in
+the U.S. unless a copyright notice is included. Thus, we do not
+necessarily keep eBooks in compliance with any particular paper
+edition.
+
+Most people start at our website which has the main PG search
+facility: www.gutenberg.org.
+
+This website includes information about Project Gutenberg™,
+including how to make donations to the Project Gutenberg Literary
+Archive Foundation, how to help produce our new eBooks, and how to
+subscribe to our email newsletter to hear about new eBooks.
+
+

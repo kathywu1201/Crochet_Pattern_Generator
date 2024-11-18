@@ -1,0 +1,82 @@
+/* src/app/about/About.module.css */
+.about {
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #333;
+}
+
+.underline {
+    width: 100px;
+    height: 1px;
+    background-color: #ccc;
+    margin: 0 auto 40px;
+}
+
+
+.content {
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.6;
+    color: #666;
+}
+
+.content p {
+    margin-bottom: 24px;
+}
+
+.content strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.content a {
+    color: inherit;
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+}
+
+.content a:hover {
+    opacity: 0.7;
+}
+
+.contactButton {
+    display: inline-block;
+    background-color: #6f6f6f;
+    color: white !important;
+    padding: 15px 40px;
+    border-radius: 4px;
+    text-decoration: none !important;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+}
+
+.contactButton:hover {
+    background-color: #555555;
+    opacity: 1 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about {
+        padding: 60px 20px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .content {
+        font-size: 16px;
+    }
+}

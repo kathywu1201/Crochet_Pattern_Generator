@@ -1,0 +1,136 @@
+.section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+}
+
+.title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #333;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.underline {
+    width: 100px;
+    height: 1px;
+    background-color: #ccc;
+    margin: 0 auto 40px;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 40px;
+}
+
+.aboutNewsletter {
+    text-align: left;
+}
+
+.aboutNewsletter h3 {
+    margin: 20px 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.aboutNewsletter p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.newsletterGrid {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.newsletterCard {
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.newsletterCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.date,
+.readTime {
+    font-size: 14px;
+    color: #666;
+}
+
+.newsletterTitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.excerpt {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.readMore {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.readMore:hover {
+    color: #333;
+}
+
+.viewAllContainer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.viewAllButton {
+    display: inline-block;
+    background-color: #6f6f6f;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.viewAllButton:hover {
+    background-color: #555555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 20px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .newsletterTitle {
+        font-size: 20px;
+    }
+}

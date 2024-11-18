@@ -1,0 +1,189 @@
+.container {
+    /* margin-top: 67px; */
+    /* Account for fixed header */
+    min-height: 1200px;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('/assets/hero_background.png');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.heroContent {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.heroContent h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.heroContent p {
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+/* About Section */
+.about {
+    background: white;
+    padding: 60px 20px;
+}
+
+.aboutContent {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.aboutContent h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.aboutContent p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.episodesList {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.episodeCard {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.episodeHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.podcast {
+    font-size: 12px;
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.episodeTitle {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.date {
+    font-size: 12px;
+    color: #666;
+}
+
+.playButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+.playButton svg {
+    font-size: 40px;
+}
+
+.progressContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.timeStamp {
+    font-size: 12px;
+    color: #666;
+    min-width: 60px;
+}
+
+.progressBar {
+    flex: 1;
+    height: 4px;
+    background: #eee;
+    border-radius: 2px;
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #666;
+    border-radius: 2px;
+    width: 0%;
+}
+
+.episodeFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.descriptionToggle {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.volumeIcon {
+    color: #666;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .aboutPodcast {
+        text-align: center;
+    }
+}
+
+.viewAllContainer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.viewAllButton {
+    display: inline-block;
+    background-color: #6f6f6f;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.viewAllButton:hover {
+    background-color: #555555;
+}

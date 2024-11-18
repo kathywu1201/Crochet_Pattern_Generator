@@ -1,0 +1,278 @@
+/* chat-style.css */
+:root {
+    --bg-dark: #2C2C2C;
+    --bg-darker: #252525;
+    --bg-input: #363636;
+    --border-color: #444;
+    --text-color: #FFFFFF;
+    --text-muted: #888;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-color);
+}
+
+.chat-interface {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-history {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.message-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px;
+    flex-shrink: 0;
+}
+
+.message.user {
+    background: var(--border-color);
+    margin-left: auto;
+    flex-direction: row-reverse;
+}
+
+.message.assistant {
+    background: var(--bg-input);
+    margin-right: auto;
+}
+
+.message-content {
+    color: var(--text-color);
+    font-size: 15px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.message-time {
+    position: absolute;
+    bottom: -20px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.user .message-time {
+    right: 0;
+}
+
+.assistant .message-time {
+    left: 0;
+}
+
+/* Input Area Styles */
+.chat-input-container {
+    background: var(--bg-input);
+    border-top: 1px solid var(--border-color);
+    padding: 20px;
+}
+
+.textarea-wrapper {
+    position: relative;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.chat-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 18px;
+    padding: 10px;
+    padding-right: 50px;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+    min-height: 24px;
+    max-height: 400px;
+    overflow-y: hidden;
+    line-height: 1.5;
+}
+
+.submit-button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.submit-button:not(:disabled) {
+    background: var(--border-color);
+}
+
+.submit-button:not(:disabled):hover {
+    background: #555;
+    transform: scale(1.05);
+}
+
+.submit-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.input-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+}
+
+.left-controls,
+.right-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.icon-button {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.icon-button:hover {
+    background: var(--border-color);
+}
+
+.model-select {
+    background: var(--border-color);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.input-tip {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-right: 16px;
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.image-preview {
+    position: relative;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.image-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--border-color);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.remove-image-btn:hover {
+    background: #555;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 8px 0;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    30% {
+        transform: translateY(-4px);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,273 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.5;
+    background-color: #f8f8f8;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('/assets/formaggio_background.png');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+/* About Section */
+.about {
+    background: white;
+    padding: 60px 20px;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Newsletter Grid */
+.newsletter-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.image-container {
+    position: relative;
+    height: 200px;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.content {
+    padding: 24px;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #666;
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.excerpt {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Newsletter Detail */
+.newsletter-detail {
+    background: #f8f8f8;
+    padding: 40px 20px;
+}
+
+.newsletter-detail.hidden {
+    display: none;
+}
+
+.detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.back-button:hover {
+    color: #333;
+}
+
+.detail-header {
+    margin-bottom: 30px;
+}
+
+.detail-category {
+    display: inline-block;
+    background: #333;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.detail-meta {
+    display: flex;
+    gap: 20px;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.detail-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #333;
+    line-height: 1.3;
+}
+
+.detail-image-container {
+    margin: 30px -40px;
+}
+
+.detail-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.detail-content {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #444;
+}
+
+/* Subscription Box */
+.subscription-box {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 60px;
+}
+
+.subscription-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.subscription-box p {
+    color: #666;
+    margin-bottom: 24px;
+}
+
+.subscription-form {
+    display: flex;
+    gap: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.email-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.subscribe-button {
+    background: #6f6f6f;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.subscribe-button:hover {
+    background: #555555;
+}
