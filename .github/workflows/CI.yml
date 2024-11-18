@@ -3,7 +3,8 @@ name: CI on Push or Merge to Main
 on:
   push:
     branches:
-      - main  # Triggers when code is pushed to the main branch
+      - main
+      - 7-testing  # Triggers when code is pushed to the main branch
 
 jobs:
   test:
