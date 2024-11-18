@@ -32,7 +32,9 @@ jobs:
       # Step 2.2: Load Environment Variables from env.dev
       - name: Load Environment Variables
         run: |
+          set -a
           source src/env.dev
+          set +a
         shell: bash
 
       # Step 3: Install dependencies - pylint, pytest, and pytest-cov (also numpy pandas)
