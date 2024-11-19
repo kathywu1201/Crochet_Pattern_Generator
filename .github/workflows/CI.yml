@@ -42,12 +42,7 @@ jobs:
           mkdir -p ${GITHUB_WORKSPACE}/src/secrets
           echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
           chmod 600 ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
-        shell: bash
-      
-      # Step 2.3: Debugging
-      - name: Debugging: Check crochetai.json
-        run: |
-          echo "Checking file content:"
+          echo "Contents of crochetai.json:"
           cat ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
         shell: bash
 
