@@ -6,10 +6,23 @@ import shutil
 from unittest.mock import patch, MagicMock
 
 # Mock the GCP dependencies before importing the module under test
-with patch('llm_rag.rag.TextEmbeddingModel') as MockTextEmbeddingModel:
-    mock_instance = MagicMock()
-    MockTextEmbeddingModel.from_pretrained.return_value = mock_instance
-    from llm_rag.rag import (
+# with patch('llm_rag.rag.TextEmbeddingModel') as MockTextEmbeddingModel:
+#     mock_instance = MagicMock()
+#     MockTextEmbeddingModel.from_pretrained.return_value = mock_instance
+#     from llm_rag.rag import (
+#         download,
+#         generate_query_embedding,
+#         generate_text_embeddings,
+#         load_text_and_image_embeddings,
+#         chunk,
+#         embed,
+#         load,
+#         query,
+#         re_rank_results,
+#         upload
+#     )
+
+from llm_rag.rag import (
         download,
         generate_query_embedding,
         generate_text_embeddings,
