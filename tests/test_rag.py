@@ -9,18 +9,23 @@ from unittest.mock import patch, MagicMock
 with patch('llm_rag.rag.TextEmbeddingModel') as MockTextEmbeddingModel:
     mock_instance = MagicMock()
     MockTextEmbeddingModel.from_pretrained.return_value = mock_instance
-    from llm_rag.rag import (
-        download,
-        generate_query_embedding,
-        generate_text_embeddings,
-        load_text_and_image_embeddings,
-        chunk,
-        embed,
-        load,
-        query,
-        re_rank_results,
-        upload
-    )
+
+    # Mock the initialize_vertexai function to prevent actual calls
+    with patch('llm_rag.rag.initialize_vertexai') as MockInitializeVertexAI:
+        MockInitializeVertexAI.return_value = mock_instance  # Return the mock instance
+
+        from llm_rag.rag import (
+            download,
+            generate_query_embedding,
+            generate_text_embeddings,
+            load_text_and_image_embeddings,
+            chunk,
+            embed,
+            load,
+            query,
+            re_rank_results,
+            upload
+        )
 
 # Setup and teardown functions for creating necessary directories and files
 @pytest.fixture(scope="module")

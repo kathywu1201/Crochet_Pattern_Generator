@@ -252,8 +252,6 @@ def load():
         load_text_and_image_embeddings(data_df, collection)
 
 
-
-
 def query(): #text, image_path, image_vector
 	client = chromadb.HttpClient(host=CHROMADB_HOST, port=CHROMADB_PORT)
 	collection_name = "semantic-text-image-collection"
@@ -325,17 +323,6 @@ def query(): #text, image_path, image_vector
 	# Convert embeddings from numpy arrays to lists if needed
 	embeddings = [embedding.tolist() if isinstance(embedding, np.ndarray) else embedding for embedding in embeddings]
 
-	# print('\n retreived_data',retrieved_data['embeddings'])
-	# Prepare the data for the JSON format # this output is used if we have 
-	# output_data = {
-	# 	"input": {
-	# 		"image_embeddings": [image_query_embedding.tolist()],  
-	# 		"text_chunk_embeddings": embeddings,  # All text embeddings from ChromaDB
-	# 		"query_embeddings": [query_embedding]  # The text query embedding
-	# 	},
-	# 	"output": embedded_texts  # Assuming the first embedded text is the desired output
-	# }
-
 	combined_text_chunks = ' '.join(embedded_texts)
 
 	output_data = {
@@ -354,7 +341,6 @@ def query(): #text, image_path, image_vector
 		json.dump(output_data, json_file, indent=4)
 
 	print(f"Data saved to {json_filename}")
-
 
 
 def re_rank_results(text_results, image_results, text_weight=0.6, image_weight=0.4):
@@ -395,7 +381,6 @@ def re_rank_results(text_results, image_results, text_weight=0.6, image_weight=0
     ranked_results = [{"id": doc_id, "score": score} for doc_id, score in sorted_results]
 
     return ranked_results
-
 
 
 def upload():
