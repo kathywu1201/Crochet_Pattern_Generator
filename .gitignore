@@ -18,3 +18,7 @@
 /.pytest_cache
 
 /secrets
+
+.DS_Store
+.coverage
+
