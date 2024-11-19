@@ -42,7 +42,13 @@ jobs:
           mkdir -p ${GITHUB_WORKSPACE}/secrets
           echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > ${GITHUB_WORKSPACE}/secrets/crochetai.json
           chmod 600 ${GITHUB_WORKSPACE}/secrets/crochetai.json
+
         shell: bash
+      
+      - name: Verify Google Cloud Authentication
+        run: |
+          gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+          gcloud auth list
 
       # Step 3: Install dependencies - pylint, pytest, and pytest-cov (also numpy pandas)
       - name: Install dependencies
