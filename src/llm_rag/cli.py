@@ -21,8 +21,7 @@ from .semantic_splitter import SemanticChunker
 # import agent_tools
 
 # Setup
-# GCP_PROJECT = os.environ["GCP_PROJECT"]
-GCP_PROJECT = "crochetai-441703"
+GCP_PROJECT = os.environ["GCP_PROJECT"]
 GCP_LOCATION = "us-central1"
 EMBEDDING_MODEL = "text-embedding-004"
 EMBEDDING_DIMENSION = 256
