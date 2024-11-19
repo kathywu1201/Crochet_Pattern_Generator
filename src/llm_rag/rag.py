@@ -3,7 +3,6 @@ import argparse
 import pandas as pd
 import numpy as np
 import json
-import time
 import glob
 import hashlib
 import chromadb
@@ -13,12 +12,10 @@ from google.cloud import storage
 # Vertex AI
 import vertexai
 from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
-# from vertexai.generative_models import GenerativeModel, GenerationConfig, Content, Part, ToolConfig
 
 # Langchain
 # from langchain_experimental.text_splitter import SemanticChunker
 from .semantic_splitter import SemanticChunker
-# import agent_tools
 
 # Setup
 GCP_PROJECT = os.environ["GCP_PROJECT"]
@@ -424,7 +421,6 @@ def upload():
 
 # # Use the function wherever needed
 # embedding_model = get_embedding_model()
-
 
 
 def main(args=None):
