@@ -33,9 +33,13 @@ DATA_OUTPUT = "data_prep"
 BUCKET_NAME = "crochet-patterns-bucket"
 CHROMADB_HOST = "llm-rag-chromadb"
 CHROMADB_PORT = 8000
-vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
-# https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-embeddings-api#python
-embedding_model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
+
+def initialize_vertexai():
+    vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
+    return TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
+
+# vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
+# embedding_model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
 
 
 book_mappings = {
@@ -85,6 +89,7 @@ def generate_query_embedding(query):
 	Input: Query string.
 	Output: A list representing the query embedding.
 	'''
+	embedding_model = initialize_vertexai()
 	query_embedding_inputs = [TextEmbeddingInput(task_type='RETRIEVAL_DOCUMENT', text=query)]
 	kwargs = dict(output_dimensionality=EMBEDDING_DIMENSION) if EMBEDDING_DIMENSION else {}
 	embeddings = embedding_model.get_embeddings(query_embedding_inputs, **kwargs)
@@ -97,6 +102,7 @@ def generate_text_embeddings(chunks, dimensionality: int = 256, batch_size=250):
 	Input: A list of text chunks and optional parameters like embedding dimensionality and batch size.
 	Output: A list of embeddings for the input chunks.
 	'''
+	embedding_model = initialize_vertexai()
 	# Max batch size is 250 for Vertex AI
 	all_embeddings = []
 	for i in range(0, len(chunks), batch_size):
@@ -432,14 +438,14 @@ def upload():
 
 
 # Instead of initializing at the top level, encapsulate in a function
-def get_embedding_model():
-    GCP_PROJECT = os.environ.get("GCP_PROJECT")
-    if not GCP_PROJECT:
-        raise EnvironmentError("The 'GCP_PROJECT' environment variable is not set.")
-    return TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
+# def get_embedding_model():
+#     GCP_PROJECT = os.environ.get("GCP_PROJECT")
+#     if not GCP_PROJECT:
+#         raise EnvironmentError("The 'GCP_PROJECT' environment variable is not set.")
+#     return TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
 
-# Use the function wherever needed
-embedding_model = get_embedding_model()
+# # Use the function wherever needed
+# embedding_model = get_embedding_model()
 
 
 
