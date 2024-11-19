@@ -5,19 +5,10 @@ import os
 import shutil
 from unittest.mock import patch, MagicMock
 
-# Mock GCP and other external dependencies before importing the module under test
-@patch('llm_rag.rag.vertexai.init')
-@patch('llm_rag.rag.TextEmbeddingModel.from_pretrained')
-@patch('llm_rag.rag.storage.Client')
-@patch('llm_rag.rag.chromadb.HttpClient')
-def test_setup(mock_chromadb_client, mock_storage_client, mock_text_embedding, mock_vertexai_init):
-    # Setup mocks
-    mock_text_embedding.return_value = MagicMock()
-    mock_vertexai_init.return_value = None
-    mock_storage_client.return_value = MagicMock()
-    mock_chromadb_client.return_value = MagicMock()
-    
-    # Now import the module
+# Mock the GCP dependencies before importing the module under test
+with patch('llm_rag.rag.TextEmbeddingModel') as MockTextEmbeddingModel:
+    mock_instance = MagicMock()
+    MockTextEmbeddingModel.from_pretrained.return_value = mock_instance
     from llm_rag.rag import (
         download,
         generate_query_embedding,
@@ -79,7 +70,6 @@ class MockCollection:
 ### Unit Tests ###
 def test_generate_query_embedding(): # correct
     """Test embedding size and format."""
-    from llm_rag.rag import generate_query_embedding
     query = "sample query text"
     embedding = generate_query_embedding(query)
     assert isinstance(embedding, list), "Embedding should be a list"
@@ -88,7 +78,6 @@ def test_generate_query_embedding(): # correct
 
 def test_generate_text_embeddings(): # correct
     """Test batch generation of embeddings and size consistency."""
-    from llm_rag.rag import generate_text_embeddings
     chunks = ["Text chunk 1", "Text chunk 2", "Text chunk 3"]
     embeddings = generate_text_embeddings(chunks)
     assert isinstance(embeddings, list), "Embeddings should be a list"
@@ -98,7 +87,6 @@ def test_generate_text_embeddings(): # correct
 
 def test_load_text_and_image_embeddings(sample_image_embedding): # Correct
     """Test loading of text and image embeddings with combined size."""
-    from llm_rag.rag import load_text_and_image_embeddings
     data = {
         "chunk": ["Sample text chunk"],
         "book": ["sample_book"],
@@ -117,7 +105,6 @@ def test_load_text_and_image_embeddings(sample_image_embedding): # Correct
 ## Integration Tests ###
 def test_chunk_creation(sample_text_file): # Correct
     """Test the chunking of a sample text file."""
-    from llm_rag.rag import chunk
     chunk()  # Assuming chunk uses global INPUT_FOLDER and OUTPUT_FOLDER
     output_files = os.listdir("outputs")
     assert any("chunks-sample" in f for f in output_files), "Output file not created for chunking"
@@ -126,7 +113,6 @@ def test_chunk_creation(sample_text_file): # Correct
 
 def test_embedding_and_loading(sample_text_file, sample_image_embedding): # correct
     """Test embedding generation and loading into a collection."""
-    from llm_rag.rag import embed
     embed()  # This should create embeddings in OUTPUT_FOLDER
     output_files = os.listdir("outputs")
     assert any("embeddings-sample" in f for f in output_files), "Embedding file not created"
@@ -138,7 +124,6 @@ def test_embedding_and_loading(sample_text_file, sample_image_embedding): # corr
 @patch("llm_rag.rag.chromadb.HttpClient")  # Mock ChromaDB HttpClient
 def test_full_pipeline(mock_chromadb_client, mock_storage_client, setup_folders, sample_text_file, sample_image_embedding):
     """End-to-end test covering all stages with a mock bucket and mock ChromaDB."""
-    from llm_rag.rag import download, chunk, embed, load, query, upload
 
     # Mock for storage.Client and bucket
     mock_client_instance = MagicMock()
@@ -197,7 +182,6 @@ def test_full_pipeline(mock_chromadb_client, mock_storage_client, setup_folders,
 ### Test Ranking ###
 def test_re_rank_results(): # Correct
     """Test re-ranking based on simulated text and image result dictionaries."""
-    from llm_rag.rag import re_rank_results
     text_results = {"ids": [["doc1", "doc2", "doc3"]], "distances": [[0.2, 0.5, 0.8]]}
     image_results = {"ids": [["doc3", "doc1", "doc2"]], "distances": [[0.3, 0.4, 0.6]]}
 

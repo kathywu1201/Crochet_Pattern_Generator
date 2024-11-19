@@ -42,13 +42,6 @@ def initialize_vertexai():
 # embedding_model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
 
 
-book_mappings = {
-	"BRC0224-010156M": {"title":"BERNAT LIL' LEAF CROCHET PLAY MAT & LADYBUG TOY"},
-	"ALS0537-030775M": {"title":"Aunt Lydia's Crochet Thread LOVELY LACE DOILY RUNNER"},
-	"BRC0202-032632M": {"title":"BERNAT CROCHET LEAFY TIME BABY PLAYMAT"},
-	"BRC0224-002003M": {"title":"BERNAT PURRRFECT CROCHET PLAY RUG"}
-}
-
 def download():
 	print("download")
 
