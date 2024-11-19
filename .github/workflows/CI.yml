@@ -44,10 +44,12 @@ jobs:
           chmod 600 ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
         shell: bash
       
+      # Step 2.3: Debugging
       - name: Debugging: Check crochetai.json
         run: |
           echo "Checking file content:"
           cat ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
+        shell: bash
 
       # Step 3: Install dependencies - pylint, pytest, and pytest-cov (also numpy pandas)
       - name: Install dependencies
