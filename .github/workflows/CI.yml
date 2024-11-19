@@ -36,11 +36,11 @@ jobs:
           source src/env.dev
           echo "GCP_PROJECT=${GCP_PROJECT}" >> $GITHUB_ENV
           echo "GCS_BUCKET_NAME=${GCS_BUCKET_NAME}" >> $GITHUB_ENV
-          echo "GOOGLE_APPLICATION_CREDENTIALS=${GITHUB_WORKSPACE}/secrets/crochetai.json" >> $GITHUB_ENV
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${GITHUB_WORKSPACE}/src/secrets/crochetai.json" >> $GITHUB_ENV
           echo "GCP_SERVICE_ACCOUNT=${GCP_SERVICE_ACCOUNT}" >> $GITHUB_ENV
           echo "LOCATION=${LOCATION}" >> $GITHUB_ENV
-          mkdir -p ${GITHUB_WORKSPACE}/secrets
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > ${GITHUB_WORKSPACE}/secrets/crochetai.json
+          mkdir -p ${GITHUB_WORKSPACE}/src/secrets
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
           chmod 600 ${GITHUB_WORKSPACE}/secrets/crochetai.json
         shell: bash
 
