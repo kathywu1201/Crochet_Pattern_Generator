@@ -1,2 +1,16 @@
 # folders to ignore
+<<<<<<< HEAD
+<<<<<<< HEAD
+/src/secrets
+=======
+/data.DS_Store
+>>>>>>> ec4d7d22a52983fae7193becb03df5320022f642
+.DS_Store
+=======
 /data
+
+/src/secrets
+
+.DS_Store
+>>>>>>> 5-rag
+.DS_Store

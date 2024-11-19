@@ -1,0 +1,69 @@
+/* src/app/chat/styles.module.css */
+.container {}
+
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('/assets/hero_background.png');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.heroContent {
+    max-width: 800px;
+    width: 800px;
+    padding-top: 67px;
+}
+
+.heroContent h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.heroContent p {
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+.heroChatInputContainer {
+    max-width: 800px;
+    margin: 0 auto 60px;
+    background: #363636;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.chatHeader {
+    background: rgba(0, 0, 0, 0.9);
+    height: 80px;
+}
+
+/* Chat Interface */
+.chatInterface {
+    /* display: flex;
+    height: calc(100vh - 67px); */
+    /* background: #363636;
+    border-top: 1px solid #444;
+    padding: 20px; */
+
+    display: flex;
+    height: calc(100vh - 80px);
+    /* padding-top: 80px; */
+    background: #2C2C2C;
+    color: #FFFFFF;
+}
+
+.mainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

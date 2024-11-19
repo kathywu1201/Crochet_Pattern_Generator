@@ -1,0 +1,213 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #6F6F6F;
+    --accent-color: #111111;
+    --neutral-color: #FFFFFF;
+    --text-color: #333333;
+    --header-height: 80px;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+/* .header {
+    background: var(--neutral-color);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} */
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.9);
+    /* Changed to transparent background */
+}
+
+.header.scrolled {
+    background: rgba(0, 0, 0, 0.9);
+    /* Keep dark even when scrolled */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+    padding: 0 20px;
+}
+
+.logo h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    color: #ffffff;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    /* color: var(--primary-color); */
+    color: #ffffff;
+}
+
+.nav-link.active {
+    /* color: var(--primary-color); */
+    color: #ffffff;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--text-color);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    display: none;
+    background: var(--neutral-color);
+    padding: 20px;
+    position: absolute;
+    width: 100%;
+    top: var(--header-height);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: var(--header-height);
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('/assets/formaggio_background.png');
+    background-size: cover;
+    /* This makes the image cover the entire div */
+    background-repeat: no-repeat;
+    /* This prevents the image from repeating */
+    background-position: center;
+    /* This centers the image in the div */
+}
+
+.hero111 {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('/assets/formaggio_background.png');
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 64px !important;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    color: #FFFFFF;
+}
+
+.hero-subtitle {
+    font-size: 24px !important;
+    color: #FFFFFF;
+}
+
+/* About Section */
+.about {
+    padding: 80px 0;
+    background: #f9f9f9;
+}
+
+.about h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Podcast Section */
+.podcasts {
+    padding: 80px 0;
+}
+
+.podcasts h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+}
+
+.podcast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .mobile-menu.active {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-link {
+        padding: 15px 0;
+        text-decoration: none;
+        color: var(--text-color);
+        border-bottom: 1px solid #eee;
+    }
+
+    .hero-title {
+        font-size: 36px;
+    }
+}

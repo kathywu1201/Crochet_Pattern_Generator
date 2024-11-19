@@ -1,0 +1,13 @@
+.footer {
+    width: 100%;
+    background-color: #000;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer p {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    font-size: 14px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
