@@ -22,7 +22,7 @@ from unittest.mock import patch, MagicMock
 #         upload
 #     )
 
-from llm_rag.rag import (
+from llm_rag.cli import (
         download,
         generate_query_embedding,
         generate_text_embeddings,
