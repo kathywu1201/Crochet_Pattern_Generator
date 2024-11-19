@@ -10,46 +10,105 @@ import DataService from "../../services/DataService";
 import styles from "./styles.module.css";
 
 
+// export default function About() {
+//     return (
+//         <section className={styles.about} id="about">
+//             <h1 className={styles.title}>About Us</h1>
+//             <div className={styles.underline}></div>
+//             <div className={styles.content}>
+//                 <p>
+//                 Yarn Master is a web application born from a shared passion for the timeless art of handmade crochet and knit creations, 
+//                 blended with the possibilities of cutting-edge technology. Created by participants of a prestigious Harvard course and avid crochet enthusiasts,
+//                 this platform bridges tradition and innovation to empower crochet and knit enthusiasts around the world.
+
+//                 Our mission is to make crafting easier, faster, and more enjoyable. 
+//                 With the power of AI, we aim to help you access patterns and related information effortlessly while fostering a vibrant community where creativity thrives.
+//                 </p>
+
+//                 <p>
+//                 Yarn Master offers a range of features tailored to meet the needs of every crochet and knit lover:
+
+//                 Custom Pattern Generation: Upload a photo of your crochet or knit creation and receive a personalized, step-by-step tutorial. This includes a detailed guide to creating your masterpiece, a list of required materials, and links to recommended purchase options.
+
+//                 Join the Community: Connect with like-minded crafters in our vibrant community space. Share your ideas, showcase your latest projects, ask questions, and learn from others' experiences.
+
+//                 Whether you are a beginner taking your first steps, a hobbyist exploring your passion, or a seasoned professional, Yarn Master is designed to support and inspire everyone on their crafting journey.
+
+
+//                 </p>
+
+//                 <p>
+//                 AI-Powered Innovation: Save time and effort with our state-of-the-art AI technology that transforms images into detailed pattern instructions in moments.
+//                 Inclusive Community: Be part of a supportive and inspiring group of creators who share your love for crochet and knitting.
+//                 Comprehensive Resources: Access curated material recommendations and purchasing links to get everything you need to bring your projects to life.
+//                 At Yarn Master, we are committed to revolutionizing how you approach crochet and knitting, making it more accessible, enjoyable, and inspiring for everyone.
+//                 </p>
+
+//                 <p>
+//                 We’d love to hear from you! If you have questions, suggestions, or simply want to connect, please reach out to us via [contact information here]. Together, let’s create something beautiful with Yarn Master!
+//                 </p>
+
+
+//                 <Link href="mailto:pavlos@seas.harvard.edu?subject=Feedback%20from%20Formaggio.me" className={styles.contactButton}>
+//                     CONTACT US
+//                 </Link>
+//             </div>
+//         </section>
+//     );
+// }
+
 export default function About() {
     return (
         <section className={styles.about} id="about">
             <h1 className={styles.title}>About Us</h1>
             <div className={styles.underline}></div>
             <div className={styles.content}>
+                <h2 className={styles.subtitle}>Our Mission</h2>
                 <p>
-                    Welcome to <strong>yarn master</strong>, a web application born out of a passion for both cheese and cutting-edge
-                    technology. This site was created as part of a demonstration project for developing applications using large
-                    language models (AI). My name is Pavlos Protopapas, and I am the instructor of <strong>AC215</strong>, a course offered at
-                    <strong> Harvard University</strong>. You can find more details about the course <Link href="http://harvard-iacs.github.io/2024-AC215/">here</Link> and learn more about me and my
-                    research <Link href="https://www.stellardnn.org/">here</Link>.
+                    Yarn Master is a web application born from a shared passion for the timeless art of handmade crochet and knit creations, 
+                    blended with the possibilities of cutting-edge technology. Created by participants of a prestigious Harvard course and avid crochet enthusiasts,
+                    this platform bridges tradition and innovation to empower crochet and knit enthusiasts around the world.
+                    Our mission is to make crafting easier, faster, and more enjoyable. 
+                    With the power of AI, we aim to help you access patterns and related information effortlessly while fostering a vibrant community where creativity thrives.
                 </p>
 
+                <h2 className={styles.subtitle}>What We Offer</h2>
                 <p>
-                    If you're interested in taking the course as a Harvard student you can find it in the my.harvard
-                    catalog, it is also available through <strong>Harvard's Division of Continuing Education (DCE)</strong> for everyone else,
-                    with the next offering scheduled for <strong>Spring 2025</strong>.
+                    Yarn Master offers a range of features tailored to meet the needs of every crochet and knit lover:
+                </p>
+                <ul className={styles.featuresList}>
+                    <li>
+                        <strong>Custom Pattern Generation:</strong> Upload a photo of your crochet or knit creation and receive a personalized, step-by-step tutorial. 
+                        This includes a detailed guide to creating your masterpiece, a list of required materials, and links to recommended purchase options.
+                    </li>
+                    <li>
+                        <strong>Join the Community:</strong> Connect with like-minded crafters in our vibrant community space. 
+                        Share your ideas, showcase your latest projects, ask questions, and learn from others' experiences.
+                    </li>
+                </ul>
+                <p>
+                    Whether you are a beginner taking your first steps, a hobbyist exploring your passion, or a seasoned professional, 
+                    Yarn Master is designed to support and inspire everyone on their crafting journey.
                 </p>
 
-                <p>
-                    The course is designed to provide structured experiential learning, where I, the instructor, build the <strong>AI
-                        Cheese Web App</strong> step by step during the semester. This hands-on approach helps students understand
-                    both the technical and creative aspects of AI application development.
-                </p>
+                <h2 className={styles.subtitle}>Why Choose Us?</h2>
+                <ul className={styles.benefitsList}>
+                    <li>
+                        <strong>AI-Powered Innovation:</strong> Save time and effort with our state-of-the-art AI technology that transforms images into detailed pattern instructions in moments.
+                    </li>
+                    <li>
+                        <strong>Inclusive Community:</strong> Be part of a supportive and inspiring group of creators who share your love for crochet and knitting.
+                    </li>
+                    <li>
+                        <strong>Comprehensive Resources:</strong> Access curated material recommendations and purchasing links to get everything you need to bring your projects to life.
+                    </li>
+                </ul>
 
+                <h2 className={styles.subtitle}>Contact Us</h2>
                 <p>
-                    Please note that this is a demonstration project, so some features may be incomplete or still under
-                    development. However, we hope you enjoy exploring it and would love to hear your thoughts! Feel free to
-                    send us an email with comments.
+                    We’d love to hear from you! If you have questions, suggestions, or simply want to connect, please reach out to us via [contact information here]. 
+                    Together, let’s create something beautiful with Yarn Master!
                 </p>
-
-                <p>
-                    Thank you for visiting <strong>Formaggio.me</strong>, and we hope you have fun exploring the intersection of cheese and
-                    AI!
-                </p>
-
-                <Link href="mailto:pavlos@seas.harvard.edu?subject=Feedback%20from%20Formaggio.me" className={styles.contactButton}>
-                    CONTACT US
-                </Link>
             </div>
         </section>
     );

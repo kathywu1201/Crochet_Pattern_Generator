@@ -43,15 +43,27 @@
 .aboutContent {
     max-width: 800px;
     margin: 0 auto;
-    text-align: center;
+    text-align: justify;
 }
 
-.aboutContent h2 {
+/* .aboutContent h2 {
     font-family: 'Playfair Display', serif;
     font-size: 36px;
     color: #333;
     margin-bottom: 20px;
+} */
+
+.subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: rgb(239, 113, 134); /* Changed color to pink */
+    font-weight: bold; /* Makes the title bold */
+    margin-bottom: 20px;
 }
+
+
+
+
 
 .aboutContent p {
     color: #666;
