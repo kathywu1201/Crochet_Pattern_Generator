@@ -15,7 +15,7 @@ export default function Footer() {
     } else {
         return (
             <footer className={styles.footer}>
-                <p>Copyright © {new Date().getFullYear()} formaggio.me - All Rights Reserved.</p>
+                <p>Copyright © {new Date().getFullYear()} YarnMaster - All Rights Reserved.</p>
             </footer>
         );
     }

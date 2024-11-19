@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.9);
+    background: #FFFDF2;
     z-index: 1000;
     height: 67px;
 }
@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #01F9C6;
+    color: #F340AF;
     text-decoration: none;
     font-size: 20px;
     font-weight: 500;
@@ -42,7 +42,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #01F9C6;
+    color: #F340AF;
     font-family: 'Righteous', cursive;
     text-decoration: none;
     font-size: 14px;

@@ -50,7 +50,7 @@
 .contactButton {
     display: inline-block;
     background-color: #6f6f6f;
-    color: white !important;
+    color: #FFFDF2 !important;
     padding: 15px 40px;
     border-radius: 4px;
     text-decoration: none !important;

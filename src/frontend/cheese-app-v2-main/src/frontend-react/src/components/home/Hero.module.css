@@ -2,14 +2,14 @@
     padding: 80px 20px;
     max-width: 1200px;
     margin: 0 auto;
-    background: white;
+    background: #FFFDF2;
 }
 
 .title {
     text-align: center;
     font-family: 'Righteous', cursive;
     font-size: 36px;
-    color: #333;
+    color: #FFFDF2;
     font-weight: 400;
     margin-bottom: 20px;
 }
@@ -23,7 +23,7 @@
 .viewAllButton {
     display: inline-block;
     background-color: #F340AF; /* Replace with the '01. Primary/400' pink color */
-    color: white;
+    color: #FFFDF2;
     padding: 12px 32px; /* Adjust padding if necessary */
     border-radius: 50px; /* Corner radius to match the image */
     text-decoration: none;
