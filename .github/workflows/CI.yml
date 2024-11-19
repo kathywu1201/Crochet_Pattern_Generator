@@ -43,6 +43,11 @@ jobs:
           echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
           chmod 600 ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
         shell: bash
+      
+      - name: Debugging: Check crochetai.json
+        run: |
+          echo "Checking file content:"
+          cat ${GITHUB_WORKSPACE}/src/secrets/crochetai.json
 
       # Step 3: Install dependencies - pylint, pytest, and pytest-cov (also numpy pandas)
       - name: Install dependencies
