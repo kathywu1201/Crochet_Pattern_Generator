@@ -1,0 +1,12 @@
+# misc
+.DS_Store
+/docker-volumes
+/outputs
+/json_outputs
+/input_datasets
+agent_tools.py
+/user_inputs
+/data_prep
+/data_preparation.py
+/archived.py
+# /semantic_splitter.py
