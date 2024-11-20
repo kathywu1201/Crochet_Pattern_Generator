@@ -5,6 +5,10 @@ on:
     branches:
       - main # Triggers when code is pushed to the main branch
       - 7-testing # Triggers when code is pushed to branch 7-testing
+  pull_request:
+    branches:
+      - main
+      - 7-testing
 
 jobs:
   test:
