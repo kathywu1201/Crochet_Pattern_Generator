@@ -47,5 +47,8 @@ RUN pipenv sync
 # layers when we change a line of code.
 ADD --chown=app:app . /app
 
+# Make the entrypoint script executable
+RUN chmod +x /app/docker-entrypoint.sh
+
 # Entry point
 ENTRYPOINT ["/bin/bash","./docker-entrypoint.sh"]

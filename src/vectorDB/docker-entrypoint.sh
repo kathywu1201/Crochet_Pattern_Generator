@@ -1,13 +1,13 @@
 #!/bin/bash
+set -e
 
 echo "Container is running!!!"
 
-args="$@"
-echo $args
+# Ensure we're in the correct directory
+cd /app
 
-if [[ -z ${args} ]]; 
-then
-    pipenv shell
+if [ "${DEV}" = 1 ]; then
+  pipenv shell
 else
-  pipenv run python $args
+  pipenv run python cli.py --load # --chunk --embed
 fi

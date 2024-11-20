@@ -26,7 +26,7 @@ OUTPUT_FOLDER = "outputs"
 JSON_OUTPUT = "json_outputs"
 DATA_OUTPUT = "data_prep"
 BUCKET_NAME = "crochet-patterns-bucket"
-CHROMADB_HOST = "llm-rag-chromadb"
+CHROMADB_HOST = "crochet-app-vector-db" #llm-rag-chromadb
 CHROMADB_PORT = 8000
 vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
 embedding_model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
@@ -123,7 +123,7 @@ def load_text_and_image_embeddings(df, collection, batch_size=500):
 				text_emb = text_emb.tolist()
 			if isinstance(image_emb, np.ndarray):
 				image_emb = image_emb.tolist()
-			print(image_emb)
+			# print(image_emb)
 
 			# Combine text and image embeddings
 			combined_embeddings.append(text_emb + image_emb)
@@ -164,7 +164,7 @@ def chunk():
 		data_df = pd.DataFrame(text_chunks, columns=["chunk"])
 		data_df["book"] = book_name
 		print("Shape:", data_df.shape)
-		print(data_df.head())
+		# print(data_df.head())
 
 		jsonl_filename = os.path.join(OUTPUT_FOLDER, f"chunks-{book_name}.jsonl")
 		with open(jsonl_filename, "w") as json_file:
@@ -180,7 +180,7 @@ def embed():
 
 		data_df = pd.read_json(jsonl_file, lines=True)
 		print("Shape:", data_df.shape)
-		print(data_df.head())
+		# print(data_df.head())
 
 		chunks = data_df["chunk"].values
 		text_embeddings = generate_text_embeddings(chunks, EMBEDDING_DIMENSION, batch_size=100)
@@ -227,7 +227,7 @@ def load():
 
 		data_df = pd.read_json(jsonl_file, lines=True)
 		print("Shape:", data_df.shape)
-		print(data_df.head())
+		# print(data_df.head())
 
 		load_text_and_image_embeddings(data_df, collection)
 
@@ -297,7 +297,9 @@ def query():
 	embedded_texts = retrieved_data['documents']
 	embeddings = retrieved_data['embeddings']
 	# Convert embeddings from numpy arrays to lists if needed
-	embeddings = [embedding.tolist() if isinstance(embedding, np.ndarray) else embedding for embedding in embeddings]
+	embeddings = [embedding.tolist() 
+			   if isinstance(embedding, np.ndarray) 
+			   else embedding for embedding in embeddings]
 
 	combined_text_chunks = ' '.join(embedded_texts)
 

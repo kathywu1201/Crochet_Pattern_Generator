@@ -2,7 +2,7 @@ import os
 from typing import Dict, Any, List, Optional
 from fastapi import HTTPException
 import base64
-import io
+# import io
 from PIL import Image
 from pathlib import Path
 import traceback
@@ -228,6 +228,7 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
             generation_config=generation_config
         )
         
+        print(f"Response: {response.text}")
         return response.text
         
     except Exception as e:

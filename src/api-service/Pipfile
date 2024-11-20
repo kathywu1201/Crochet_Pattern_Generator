@@ -18,6 +18,9 @@ python-multipart = "*"
 pillow = "*"
 chromadb = "==0.5.7"
 tensorflow = "==2.17.0"
+transformers = "==4.35.0"
+torch = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.12"
