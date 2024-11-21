@@ -57,4 +57,4 @@ EXPOSE 5001
 ENTRYPOINT ["/bin/bash","./docker-entrypoint.sh"]
 
 # Default command to run the FastAPI app
-CMD ["-c", "pipenv run uvicorn app:app --host 0.0.0.0 --port 5001"]
+CMD ["pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5001"]

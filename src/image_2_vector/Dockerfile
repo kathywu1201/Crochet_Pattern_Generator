@@ -31,7 +31,7 @@ EXPOSE 5000
 ENTRYPOINT ["/bin/bash"]
 
 # Command to run the FastAPI application
-CMD ["-c", "pipenv run uvicorn app:app --host 0.0.0.0 --port 5000"]
+CMD ["pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
 
 # Get into the pipenv shell
 # CMD ["-c", "pipenv shell"]
