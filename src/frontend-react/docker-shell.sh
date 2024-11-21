@@ -2,7 +2,7 @@
 
 set -e
 
-export IMAGE_NAME="cheese-app-frontend-react"
+export IMAGE_NAME="crochet-app-frontend-react"
 
 # Build the image based on the Dockerfile
 docker build -t $IMAGE_NAME -f Dockerfile.dev .
