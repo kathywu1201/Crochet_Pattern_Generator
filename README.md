@@ -124,7 +124,7 @@ Here is the overall training pipeline:
 Here is the user inference pipeline:
 
 Here is the text + image option:
-![Text + Image](./references/text_image.png)
+![Text + Image](./references/image_text.png)
 
 Here is the text-only option:
 ![Text-only](./references/text.png)
