@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  add_service:
+    build:
+      context: ./src/image_2_vector
+    ports:
+      - "5000:5000"
+    networks:
+      - crochet-network
+
+  multiply_service:
+    build:
+      context: ./src/llm_rag
+    ports:
+      - "5001:5001"
+    networks:
+      - crochet-network
+
+  test_runner:
+    build:
+      context: .
+      dockerfile: test_runner/Dockerfile
+    volumes:
+      - ./integration_tests:/app/integration_tests  # Mount only the test code
+    working_dir: /app
+    command: ["pipenv", "run", "pytest", "integration_tests/test_integration.py"]
+    networks:
+      - crochet-network
+    depends_on:
+      - src/image_2_vector
+      - src/llm_rag
+
+
+networks:
+  crochet-network:
+    driver: bridge

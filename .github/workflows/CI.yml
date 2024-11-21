@@ -52,7 +52,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pylint pytest pytest-cov
+          pip install pylint pytest pytest-cov uvicorn
           pip install -r requirements.txt
 
       # Step 4: Lint code with Pylint
@@ -63,7 +63,7 @@ jobs:
       # Step 5: Run pytest with coverage and generate HTML report
       - name: Run tests with coverage
         run: |
-          pytest --cov=. --cov-report=html
+          pytest --cov=. --cov-report=html tests/test_ImageDescription.py tests/test_ImageVector.py tests/test_pdfProcessor.py
 
       # Step 6: Upload coverage report as an artifact
       - name: Upload coverage report

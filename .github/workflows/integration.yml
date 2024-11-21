@@ -1,0 +1,50 @@
+name: Multi-Container Integration Test
+
+on:
+  push:
+    branches:
+      - 7-testing
+  pull_request:
+    branches:
+      - 7-testing
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Cache Docker Compose binary
+      id: docker-compose-cache
+      uses: actions/cache@v3
+      with:
+        path: /usr/local/bin/docker-compose
+        key: docker-compose-${{ runner.os }}
+  
+    - name: Install Docker Compose if not cached
+      if: steps.docker-compose-cache.outputs.cache-hit != 'true'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+
+    - name: Install Pipenv
+      run: pip install pipenv
+
+    - name: Install dependencies with Pipenv
+      run: pipenv install 
+
+    - name: Build and start services with Docker Compose
+      run: docker-compose up --abort-on-container-exit --exit-code-from test_runner
+      working-directory: ./   
+
+    - name: Tear down services
+      if: always()
+      run: docker-compose down
+      working-directory: ./
