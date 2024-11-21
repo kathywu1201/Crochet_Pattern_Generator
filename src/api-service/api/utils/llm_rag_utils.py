@@ -146,13 +146,9 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
                 
                 # Convert the image bytes to a vector
                 image_vector = image_to_vector_from_bytes(image_bytes)
-                
-                # Save the image vector (you can specify a path or method to save it)
-                vector_file_path = f"user/image_vectors/{str(uuid.uuid4())}.npy"  # Use a unique filename
-                np.save(vector_file_path, image_vector)
 
                 # Add the image vector to the message
-                message["image_embedding"] = image_vector.tolist()  # Convert to list for JSON serialization
+                message["image_embedding"] = image_vector.tolist() 
 
             except ValueError as e:
                 print(f"Error processing image: {str(e)}")
@@ -166,9 +162,6 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
             image_path = message["image_path"]
             # Convert the image to a vector
             image_vector = image_to_vector(image_path)
-            # Save the image vector
-            vector_file_path = f"user/image_vectors/{Path(image_path).stem}.npy"
-            np.save(vector_file_path, image_vector)
 
             # Add the image vector to the message
             message["image_embedding"] = image_vector.tolist()  
@@ -182,7 +175,7 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
             dummy_image_embedding = [0.0] * 1024
 
             # Retrieve the image embedding from the message
-            image_embedding = message.get("image_embedding", dummy_image_embedding)  # Default to a zero vector if not provided
+            image_embedding = message.get("image_embedding", dummy_image_embedding) 
 
             # Concatenate the query embedding and image embedding
             combined_embedding = query_embedding + image_embedding
