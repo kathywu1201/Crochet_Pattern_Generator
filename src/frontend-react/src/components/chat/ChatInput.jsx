@@ -123,7 +123,7 @@ export default function ChatInput({
                 <textarea
                     ref={textAreaRef}
                     className={styles.chatInput}
-                    placeholder="How can Formaggio help you today?"
+                    placeholder="How can Yarn Master help you today?"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyDown={(e) => {
@@ -163,10 +163,10 @@ export default function ChatInput({
                         onChange={handleModelChange}
                         disabled={disableModelSelect}
                     >
-                        <option value="llm">Formaggio Assistant (LLM)</option>
-                        <option value="llm-cnn">Formaggio Assistant (LLM + CNN)</option>
-                        <option value="llm-rag">Cheese Expert (RAG)</option>
-                        <option value="llm-agent">Cheese Expert (Agent)</option>
+                        <option value="llm">Yarn Master Assistant (LLM)</option>
+                        <option value="llm-cnn">Yarn Master Assistant Assistant (LLM + CNN)</option>
+                        <option value="llm-rag">Crochet Expert (RAG)</option>
+                        <option value="llm-agent">Crochet Expert (Agent)</option>
                     </select>
                 </div>
             </div>

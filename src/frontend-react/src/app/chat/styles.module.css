@@ -5,7 +5,7 @@
 /* Hero Section */
 .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-        url('/assets/hero_background.png');
+        url('/assets/yarn3.jpeg');
     background-size: cover;
     background-position: center;
     height: 400px;
@@ -23,7 +23,7 @@
 }
 
 .heroContent h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Righteous', cursive;
     font-size: 48px;
     margin-bottom: 20px;
 }

@@ -1,0 +1,110 @@
+/* General styling */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+  }
+  
+  /* Container styling */
+  .auth-container {
+    background: linear-gradient(45deg, rgba(251, 219, 20, 0.4), rgba(1, 249, 198, 0.4));
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .auth-box {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+  }
+  
+  
+  /* Title */
+  .auth-title {
+    font-size: 24px;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Titles */
+  .form-title {
+    font-size: 18px;
+    color: #4a4a4a;
+    margin-bottom: 15px;
+  }
+  
+  /* Input fields */
+  .auth-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  /* Buttons */
+  .auth-button, .signup-button, .google-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .auth-button {
+    background-color: #4CAF50;
+    color: white;
+    margin-bottom: 15px;
+  }
+  
+  .google-button {
+    background-color: #DB4437;
+    color: white;
+    margin-bottom: 15px;
+  }
+  
+  .signup-button {
+    background-color: #f3dce8;
+    color: #4a4a4a;
+    font-weight: bold;
+  }
+  
+  /* Divider */
+  .divider {
+    font-size: 14px;
+    color: #7a7a7a;
+    margin: 20px 0;
+    position: relative;
+  }
+  
+  .divider::before, .divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: #ccc;
+  }
+  
+  .divider::before {
+    left: 0;
+  }
+  
+  .divider::after {
+    right: 0;
+  }
+  
+  /* Sign-Up Section */
+  .signup-section {
+    font-size: 14px;
+    color: #4a4a4a;
+    text-align: center;
+  }
+  
