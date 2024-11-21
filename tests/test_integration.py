@@ -11,7 +11,7 @@ from app import mock_image_to_vector, mock_query
 @patch("app.mock_query", side_effect=mock_query)
 def test_integration_vector_rag(mock_image_to_vector_func, mock_query_func):
     # Start FastAPI server in a subprocess
-    process = subprocess.Popen(["uvicorn", "app:app", "--host", "127.0.0.1", "--port", "8000"])
+    process = subprocess.Popen(["uvicorn", "tests.app:app", "--host", "127.0.0.1", "--port", "8000"])
     time.sleep(5)  # Give the server some time to start
 
     try:
