@@ -7,8 +7,8 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 export const metadata = {
-    title: 'Formaggio',
-    description: 'Discover the world of cheese through AI',
+    title: 'YarnMaster',
+    description: 'Becoming a Yarn Master Today',
 }
 
 export default async function RootLayout({ children }) {
@@ -17,7 +17,7 @@ export default async function RootLayout({ children }) {
         <html lang="en">
             <head>
                 <meta charSet="utf-8" />
-                <link href="assets/logo.png" rel="shortcut icon" type="image/x-icon"></link>
+                <link href="assets/yarn.png" rel="shortcut icon" type="image/x-icon"></link>
                 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1" />
                 <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
 

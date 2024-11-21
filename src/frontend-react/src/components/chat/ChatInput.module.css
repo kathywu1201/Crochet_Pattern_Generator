@@ -4,8 +4,8 @@
     background: #363636;
     
     padding: 20px; */
-    background: #363636;
-    border-top: 1px solid #444;
+    background: #FFFDF2;
+    border-top: 4px solid #FBDB14;
     border-radius: 12px;
     padding: 20px;
 }
@@ -28,7 +28,7 @@
     /* Make room for submit button */
     resize: none;
     outline: none;
-    font-family: inherit;
+    font-family: 'Roboto', sans-serif;
     min-height: 24px;
     max-height: 400px;
     /* Optional: set a max height if desired */
@@ -43,7 +43,7 @@
     bottom: 10px;
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: #F340AF;
     padding: 8px;
     cursor: pointer;
     border-radius: 50%;
@@ -54,12 +54,12 @@
 }
 
 .submitButton.active {
-    color: #fff;
-    background: #444;
+    color: #FFFDF2;
+    background: #F340AF;
 }
 
 .submitButton.active:hover {
-    background: #555;
+    background: #E9229E;
     transform: scale(1.05);
 }
 
@@ -87,7 +87,7 @@
 .iconButton {
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: #F340AF;
     padding: 8px;
     cursor: pointer;
     border-radius: 6px;
@@ -95,16 +95,18 @@
 }
 
 .iconButton:hover {
-    background: #444444;
+    background: #E9229E;
+    color: #FFFDF2;
 }
 
 .modelSelect {
-    background: #444444;
-    color: #FFFFFF;
-    border: none;
+    background: #FFFDF2;
+    color: #444444;
+    border: 2px solid #FBDB14;
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
 }
 
@@ -135,7 +137,7 @@
     position: absolute;
     top: -8px;
     right: -8px;
-    background: #444;
+    background: #FF91D5;
     border: none;
     color: white;
     width: 24px;
@@ -149,5 +151,5 @@
 }
 
 .removeImageBtn:hover {
-    background: #555;
+    background: #F340AF;
 }
