@@ -66,3 +66,22 @@ test_process_pdf: Ensures that the process_pdf function integrates multiple comp
 3. System Test:
 test_main_system_flow: Tests the entire pipeline from downloading PDFs, uploading them to GCS, processing them, and uploading the results back to GCS, ensuring all steps execute correctly in sequence.
 
+----------------------------------------------------------------------------
+test_integration.py
+----------------------------------------------------------------------------
+test_integration_vector_rag: Tests the integration between the /vector_generator and /rag endpoints in the FastAPI application
+
+----------------------------------------------------------------------------
+app.py
+----------------------------------------------------------------------------
+Provides mock endpoints for testing integration between image-to-vector conversion and RAG query processing. It acts as a helper application for test_integration to mock the actual functionality.
+
+Endpoints:
+
+1. POST /vector_generator: Simulates vector generation using mock_image_to_vector.
+2. POST /rag: Simulates query response generation using mock_query.
+
+Mocks:
+
+1. mock_image_to_vector: Creates a mock 1024-dimensional vector.
+2. mock_query: Generates a mock query response.

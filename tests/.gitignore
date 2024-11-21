@@ -2,3 +2,4 @@
 /__pycache__
 /.pytest_cache
 test_rag.py
+vector.npy
