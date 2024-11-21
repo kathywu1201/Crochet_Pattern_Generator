@@ -12,7 +12,7 @@ from app import mock_image_to_vector, mock_query
 def test_integration_vector_rag(mock_image_to_vector_func, mock_query_func):
     # Start FastAPI server in a subprocess
     process = subprocess.Popen(["uvicorn", "app:app", "--host", "127.0.0.1", "--port", "8000"])
-    time.sleep(3)  # Give the server some time to start
+    time.sleep(5)  # Give the server some time to start
 
     try:
         # Step 1: Test /vector_generator
