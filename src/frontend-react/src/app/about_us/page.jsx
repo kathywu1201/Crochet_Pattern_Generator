@@ -114,6 +114,14 @@ export default function About() {
                         Together, let’s create something beautiful with Yarn Master!
                     </p>
                 </div>
+                {/* Centered Image */}
+                <div className="image-container text-center mt-8">
+                    <img
+                        src="/assets/birds.jpg"
+                        alt="Crochet Artwork"
+                        className="about-image"
+                    />
+                </div>
             </div>
         </section>
     );
