@@ -1,0 +1,28 @@
+networks:
+    default:
+        name: crochet-app-network
+        external: true
+services:
+    crochet-app-vector-db-cli:
+        image: crochet-app-vector-db-cli
+        container_name: crochet-app-vector-db-cli
+        volumes:
+            - ../secrets:/secrets
+            - .:/app
+        environment:
+            GOOGLE_APPLICATION_CREDENTIALS: /secrets/crochetai_new.json
+            GCP_PROJECT: crochetai-new
+            CHROMADB_HOST: crochet-app-vector-db
+            CHROMADB_PORT: 8000
+        depends_on:
+            - chromadb
+    chromadb:
+        image: chromadb/chroma:0.5.6
+        container_name: crochet-app-vector-db
+        ports:
+            - 8000:8000
+        volumes:
+            - ./docker-volumes/chromadb:/chroma/chroma
+        environment:
+            - IS_PERSISTENT=TRUE
+            - ANONYMIZED_TELEMETRY=FALSE
