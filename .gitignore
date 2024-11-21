@@ -1,2 +1,6 @@
 # folders to ignore
 /data
+
+/src/secrets
+
+.DS_Store
