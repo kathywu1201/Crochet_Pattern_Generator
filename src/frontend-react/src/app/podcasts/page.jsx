@@ -66,21 +66,23 @@ import './community.css';
 
 const HomePage = () => {
     return (
-      <div className="container">
-        <div className="card">
-          <img src="/assets/guess_you_like.jpg" alt="Guess You Like" className="card-image" />
-          <div className="card-title">Guess You Like</div>
+        <div className="wrapper">
+            <div className="container">
+                <div className="card">
+                    < img src="/assets/guess_you_like.jpg" alt="Guess You Like" className="card-image" />
+                    <div className="card-title">Guess You Like</div>
+                </div>
+                <div className="card">
+                    < img src="/assets/community.jpg" alt="Community Spotlight" className="card-image" />
+                    <div className="card-title">Community Spotlight</div>
+                </div>
+                <div className="card">
+                    < img src="/assets/library.jpg" alt="Your Library" className="card-image" />
+                    <div className="card-title">Your Library</div>
+                </div>
+            </div>
         </div>
-        <div className="card">
-          <img src="/assets/community.jpg" alt="Community Spotlight" className="card-image" />
-          <div className="card-title">Community Spotlight</div>
-        </div>
-        <div className="card">
-          <img src="/assets/library.jpg" alt="Your Library" className="card-image" />
-          <div className="card-title">Your Library</div>
-        </div>
-      </div>
     );
-  };
+};
 
 export default HomePage;

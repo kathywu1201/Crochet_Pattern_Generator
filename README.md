@@ -6,9 +6,15 @@
 ├── data 
 ├── notebooks
 │   └── eda.ipynb
-├── references
+├── references/
 ├── reports
 │   └── APCOMP215 Proposal.pdf
+├── tests
+│   ├── documentations.txt
+│   ├── test_ImageDescription.py
+│   ├── test_ImageVector.py
+│   ├── test_integration.py
+│   └── test_pdfProcessor.py
 └── src
     ├── data_gathering
     │   ├── Pipfile
@@ -31,7 +37,7 @@
     │   ├── Pipfile.lock
     │   ├── docker-shell.sh
     │   ├── docker-entrypoint.sh
-    │   ├── Dockerfile
+    │   ├── Dockerfile·
     │   ├── cli.py
     ├── image_2_vector
     │   ├── Pipfile
@@ -40,7 +46,7 @@
     │   ├── docker-entrypoint.sh
     │   ├── Dockerfile
     │   ├── cli.py
-    ├── llm-rag
+    ├── llm_rag
     │   ├── Pipfile
     │   ├── Pipfile.lock
     │   ├── docker-shell.sh
@@ -49,33 +55,100 @@
     │   ├── docker-compose.yml
     │   ├── rag.py
     │   ├── data_preparation.py
-    └── text-generation/llm-finetuning
-        ├── Pipfile
-        ├── Pipfile.lock
-        ├── docker-shell.sh
-        ├── docker-entrypoint.sh
-        ├── Dockerfile
-        └── processing_pdfs.py
-  
+    ├── text-generation
+    │   └── llm-finetuning
+    │       ├── Pipfile
+    │       ├── Pipfile.lock
+    │       ├── docker-shell.sh
+    │       ├── docker-entrypoint.sh
+    │       ├── Dockerfile
+    │       └── processing_pdfs.py
+    ├── api-service
+    │   ├── Pipfile
+    │   ├── Pipfile.lock
+    │   ├── docker-shell.sh
+    │   ├── docker-entrypoint.sh
+    │   ├── Dockerfile
+    │   ├── api
+    │   │   ├── service.py
+    │   │   ├── routers
+    │   │   │   ├── llm_rag_chat.py
+    │   │   │   ├── llm_agent_chat.py
+    │   │   └── utils
+    │   │       ├── chat_utils.py
+    │   │       ├── llm_rag_utils.py
+    │   │       ├── llm_agent_utils.py
+    │   │       └── llm_image_utils.py
+    ├── vectorDB
+    │   ├── Pipfile       
+    │   ├── Pipfile.lock           
+    │   ├── Dockerfile             
+    │   ├── docker-shell.sh         
+    │   ├── docker-entrypoint.sh    
+    │   ├── docker-compose.yml      
+    │   ├── cli.py                  
+    │   ├── semantic_splitter.py  
+    ├── frontend_react
+    │   ├── public/assets
+    │   │   └── *.png
+    │   └── src
+    │       ├── components/
+    │       ├── app/
+    │       └── services/
+ 
 ```
 
-# AC215 - Milestone3 - Crochet Pattern Generator
+# AC215 - Milestone4 - YarnMaster
 
 **Team Members**
 Shiqi Wang, Yanfeiyun Wu, Jiahui Zhang, Wanying Zhang
 
 **Group Name**
-CrochetPatternGenerator
+YarnMaster
 
 **Project**
 In this project, we aim to develop a Deep Learning model capable of interpreting images of crochet products and generating corresponding, detailed pattern instructions. Despite crochet's popularity as a creative and therapeutic pastime, enthusiasts like us often struggle to find clear, step-by-step instructions for intriguing designs we encounter online or in person due to scarce resources. Existing tools can transform written instructions into visual 3D models, but there is a significant gap in generating pattern instructions directly from images of finished products. To address this need, we envision not only creating a model that provides meaningful instructions but also developing an app tailored for crochet enthusiasts. This platform would allow users to upload pictures of crochet items they find interesting, receive detailed patterns, and foster an online community where they can connect, share their creations, and inspire each other.
 
-### Milestone3 ###
+### Milestone4 ###
 
-In this milestone, we have split the processing pdfs container into two seperate containers - pdf processor and image to vector.
+In this milestone, we mainly focus on building the components for testing, backend development (api service), and frontend design of the YarnMaster website. We have successfully conntected the frontend with the backend and the api service, and able to chat with the generative model through the website.
 
-**Data**
-We gathered around 5,000 crochet products instructions in PDF format from the open-source website.
+**Application Design**
+Before building the website, we have designed the overall application architecture (training pipeline) and user inference pipeline. The training pipeline includes data gathering, pdf processing, image to vector, image description, RAG, and finetuning. The user inference pipeline includes image description, RAG, and chatting with the generative model.
+
+The user inference pipeline is designed in three different options - text + image, text-only, and image-only. These options are designed to cater to different user preferences and needs.
+
+Here is the overall training pipeline:
+![Training Pipeline](./references/training_pipeline.png)
+
+Here is the user inference pipeline:
+
+Here is the text + image option:
+![Text + Image](./references/image_text.png)
+
+Here is the text-only option:
+![Text-only](./references/text.png)
+
+Here is the image-only option:
+![Image-only](./references/image.png)
+
+**Backend API**
+We built backend api service using FastAPI, and it includes one chat model currently: Gemini (RAG). The Gemini (RAG) model is used for generating pattern instructions based on the input image and text prompt. We will add more chat models in the future.
+
+![Gemini RAG](./references/gemini_rag.png)
+
+**Frontend**
+A user-friendly interface that allows users to upload images of crochet products, receive detailed pattern instructions, and interact with the generative model. The app will send the image and user prompt to the backend api service, and display the response from the api service to the user in the frontend.
+
+Here are some screenshots of our website:
+
+![Homepage](./references/homepage.png)
+
+![Login](./references/login.png)
+
+![About Us](./references/aboutus.png)
+
+![Community](./references/community.png)
 
 **Data Pipeline Containers**
 1.  One container automized data collecting process to scrape pdfs from open source website and upload themsto Google Cloud Storage (GCS).
@@ -188,7 +261,21 @@ We gathered around 5,000 crochet products instructions in PDF format from the op
 ## Running Dockerfile
 Instructions for running the Dockerfiles in each of the container is: `sh docker-shell.sh`
 
-**data gathering container**
+**VectorDB Container**
+- This container runs the vector database (ChromaDB).
+   - Run `sh docker-shell.sh` will automatically build the image, run the container, start the chroma server, and load the data into the vector database.
+
+**API Service Container**
+- This container runs the FastAPI api service.
+   - Run `npm run dev` when inside the container.
+   - The api service will be hosted at `http://localhost:9000/docs`
+
+**Frontend React Container**
+- This container runs the frontend react app.
+   - Run `npm start` when inside the container. 
+   - The frontend will be hosted at `http://localhost:3000`
+
+**Data Gathering Container**
 - This container scrapes data from a website and uploads the scraped data to GCS.
    - `python3 cli.py scrape —project-type {project-type} —pages {pages}`
    - `python3 cli.py upload —folder {/path/to/download/folder}—bucket {bucket-name}`
@@ -239,3 +326,9 @@ Instructions for running the Dockerfiles in each of the container is: `sh docker
 
 **Reports**
 This folder contains our updated proposal.
+
+**References**
+This folder contains some images and documents that help us understand the project.
+
+**midterm_presentation**
+This folder contains our midterm presentation.

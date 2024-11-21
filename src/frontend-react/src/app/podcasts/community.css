@@ -1,56 +1,57 @@
-/* Container styling */
-.container {
-    display: flex;
-    justify-content: space-around;
-    /* padding: 20px; */
-    background-color: #f8f8f8; /* Light background */
-    margin-top: 0; /* Ensure the container itself does not move the top bar */
-  }
-  
-  /* Individual card styling */
-  .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid #e1c2d8;
-    border-radius: 10px;
-    padding: 15px;
-    width: 300px;
-    height: 400px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 100px; /* Move each card down without affecting other elements */
-  }
-  
-  /* Add hover effect for the card */
-  .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Image styling */
-  .card-image {
-    display: block;
-    width: 100%; /* Make the image take up full width of the card */
-    height: 250px; /* Set a fixed height for the image */
-    object-fit: cover; /* Ensure the image covers the area without distortion */
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  /* Card title styling */
-  .card-title {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    color: #4a4a4a;
-    font-family: 'Helvetica', sans-serif;
-    margin-top: 30px; /* Add space above the title to move it down */
-  }
-
-  .about {
-    background: white;
-    padding: 60px 20px;
+/* Wrapper styling for centering the main content */
+.wrapper {
+  display: flex;
+  justify-content: center; /* Center the main content horizontally */
+  padding: 20px; /* Add some padding for spacing */
+  background-color: #f8f8f8; /* Light background color */
 }
-  
+
+/* Container styling (no changes to the internal layout of cards) */
+.container {
+  display: flex;
+  justify-content: space-around; /* Keep the original distance between cards */
+  gap: 20px; /* Add a small gap if necessary */
+  align-items: flex-start; /* Align cards to the top */
+}
+
+/* Individual card styling */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #e1c2d8;
+  border-radius: 10px;
+  padding: 15px;
+  width: 300px;
+  height: 400px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 100px; /* Keep the original vertical position */
+}
+
+/* Add hover effect for the card */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling */
+.card-image {
+  display: block;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Card title styling */
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: #4a4a4a;
+  font-family: 'Helvetica', sans-serif;
+  margin-top: 30px;
+}
