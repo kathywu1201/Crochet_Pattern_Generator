@@ -24,7 +24,7 @@
 }
 
 .heroContent h1 {
-    font-family: 'Playfair Display', serif;
+    font-family:  'Righteous', cursive;
     font-size: 48px;
     margin-bottom: 20px;
 }
@@ -54,10 +54,9 @@
 } */
 
 .subtitle {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    color: rgb(239, 113, 134); /* Changed color to pink */
-    font-weight: bold; /* Makes the title bold */
+    font-family:  'Righteous', cursive;
+    font-size: 24px;
+    color: #F340AF; /* Changed color to pink */
     margin-bottom: 20px;
 }
 
@@ -132,8 +131,8 @@
 }
 
 .title {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
+    font-family: 'Righteous', cursive;
+    font-size: 36px;
     color: #333;
     margin-bottom: 12px;
 }
@@ -177,7 +176,7 @@
 }
 
 .subscriptionBox h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Righteous', cursive;
     font-size: 28px;
     color: #333;
     margin-bottom: 16px;
@@ -270,7 +269,7 @@
 }
 
 .detailTitle {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Righteous', cursive;
     font-size: 36px;
     color: #333;
     line-height: 1.3;
@@ -303,7 +302,7 @@
 }
 
 .shareSection h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Righteous', cursive;
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
