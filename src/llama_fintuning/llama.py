@@ -1,28 +1,28 @@
 import modal
+import os
 
 app = modal.App(name="llama-finetuning")
 
-local_base_path = "/Users/ciciwxp/Desktop/AC215/Crochet_Pattern_Generator/src/llama_fintuning/dataset"
-descriptions_path = f"{local_base_path}/descriptions"
+local_base_path = "dataset"
 images_path = f"{local_base_path}/images"
-instructions_path = f"{local_base_path}/instructions"
 cache_dir_local = f"{local_base_path}/cache"
+filtered_dataset_path = "filtered_dataset.json"
 
+# descriptions_path = f"{local_base_path}/descriptions"
+# instructions_path = f"{local_base_path}/instructions"
 
-import os
 os.makedirs(cache_dir_local, exist_ok=True)
 
-@app.function(gpu="H100:4", 
+@app.function(gpu="H100:2", 
               timeout=72000,
               secrets=[
                   modal.Secret.from_name("my-huggingface-secret"),
-                  modal.Secret.from_name("wandb-secret")  # Added wandb secret
+                  modal.Secret.from_name("wandb-secret")
                   ],
               mounts=[
-                  modal.Mount.from_local_dir(descriptions_path, remote_path="/root/dataset/descriptions"),
-                  modal.Mount.from_local_dir(images_path, remote_path="/root/dataset/images"),
-                  modal.Mount.from_local_dir(instructions_path, remote_path="/root/dataset/instructions"),
-                  modal.Mount.from_local_dir(cache_dir_local, remote_path="/root/.cache/huggingface"),  # Mount cache
+                  modal.Mount.from_local_file(filtered_dataset_path, remote_path="/root/filtered_dataset.json"),
+                   modal.Mount.from_local_dir(images_path, remote_path="/root/dataset/images"),
+                  modal.Mount.from_local_dir(cache_dir_local, remote_path="/root/.cache/huggingface")
                   ],
                   image=modal.Image.debian_slim().pip_install(
                       "Pillow",  
@@ -38,84 +38,63 @@ os.makedirs(cache_dir_local, exist_ok=True)
                       "trl==0.11.1",
                       "qwen_vl_utils",
                       "tensorboard",
-                      "wandb"
+                      "wandb",
+                      "scikit-learn"
                       ))
 def train_llama():
+    # Imports
     import os
-    from datasets import Dataset
-    from PIL import Image
-    import torch  
-    from transformers import AutoProcessor
-    from huggingface_hub import login
-    import torch  
-    from transformers import AutoModelForVision2Seq, AutoProcessor, BitsAndBytesConfig, AutoConfig
-    import logging
+    import json
+    import torch 
     import wandb
-    from accelerate.big_modeling import infer_auto_device_map, init_empty_weights
+    import logging
+    from PIL import Image
+    from datasets import Dataset, DatasetDict 
+    from transformers import AutoModelForVision2Seq, AutoProcessor, BitsAndBytesConfig, EarlyStoppingCallback, Qwen2VLProcessor
+    from huggingface_hub import login 
+    from sklearn.model_selection import train_test_split
+    from trl import SFTTrainer, SFTConfig
+    from peft import LoraConfig
+    from qwen_vl_utils import process_vision_info
 
     # Initialize logging
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
 
     # Clear CUDA cache at the very start
     torch.cuda.empty_cache()
-
-    # Set environment variable for PyTorch CUDA memory management
     os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
+    # Details about CUDA GPU
     os.system('nvidia-smi')
+
     # Hugging Face login
     token = os.getenv("HF_TOKEN")
-    if token:
-        login(token=token)
-    else:
+    if not token:
         raise ValueError("Hugging Face token not found. Set the HF_TOKEN environment variable.")
+    login(token=token)
     
+    # Initialize wandb
     wandb_api_key = os.getenv("WANDB_API_KEY")
-    if wandb_api_key:
-        wandb.login(key=wandb_api_key)
-        wandb.init(
-            project="Crochet-AI",  # Replace with your project name
-            # entity="cici-wsq-brown-university-org",          # Replace with your wandb username or team name
-            config={
-                "learning_rate": 2e-4,
-                "epochs": 8,
-                "batch_size": 2,
-                "gradient_accumulation_steps": 32
-            }
-        )
-        logging.info("wandb initialized successfully.")
-    else:
+    if not wandb_api_key:
         raise ValueError("wandb-secret not found. Set the wandb-secret environment variable.")
+    wandb.login(key=wandb_api_key)
+    wandb.init(
+        project="Crochet-AI",
+        config={
+            "learning_rate": 2e-4,
+            "epochs": 8,
+            "batch_size": 2,
+            "gradient_accumulation_steps": 32
+        }
+    )
 
+    # Load dataset
+    def load_filtered_dataset(path):
+        with open(path, "r") as infile:
+            dataset_dict = json.load(infile)
+        return Dataset.from_dict(dataset_dict)
 
-    # Paths for images and data
-    image_folder = "/root/dataset/images"
-    image_description_folder = "/root/dataset/descriptions"
-    instruction_folder = "/root/dataset/instructions"
-
-    # Helper function to read files and map by filename
-
-    def load_data():
-        data = []
-        for filename in os.listdir(image_description_folder):
-            base_name = os.path.splitext(filename)[0]
-            description_path = os.path.join(image_description_folder, filename)
-            image_path = os.path.join(image_folder, f"{base_name}.png")  # Assuming images are .png
-            instruction_path = os.path.join(instruction_folder, f"{base_name}.txt")
-
-            if os.path.exists(description_path) and os.path.exists(image_path) and os.path.exists(instruction_path):
-                try:
-                    with open(description_path, 'r') as f:
-                        description = f.read().strip()
-                    with open(instruction_path, 'r') as f:
-                        instruction = f.read().strip()
-                    data.append({"description": description, "image_path": image_path, "instruction": instruction})
-                except Exception as e:
-                    logging.error(f"Error reading files for '{base_name}': {e}")
-                    continue
-        return Dataset.from_list(data)
-
-
-    dataset = load_data()
+    dataset = load_filtered_dataset(filtered_dataset_path)
 
     def encode_image(image_path):
         image = Image.open(image_path)
@@ -139,7 +118,6 @@ def train_llama():
     {description}
     """
 
-    # from pathlib import Path
     def format_data(sample):
         encoded_image = encode_image(sample["image_path"])
         # print(encoded_image)
@@ -175,17 +153,56 @@ def train_llama():
 
     # dataset_id = "philschmid/amazon-product-descriptions-vlm"
     # dataset = load_dataset(dataset_id, split="train")
-    dataset = [format_data(sample) for sample in dataset]
-    print("dataset length", len(dataset))
-    print(dataset[1]['messages'])
+    # dataset = [format_data(sample) for sample in dataset]
+    # print("dataset length", len(dataset))
+    # print(dataset[1]['messages'])
+
+    # Preprocess dataset
+    formatted_dataset = [format_data(sample) for sample in dataset]
+    print("dataset length", len(formatted_dataset))
+    print(formatted_dataset[1]['messages'])
+
+    # # rows = formatted_dataset.to_list()
+
+    # # Split dataset into train and eval
+    # train_data, eval_data = train_test_split(formatted_dataset, test_size=0.2, random_state=42)
+    # dataset_dict = DatasetDict({
+    #     "train": Dataset.from_list(train_data),
+    #     "eval": Dataset.from_list(eval_data)
+    # })
+
+    # print("train dataset example:", dataset_dict["train"][1]['messages'])
+    # print("val dataset example:", dataset_dict["eval"][1]['messages'])
+
+    # Get the total number of samples
+    total_samples = len(formatted_dataset)
+
+    # Calculate the split indices
+    train_size = int(0.8 * total_samples)  # First 80% for training
+
+    # Split the dataset manually
+    train_dataset = formatted_dataset[:train_size]  # First 80%
+    val_dataset = formatted_dataset[train_size:]  # Last 20%
+
+    # Combine into a DatasetDict
+    dataset_dict = DatasetDict({
+        "train": train_dataset,
+        "eval": val_dataset
+    })
+
+    # Debugging: Check the structure of the train and validation datasets
+    print(f"Train dataset size: {len(dataset_dict['train'])}")
+    print(f"Validation dataset size: {len(dataset_dict['eval'])}")
+    print(f"Train dataset example: {dataset_dict['train'][0]['messages']}")
+    print(f"Validation dataset example: {dataset_dict['eval'][0]['messages']}")
 
 ##### models ########
 
+    # Model and processor
     model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
-
     new_model="fine-tuned-visionllama-v1"
 
-        # BitsAndBytesConfig int-4 config
+    # BitsAndBytesConfig int-4 config
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_use_double_quant=True,
@@ -194,40 +211,14 @@ def train_llama():
     )
 
     # Load model and tokenizer
-    config = AutoConfig.from_pretrained(model_id)
-    with init_empty_weights():
-        model = AutoModelForVision2Seq.from_config(config)
-    model.tie_weights()
-    device_map = infer_auto_device_map(
-        model,
-        # Force splits model.encoder into separate layers and devices
-        max_memory={0: "6GIB", 1: "30GIB", 2: "30GIB", 3: "30GIB"},
-        no_split_module_classes=model._no_split_modules + ["VisionEncoderLayer", "VisionDecoderLayer"]
-    )
-    # Demonstrate that only "model.encoder.layer_norm" and "model.encoder.embed_tokens"
-    # needs to be on the same device as the input
-    for module, device in device_map.items():
-        if module in {"model.encoder.layer_norm", "model.encoder.embed_tokens"}:
-            if device != 0:
-                device_map[module] = 0
-        else:
-            if device == 0:
-                device_map[module] = 1
-   
     model = AutoModelForVision2Seq.from_pretrained(
-            model_id,
-            # cache_dir="/root/.cache/huggingface",
-            device_map=device_map,
-            # attn_implementation="flash_attention_2", # not supported for training
-            torch_dtype=torch.bfloat16,
-            quantization_config=bnb_config
-        )
+        model_id,
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        quantization_config=bnb_config
+    )
     processor = AutoProcessor.from_pretrained(model_id, cache_dir="/root/.cache/huggingface")  # Use the same cache directory
- 
-
-
-
-    from peft import LoraConfig
+    
     # LoRA config based on QLoRA paper & Sebastian Raschka experiment
     peft_config = LoraConfig(
             lora_alpha=16,
@@ -238,18 +229,19 @@ def train_llama():
             task_type="CAUSAL_LM",
     )
 
-    from trl import SFTConfig
-
-# Define SFTConfig with all necessary parameters
+    # Define SFTConfig with all necessary parameters
     sft_config = SFTConfig(
-        output_dir=new_model,  # Directory to save and repository ID
+        output_dir=new_model,                   # Directory to save and repository ID
         num_train_epochs=8,                     # Number of training epochs
-        per_device_train_batch_size=2,          # Batch size per device during training
-        gradient_accumulation_steps=32,         # Steps before performing a backward/update pass
+        per_device_train_batch_size=1,          # Batch size per device during training
+        per_device_eval_batch_size=1,           # Evaluation batch size per device
+        gradient_accumulation_steps=64,         # Steps before performing a backward/update pass
         gradient_checkpointing=True,            # Use gradient checkpointing to save memory
         optim="adamw_torch_fused",              # Optimizer
-        logging_steps=1,                        # Log every 5 steps
+        logging_steps=1,                       # Log every 5 steps
         save_strategy="epoch",                  # Save checkpoint every epoch
+        evaluation_strategy="epoch",            # Evaluate after every epoch
+        load_best_model_at_end=True,            # Load best model at the end
         learning_rate=2e-4,                     # Learning rate
         bf16=True,                              # Use bfloat16 precision
         tf32=True,                              # Use tf32 precision
@@ -266,32 +258,10 @@ def train_llama():
 
     sft_config.remove_unused_columns=False
 
-    from transformers import Qwen2VLProcessor
-    from qwen_vl_utils import process_vision_info
-
     def collate_fn(examples):
-        # Get the texts and images, and apply the chat template
         texts = [processor.apply_chat_template(example["messages"], tokenize=False) for example in examples]
-        #image_inputs = [encode_image(example["image_path"]) for example in examples]
         image_inputs = [process_vision_info(example["messages"])[0] for example in examples]
-
-        # Tokenize the texts and process the images
         batch = processor(text=texts, images=image_inputs, return_tensors="pt", padding=True)
-        for i in batch:
-            if torch.is_tensor(batch[i]):
-                batch[i] = batch[i].to("cuda:0")
-        # batch = {key: val.to("cuda:0") for key, val in batch.items()}
-        ### Calculate number of tokens
-        # batch_size, seq_length = batch["input_ids"].size()
-        # num_tokens = batch_size * seq_length
-        # if hasattr(torch.distributed, "get_rank"):  # Check if distributed training is active
-        #     rank = torch.distributed.get_rank()
-        # else:
-        #     rank = 0
-        # global CURRENT_BATCH_TOKENS
-        # CURRENT_BATCH_TOKENS = num_tokens
-
-        # The labels are the input_ids, and we mask the padding tokens in the loss computation
         labels = batch["input_ids"].clone()
         labels[labels == processor.tokenizer.pad_token_id] = -100  #
         # Ignore the image token index in the loss computation (model specific)
@@ -302,24 +272,26 @@ def train_llama():
         for image_token_id in image_tokens:
             labels[labels == image_token_id] = -100
         batch["labels"] = labels
-
-        # print("batch", batch)
         return batch
+    
+    early_stopping_callback = EarlyStoppingCallback(
+        early_stopping_patience=3,
+        early_stopping_threshold=0.01
+    )
 
-
-    from trl import SFTTrainer
     trainer = SFTTrainer(
         model=model,
         args=sft_config,
-        train_dataset=dataset,
+        train_dataset=dataset_dict["train"],
+        eval_dataset=dataset_dict["eval"],
         data_collator=collate_fn,
         peft_config=peft_config,
-        tokenizer=processor.tokenizer
+        tokenizer=processor.tokenizer,
+        callbacks=[early_stopping_callback]
     )
 
     # Train the model
     trainer.train()
-
     # Save the model
 
     model.save_pretrained(new_model)
@@ -332,3 +304,7 @@ def train_llama():
 if __name__ == "__main__":
     with app.run():
         train_llama()
+
+
+
+
