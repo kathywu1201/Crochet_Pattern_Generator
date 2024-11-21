@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  add_service:
+  image_2_vector:
     build:
       context: ./src/image_2_vector
     ports:
@@ -9,7 +9,7 @@ services:
     networks:
       - crochet-network
 
-  multiply_service:
+  llm_rag:
     build:
       context: ./src/llm_rag
     ports:
@@ -28,8 +28,8 @@ services:
     networks:
       - crochet-network
     depends_on:
-      - src/image_2_vector
-      - src/llm_rag
+      - image_2_vector
+      - llm_rag
 
 
 networks:
