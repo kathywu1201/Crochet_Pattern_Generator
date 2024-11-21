@@ -1,0 +1,7 @@
+/input_file
+/Dockerfile_download
+/venv
+/chromedriver
+# Ignore Python bytecode and cache
+__pycache__/
+*.py[cod]
