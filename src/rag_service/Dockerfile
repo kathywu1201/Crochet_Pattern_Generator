@@ -8,7 +8,7 @@ WORKDIR /app
 COPY app.py .
 
 # Install necessary dependencies
-RUN pip install --no-cache-dir fastapi uvicorn
+RUN pip install --no-cache-dir fastapi uvicorn numpy
 
 # Expose the port the app will run on
 EXPOSE 5001
