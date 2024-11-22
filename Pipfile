@@ -3,28 +3,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[dev-packages]
-pytest = "*"
-pytest-mock = "*"
-anyio = "*"
-
 [packages]
-pandas = "*"
-numpy = "*"
-google-cloud-storage = "*"
-google-cloud-aiplatform = "*"
-google-cloud-vision = "*"
-chromadb = "*"
-langchain = "*"
-langchain-community = "*"
-torch = "*"
-Pillow = "*"
-transformers = "*"
 pytest = "*"
-opencv-python-headless = "*"
-pdfplumber = "*"
-pytest_docker_tools = "*"
-pylint = "*"
+exceptiongroup = "*"
+requests = "*"
+
+[dev-packages]
 
 [requires]
 python_version = "3.9"

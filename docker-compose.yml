@@ -3,21 +3,19 @@ version: '3.8'
 services:
   image_2_vector:
     build:
-      context: ./src/image_2_vector
+      context: ./src/vector_service
     ports:
       - "5000:5000"
     networks:
       - crochet-network
-    command: ["python", "-m", "pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
 
   llm_rag:
     build:
-      context: ./src/llm_rag
+      context: ./src/rag_service
     ports:
       - "5001:5001"
     networks:
       - crochet-network
-    command: ["python", "-m", "pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5001"]
 
   test_runner:
     build:
