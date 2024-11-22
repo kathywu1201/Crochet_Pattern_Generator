@@ -11,7 +11,7 @@ COPY app.py .
 RUN pip install --no-cache-dir fastapi uvicorn numpy
 
 # Expose the port the app will run on
-EXPOSE 5051
+EXPOSE 5001
 
 # Run the application
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5051"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5001"]
