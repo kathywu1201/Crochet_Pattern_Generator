@@ -18,7 +18,7 @@ test_split_json_to_jsonl: Verifies JSON file splitting into JSONL for train, val
 test_main_system_flow: Tests the end-to-end flow with main, covering download, process, split, and upload.
 
 ----------------------------------------------------------------------------
-test_rag.py
+test_rag.py (not used)
 ----------------------------------------------------------------------------
 
 1. Unit Tests：
@@ -69,19 +69,26 @@ test_main_system_flow: Tests the entire pipeline from downloading PDFs, uploadin
 ----------------------------------------------------------------------------
 test_integration.py
 ----------------------------------------------------------------------------
-test_integration_vector_rag: Tests the integration between the /vector_generator and /rag endpoints in the FastAPI application
+test_integration_vector_rag: Tests the integration between the /vector_generator and /rag endpoints (in two different containers)in the FastAPI application
 
 ----------------------------------------------------------------------------
-app.py
+image_2_vector/app.py
 ----------------------------------------------------------------------------
 Provides mock endpoints for testing integration between image-to-vector conversion and RAG query processing. It acts as a helper application for test_integration to mock the actual functionality.
 
-Endpoints:
+Endpoint: 
+POST /vector_generator: Simulates vector generation using mock_image_to_vector.
 
-1. POST /vector_generator: Simulates vector generation using mock_image_to_vector.
-2. POST /rag: Simulates query response generation using mock_query.
+Mock: 
+mock_image_to_vector: Creates a mock 1024-dimensional vector.
 
-Mocks:
+----------------------------------------------------------------------------
+llm_rag/app.py
+----------------------------------------------------------------------------
+Provides mock endpoints for testing integration between image-to-vector conversion and RAG query processing. It acts as a helper application for test_integration to mock the actual functionality.
 
-1. mock_image_to_vector: Creates a mock 1024-dimensional vector.
-2. mock_query: Generates a mock query response.
+Endpoint: 
+POST /rag: Simulates query response generation using mock_query.
+
+Mock: 
+mock_query: Generates a mock query response.

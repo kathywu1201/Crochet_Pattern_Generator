@@ -8,6 +8,7 @@ services:
       - "5000:5000"
     networks:
       - crochet-network
+    command: ["python", "-m", "pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
 
   llm_rag:
     build:
@@ -16,15 +17,16 @@ services:
       - "5001:5001"
     networks:
       - crochet-network
+    command: ["python", "-m", "pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5001"]
 
   test_runner:
     build:
       context: .
       dockerfile: test_runner/Dockerfile
     volumes:
-      - ./integration_tests:/app/integration_tests  # Mount only the test code
+      - ./integration_tests:/app/integration_tests
     working_dir: /app
-    command: ["pipenv", "run", "pytest", "integration_tests/test_integration.py"]
+    command: ["python", "-m", "pipenv", "run", "pytest", "integration_tests/test_integration.py"]
     networks:
       - crochet-network
     depends_on:

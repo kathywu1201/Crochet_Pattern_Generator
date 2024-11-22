@@ -9,7 +9,7 @@ RUN set -ex; \
     apt-get update && \
     apt-get install -y --no-install-recommends build-essential git ffmpeg && \
     pip install --no-cache-dir --upgrade pip && \
-    pip install pipenv
+    pip install --no-cache-dir pipenv==2023.7.11
 
 WORKDIR /app
 
@@ -31,7 +31,7 @@ EXPOSE 5000
 ENTRYPOINT ["/bin/bash"]
 
 # Command to run the FastAPI application
-CMD ["pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["python", "-m", "pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
 
 # Get into the pipenv shell
 # CMD ["-c", "pipenv shell"]
