@@ -14,7 +14,7 @@ def test_integration_vector_rag():
 
     # Step 1: Test /vector_generator
     vector_response = requests.post(
-        "http://image_2_vector:5000/vector_generator",
+        "http://image_2_vector:5050/vector_generator",
         json={"image_path": "mock_image_path.png"}
     )
     assert vector_response.status_code == 200, "Failed to get vector"
@@ -30,13 +30,18 @@ def test_integration_vector_rag():
 
     # Step 2: Test /rag
     rag_response = requests.post(
-        "http://llm_rag:5001/rag",
+        "http://llm_rag:5051/rag",
         json={
             "user_query": "Describe the crochet pattern in the following image.",
             "image_vector": "test_vector.npy"
         }
     )
-    assert rag_response.status_code == 200, "Failed to get RAG query response"
+    # Print detailed error information
+    if rag_response.status_code != 200:
+        print(f"RAG Response Status Code: {rag_response.status_code}")
+        print(f"RAG Response Content: {rag_response.text}")
+        
+    assert rag_response.status_code == 200, f"Failed to get RAG query response: {rag_response.text}"
     rag_result = rag_response.json()
 
     # Assert output is user_query + chunked_text

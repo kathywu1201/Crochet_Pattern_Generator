@@ -5,7 +5,7 @@ services:
     build:
       context: ./src/vector_service
     ports:
-      - "5000:5000"
+      - "5050:5050"
     networks:
       - crochet-network
 
@@ -13,7 +13,7 @@ services:
     build:
       context: ./src/rag_service
     ports:
-      - "5001:5001"
+      - "5051:5051"
     networks:
       - crochet-network
 
