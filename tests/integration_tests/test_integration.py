@@ -7,7 +7,7 @@ from unittest.mock import patch
 # # Integration test
 # @patch("app.mock_image_to_vector", side_effect=mock_image_to_vector)
 # @patch("app.mock_query", side_effect=mock_query)
-def test_integration_vector_rag(mock_image_to_vector_func, mock_query_func):
+def test_integration_vector_rag():
     # Start FastAPI server in a subprocess
     # process = subprocess.Popen(["uvicorn", "tests.app:app", "--host", "127.0.0.1", "--port", "8000"])
     # time.sleep(5)  # Give the server some time to start
