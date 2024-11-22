@@ -162,9 +162,9 @@ export default function ChatInput({
                             disabled={disableModelSelect}
                         >
                             <option value="llm">Yarn Master Assistant (LLM)</option>
-                            <option value="llm-cnn">Yarn Master Assistant Assistant (LLM + CNN)</option>
+                            {/* <option value="llm-cnn">Yarn Master Assistant Assistant (LLM + CNN)</option> */}
                             <option value="llm-rag">Crochet Expert (RAG)</option>
-                            <option value="llm-agent">Crochet Expert (Agent)</option>
+                            {/* <option value="llm-agent">Crochet Expert (Agent)</option> */}
                         </select>
                 </div>
             </div>

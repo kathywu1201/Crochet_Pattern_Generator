@@ -62,23 +62,23 @@
 // }
 
 import React from 'react';
-import './community.css';
+import styles from './styles.module.css';
 
 const HomePage = () => {
     return (
-        <div className="wrapper">
-            <div className="container">
-                <div className="card">
-                    < img src="/assets/guess_you_like.jpg" alt="Guess You Like" className="card-image" />
-                    <div className="card-title">Guess You Like</div>
+        <div className={styles.wrapper}>
+            <div className={styles.container}>
+                <div className={styles.card}>
+                    <img src="/assets/guess_you_like.jpg" alt="Guess You Like" className={styles.cardImage} />
+                    <div className={styles.cardTitle}>Guess You Like</div>
                 </div>
-                <div className="card">
-                    < img src="/assets/community.jpg" alt="Community Spotlight" className="card-image" />
-                    <div className="card-title">Community Spotlight</div>
+                <div className={styles.card}>
+                    <img src="/assets/community.jpg" alt="Community Spotlight" className={styles.cardImage} />
+                    <div className={styles.cardTitle}>Community Spotlight</div>
                 </div>
-                <div className="card">
-                    < img src="/assets/library.jpg" alt="Your Library" className="card-image" />
-                    <div className="card-title">Your Library</div>
+                <div className={styles.card}>
+                    <img src="/assets/library.jpg" alt="Your Library" className={styles.cardImage} />
+                    <div className={styles.cardTitle}>Your Library</div>
                 </div>
             </div>
         </div>

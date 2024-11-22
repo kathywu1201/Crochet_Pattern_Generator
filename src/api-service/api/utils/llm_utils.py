@@ -21,6 +21,7 @@ generation_config = {
     "temperature": 0.1,  # Control randomness in output
     "top_p": 0.95,  # Use nucleus sampling
 }
+
 # Initialize the GenerativeModel with specific system instructions
 SYSTEM_INSTRUCTION = """
 You are an AI assistant specialized in crochet knowledge. Your primary task is to generate original crochet pattern instructions based on the user's prompt, using your expertise in crochet. 
