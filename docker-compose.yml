@@ -22,9 +22,9 @@ services:
       context: .
       dockerfile: test_runner/Dockerfile
     volumes:
-      - ./integration_tests:/app/integration_tests
+      - ./tests:/app/tests
     working_dir: /app
-    command: ["python", "-m", "pipenv", "run", "pytest", "integration_tests/test_integration.py"]
+    command: ["python", "-m", "pipenv", "run", "pytest", "tests/integration_tests/test_integration.py"]
     networks:
       - crochet-network
     depends_on:
