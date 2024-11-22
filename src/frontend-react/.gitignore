@@ -1,0 +1,8 @@
+/node_modules
+/build
+/dist
+/.next
+.DS_Store
+env.local
+.eslintcache
+scratch.txt
