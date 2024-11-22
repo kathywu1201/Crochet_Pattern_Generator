@@ -1,0 +1,82 @@
+.recentChats {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.recentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.recentHeader h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.chatIcon {
+    font-size: 24px;
+}
+
+.viewAllButton {
+    background: transparent;
+    border: none;
+    color: #888888;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.viewAllButton:hover {
+    background: #D6D6D6;
+}
+
+.chatGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.chatCard {
+    /* background: #e3e2e2; */
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.chatCard:hover {
+    transform: translateY(-2px);
+    background: #d7d7d7;
+}
+
+.chatTitle {
+    margin: 12px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1f1f1f;
+}
+
+.chatTime {
+    color: #5f5f5f;
+    font-size: 14px;
+}
+
+.projectTag {
+    background: #444444;
+    color: #FFFFFF;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+}

@@ -1,5 +1,11 @@
 /node_modules
 /build
 /dist
-/public/assets
 /.next
+node_modules/
+.next/
+# misc
+.DS_Store
+env.local
+.eslintcache
+scratch.txt

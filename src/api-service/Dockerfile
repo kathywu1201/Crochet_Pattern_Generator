@@ -47,5 +47,14 @@ RUN pipenv sync
 # layers when we change a line of code.
 ADD --chown=app:app . /app
 
+# Install additional Python dependencies for FastAPI and Uvicorn
+# RUN pip install --no-cache-dir fastapi uvicorn
+
+# Expose the port for FastAPI app
+# EXPOSE 5001
+
 # Entry point
 ENTRYPOINT ["/bin/bash","./docker-entrypoint.sh"]
+
+# Default command to run the FastAPI app
+# CMD ["pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5001"]
