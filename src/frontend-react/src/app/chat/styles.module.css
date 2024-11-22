@@ -8,7 +8,7 @@
         url('/assets/yarn3.jpeg');
     background-size: cover;
     background-position: center;
-    height: 400px;
+    height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +19,7 @@
 .heroContent {
     max-width: 800px;
     width: 800px;
-    padding-top: 67px;
+    padding-top: 50px;
 }
 
 .heroContent h1 {

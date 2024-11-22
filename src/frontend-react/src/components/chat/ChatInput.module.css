@@ -1,9 +1,7 @@
 .chatInputContainer {
-    /* max-width: 800px;
-    margin: 0 auto 60px;
-    background: #363636;
-    
-    padding: 20px; */
+    max-width: 800px;
+    margin: 20px;
+    padding: 20px;
     background: #FFFDF2;
     border-top: 4px solid #FBDB14;
     border-radius: 12px;
@@ -38,19 +36,27 @@
 }
 
 .submitButton {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    background: transparent;
-    border: none;
-    color: #F340AF;
-    padding: 8px;
     cursor: pointer;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    display: inline-block;
+    background-color: #F340AF; /* Replace with the '01. Primary/400' pink color */
+    color: #FFFDF2;
+    padding: 12px 32px; /* Adjust padding if necessary */
+    border-radius: 50px; /* Corner radius to match the image */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 28px;
+    transition: background-color 0.2s ease, transform 0.2s ease;    
+    font-family: 'Righteous', cursive;
+    text-align: center;
+    /* Fixed position styling for bottom center */
+    position: fixed; /* Keeps the button fixed on the viewport */
+    bottom: 50px; /* Distance from the bottom of the viewport */
+    left: 50%; /* Aligns to the center of the viewport horizontally */
+    transform: translateX(-50%); /* Centers the button perfectly */
+    z-index: 1000; 
 }
 
 .submitButton.active {
@@ -70,14 +76,20 @@
 
 .inputControls {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 20px;
-    border-top: 1px solid #444444;
-    padding-top: 20px;
+    /* border-top: 1px solid #444444; */
+    /* padding-top: 5px; */
 }
 
-.leftControls,
+.leftControls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
 .rightControls {
     display: flex;
     gap: 12px;
@@ -95,8 +107,10 @@
 }
 
 .iconButton:hover {
-    background: #E9229E;
-    color: #FFFDF2;
+    background: #FFFDF2;
+    color: #E9229E;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+    transition: box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
 }
 
 .modelSelect {
@@ -111,9 +125,11 @@
 }
 
 .inputTip {
-    color: #888;
-    font-size: 14px;
-    margin-right: 16px;
+    color: #FFFDF2;
+    font-size: 20px;
+    text-align: left;
+    font-family: 'Righteous', cursive;
+    
 }
 
 .hiddenFileInput {

@@ -104,72 +104,76 @@ export default function ChatInput({
     };
 
     return (
-        <div className={styles.chatInputContainer}>
-            {selectedImage && (
-                <div className={styles.imagePreview}>
-                    <img
-                        src={selectedImage.preview}
-                        alt="Preview"
-                    />
-                    <button
-                        className={styles.removeImageBtn}
-                        onClick={removeImage}
-                    >
-                        ×
-                    </button>
+        <section>
+            <div className={styles.inputTip}>Step 1: Upload an Image</div>
+            <div className={styles.chatInputContainer}>
+                {selectedImage && (
+                    <div className={styles.imagePreview}>
+                        <img
+                            src={selectedImage.preview}
+                            alt="Preview"
+                        />
+                        <button
+                            className={styles.removeImageBtn}
+                            onClick={removeImage}
+                        >
+                            ×
+                        </button>
+                    </div>
+                )}
+                <div className={styles.inputControls}>
+                    <div className={styles.leftControls}>
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            className={styles.hiddenFileInput}
+                            accept="image/*"
+                            onChange={handleImageChange}
+                        />
+                        <IconButton aria-label="camera" className={styles.iconButton} onClick={handleImageClick}>
+                            <CameraAltOutlined />
+                        </IconButton>
+                    </div>
                 </div>
-            )}
-            <div className={styles.textareaWrapper}>
-                <textarea
-                    ref={textAreaRef}
-                    className={styles.chatInput}
-                    placeholder="How can Yarn Master help you today?"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleSubmit();
-                        }
-                    }}
-                    rows={1}
-                />
-                <button
-                    className={`${styles.submitButton} ${message.trim() ? styles.active : ''}`}
-                    onClick={handleSubmit}
-                    disabled={!message.trim() && !selectedImage}
-                >
-                    <Send />
-                </button>
             </div>
-            <div className={styles.inputControls}>
-                <div className={styles.leftControls}>
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        className={styles.hiddenFileInput}
-                        accept="image/*"
-                        onChange={handleImageChange}
+            <div className={styles.inputTip}>Step 2: Enter a Prompt</div>
+            <div className={styles.chatInputContainer}>
+                <div className={styles.textareaWrapper}>
+                    <textarea
+                        ref={textAreaRef}
+                        className={styles.chatInput}
+                        placeholder="Ex: Show me how to make this blue, heart-shape cup mat"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                handleSubmit();
+                            }
+                        }}
+                        rows={1}
                     />
-                    <IconButton aria-label="camera" className={styles.iconButton} onClick={handleImageClick}>
-                        <CameraAltOutlined />
-                    </IconButton>
                 </div>
                 <div className={styles.rightControls}>
-                    <span className={styles.inputTip}>Use shift + return for new line</span>
-                    <select
-                        className={styles.modelSelect}
-                        value={selectedModel}
-                        onChange={handleModelChange}
-                        disabled={disableModelSelect}
-                    >
-                        <option value="llm">Yarn Master Assistant (LLM)</option>
-                        <option value="llm-cnn">Yarn Master Assistant Assistant (LLM + CNN)</option>
-                        <option value="llm-rag">Crochet Expert (RAG)</option>
-                        <option value="llm-agent">Crochet Expert (Agent)</option>
-                    </select>
+                        <select
+                            className={styles.modelSelect}
+                            value={selectedModel}
+                            onChange={handleModelChange}
+                            disabled={disableModelSelect}
+                        >
+                            <option value="llm">Yarn Master Assistant (LLM)</option>
+                            <option value="llm-cnn">Yarn Master Assistant Assistant (LLM + CNN)</option>
+                            <option value="llm-rag">Crochet Expert (RAG)</option>
+                            <option value="llm-agent">Crochet Expert (Agent)</option>
+                        </select>
                 </div>
             </div>
-        </div>
+            <button
+                className={`${styles.submitButton} ${message.trim() ? styles.active : ''}`}
+                onClick={handleSubmit}
+                disabled={!message.trim() && !selectedImage}
+            >Submit
+            </button>
+        </section>
     )
 }
