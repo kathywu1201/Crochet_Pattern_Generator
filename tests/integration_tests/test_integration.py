@@ -20,11 +20,11 @@ def test_integration_vector_rag():
     assert vector_response.status_code == 200, "Failed to get vector"
 
     # Save the downloaded vector file locally
-    with open("test_vector.npy", "wb") as f:
+    with open("/app/shared/test_vector.npy", "wb") as f:
         f.write(vector_response.content)
 
     # Load the vector to verify it is a NumPy array
-    vector = np.load("test_vector.npy")
+    vector = np.load("/app/shared/test_vector.npy")
     assert isinstance(vector, np.ndarray), "Vector is not a NumPy array"
     assert vector.shape == (1024,), f"Vector shape is incorrect, got {vector.shape}"
 
@@ -50,4 +50,4 @@ def test_integration_vector_rag():
     print(f"Integration Test Passed. Output: {rag_result}")
 
     # Clean up temporary files
-    os.remove("test_vector.npy")
+    os.remove("/app/shared/test_vector.npy")

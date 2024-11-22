@@ -24,7 +24,7 @@ class RAGInput(BaseModel):
 async def rag_query(input_data: RAGInput):
     try:
         logging.info(f"Received request with user_query: {input_data.user_query} and image_vector: {input_data.image_vector}")
-        image_vector_np = np.load(input_data.image_vector)
+        image_vector_np = np.load(f"/app/shared/{input_data.image_vector}")
         output = mock_query(input_data.user_query, image_vector_np)  # Replace with real function in production
         return output
     except Exception as e:

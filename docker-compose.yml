@@ -16,6 +16,8 @@ services:
       - "5001:5001"
     networks:
       - crochet-network
+    volumes:
+      - shared-data:/app/shared
 
   test_runner:
     build:
@@ -23,6 +25,7 @@ services:
       dockerfile: test_runner/Dockerfile
     volumes:
       - ./tests:/app/tests
+      - shared-data:/app/shared
     working_dir: /app
     command: ["python", "-m", "pipenv", "run", "pytest", "tests/integration_tests/test_integration.py"]
     networks:
@@ -31,6 +34,8 @@ services:
       - image_2_vector
       - llm_rag
 
+volumes:
+  shared-data:
 
 networks:
   crochet-network:
