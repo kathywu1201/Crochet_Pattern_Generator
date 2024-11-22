@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+/node_modules
+/build
+/dist
+/.next
+=======
 node_modules/
 .next/
 
@@ -6,3 +12,4 @@ node_modules/
 env.local
 .eslintcache
 scratch.txt
+>>>>>>> bd3cc3bff110caaa3b1d159f26fa142b85562017

@@ -15,4 +15,11 @@
 >>>>>>> 5-rag
 .DS_Store
 
+/.pytest_cache
+
 /secrets
+
+.DS_Store
+
+/training
+
