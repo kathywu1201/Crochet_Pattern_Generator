@@ -1,7 +1,8 @@
 # Used for integration test
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import numpy as np
+import logging
 
 # Mock function for query
 def mock_query(user_query, image_vector):
@@ -11,6 +12,9 @@ def mock_query(user_query, image_vector):
 
 app = FastAPI()
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
 # Input model for the /rag endpoint
 class RAGInput(BaseModel):
     user_query: str
@@ -18,6 +22,11 @@ class RAGInput(BaseModel):
 
 @app.post("/rag")
 async def rag_query(input_data: RAGInput):
-    image_vector_np = np.load(input_data.image_vector)
-    output = mock_query(input_data.user_query, image_vector_np)  # Replace with real function in production
-    return output
+    try:
+        logging.info(f"Received request with user_query: {input_data.user_query} and image_vector: {input_data.image_vector}")
+        image_vector_np = np.load(input_data.image_vector)
+        output = mock_query(input_data.user_query, image_vector_np)  # Replace with real function in production
+        return output
+    except Exception as e:
+        logging.error(f"Error processing request: {e}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
