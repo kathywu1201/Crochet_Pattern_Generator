@@ -1,2 +1,14 @@
 # folders to ignore
+# <<<<<<< HEAD
 /src/secrets
+# =======
+/data
+# <<<<<<< HEAD
+# /src/secrets
+# =======
+
+# /src/secrets
+
+# >>>>>>> main
+.DS_Store
+# >>>>>>> main
