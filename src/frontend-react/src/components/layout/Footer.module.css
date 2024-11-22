@@ -1,0 +1,13 @@
+.footer {
+    width: 100%;
+    background-color: #FFFDF2;
+    padding: 0px 0;
+    text-align: center;
+}
+
+.footer p {
+    color: #F340AF;
+    margin: 0;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}

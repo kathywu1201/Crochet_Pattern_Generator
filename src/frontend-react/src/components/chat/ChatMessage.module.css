@@ -1,0 +1,213 @@
+.chatHistory {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+    background: #2C2C2C;
+}
+
+.chatTitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid #333;
+    background: #252525;
+}
+
+.chatTitleIcon {
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.chatTitleText {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.messageIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px;
+    flex-shrink: 0;
+}
+
+.message.user {
+    background: #444;
+    margin-left: auto;
+    flex-direction: row-reverse;
+}
+
+.message.user .messageIcon {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.message.assistant {
+    background: #363636;
+    margin-right: auto;
+}
+
+.message.assistant .messageIcon {
+    background: rgba(255, 215, 0, 0.15);
+    /* Subtle gold background */
+}
+
+.messageContent {
+    color: #FFFFFF;
+    font-size: 15px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+/* Time indicator styles */
+.messageTime {
+    position: absolute;
+    bottom: -20px;
+    font-size: 12px;
+    color: #888;
+}
+
+.user .messageTime {
+    right: 0;
+}
+
+.assistant .messageTime {
+    left: 0;
+}
+
+.messageImage {
+    margin-bottom: 8px;
+}
+
+.messageImage img {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.message.user .messageImage img {
+    float: right;
+}
+
+.message.assistant .messageImage img {
+    float: left;
+}
+
+.message.cnn .messageImage img {
+    float: left;
+}
+
+.messageContent {
+    color: #FFFFFF;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Links */
+.link {
+    color: #64B5F6;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Lists */
+.list {
+    margin: 8px 0;
+    padding-left: 24px;
+}
+
+/* Blockquotes */
+.blockquote {
+    border-left: 4px solid #444;
+    margin: 8px 0;
+    padding-left: 16px;
+    color: #BBBBBB;
+}
+
+/* Tables */
+.messageContent table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 8px 0;
+}
+
+.messageContent th,
+.messageContent td {
+    border: 1px solid #444;
+    padding: 8px;
+    text-align: left;
+}
+
+.messageContent th {
+    background: #363636;
+}
+
+/* Horizontal rule */
+.messageContent hr {
+    border: none;
+    border-top: 1px solid #444;
+    margin: 16px 0;
+}
+
+.typingIndicator {
+    display: flex;
+    gap: 4px;
+    padding: 8px 0;
+}
+
+.typingIndicator span {
+    width: 8px;
+    height: 8px;
+    background: #888;
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typingIndicator span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typingIndicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typingIndicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    30% {
+        transform: translateY(-4px);
+        opacity: 1;
+    }
+}
