@@ -1,0 +1,448 @@
+---
+- name: "Create Kubernetes Cluster and deploy multiple containers"
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    cluster_name: "crochet-app-cluster"
+    machine_type: "n2d-standard-2"
+    machine_disk_size: 30
+    initial_node_count: 2
+
+  tasks:
+  - name: "Create a GKE cluster"
+    google.cloud.gcp_container_cluster:
+      name: "{{cluster_name}}"
+      initial_node_count: "{{ initial_node_count }}"
+      location: "{{ gcp_zone }}"
+      project: "{{ gcp_project }}"
+      release_channel:
+        channel: "UNSPECIFIED"
+      ip_allocation_policy:
+        use_ip_aliases: "yes"
+      auth_kind: "{{ gcp_auth_kind }}"
+      service_account_file: "{{ gcp_service_account_file }}"
+      state: "{{ cluster_state }}"
+    register: cluster
+  
+  - name: "Create a Node Pool"
+    google.cloud.gcp_container_node_pool:
+      name: default-pool
+      initial_node_count: "{{ initial_node_count }}"
+      cluster: "{{ cluster }}"
+      location: "{{ gcp_zone }}"
+      project: "{{ gcp_project }}"
+      config:
+        machine_type: "{{ machine_type }}"
+        image_type: "cos_containerd"
+        disk_size_gb: "{{ machine_disk_size }}"
+        oauth_scopes:
+          - "https://www.googleapis.com/auth/devstorage.read_only"
+          - "https://www.googleapis.com/auth/logging.write"
+          - "https://www.googleapis.com/auth/monitoring"
+          - "https://www.googleapis.com/auth/servicecontrol"
+          - "https://www.googleapis.com/auth/service.management.readonly"
+          - "https://www.googleapis.com/auth/trace.append"
+      autoscaling:
+        enabled: "yes"
+        min_node_count: "1"
+        max_node_count: "{{ initial_node_count }}"
+      management:
+        auto_repair: "yes"
+        auto_upgrade: "yes"
+      auth_kind: "{{ gcp_auth_kind }}"
+      service_account_file: "{{ gcp_service_account_file }}"
+      state: "{{ cluster_state }}"
+  
+  - name: "Connect to cluster (update kubeconfig)"
+    shell: "gcloud container clusters get-credentials {{ cluster.name }} --zone {{ gcp_zone }} --project {{ gcp_project }}"
+    when: cluster_state == "present"
+
+  - name: "Create Namespace"
+    k8s:
+      name: "{{cluster_name}}-namespace"
+      api_version: v1
+      kind: Namespace
+      state: present
+    when: cluster_state == "present"
+
+  - name: "Add nginx-ingress helm repo"
+    community.kubernetes.helm_repository:
+      name: nginx-stable
+      repo_url: https://helm.nginx.com/stable
+    when: cluster_state == "present"
+
+  - name: "Install nginx-ingress"
+    community.kubernetes.helm:
+      name: nginx-ingress
+      namespace: "{{cluster_name}}-namespace"
+      chart_ref: nginx-stable/nginx-ingress
+      state: present
+    when: cluster_state == "present"
+
+  - name: "Copy docker tag file"
+    copy:
+      src: .docker-tag
+      dest: .docker-tag
+      mode: 0644
+    when: cluster_state == "present"
+
+  - name: "Get docker tag"
+    shell: "cat .docker-tag"
+    register: tag
+    when: cluster_state == "present"
+
+  - name: "Print tag"
+    debug:
+      var: tag
+    when: cluster_state == "present"
+
+  - name: "Create Persistent Volume Claim"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: persistent-pvc
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
+    when: cluster_state == "present"
+  
+  - name: "Create Persistent Volume Claim for ChromaDB"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: chromadb-pvc
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+    when: cluster_state == "present"
+  
+  - name: Importing credentials as a Secret
+    shell: |
+      #!/bin/bash
+      kubectl create secret generic gcp-service-key --from-file=gcp-service.json=../secrets/gcp-service.json --namespace="{{cluster_name}}-namespace"
+    register: create_secret_op
+    ignore_errors: yes
+    when: cluster_state == "present"
+  
+  - name: "Print Create Secret Output"
+    debug:
+      var: create_secret_op
+    when: cluster_state == "present"
+  
+  - name: "Create Deployment for Frontend"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Deployment
+        metadata:
+          name: frontend
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          selector:
+            matchLabels:
+              run: frontend
+          template:
+            metadata:
+              labels:
+                run: frontend
+            spec:
+              containers:
+              - image: "gcr.io/{{ gcp_project }}/crochet-app-frontend-react:{{ tag.stdout}}"
+                imagePullPolicy: IfNotPresent
+                name: frontend
+                ports:
+                - containerPort: 3000
+                  protocol: TCP
+    when: cluster_state == "present"
+
+  - name: "Create Deployment for ChromaDB"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Deployment
+        metadata:
+          name: vector-db
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          selector:
+            matchLabels:
+              run: vector-db
+          template:
+            metadata:
+              labels:
+                run: vector-db
+            spec:
+              containers:
+              - name: vector-db
+                image: chromadb/chroma:0.5.6
+                ports:
+                - containerPort: 8000
+                  protocol: TCP
+                env:
+                - name: IS_PERSISTENT
+                  value: "TRUE"
+                - name: ANONYMIZED_TELEMETRY
+                  value: "FALSE"
+              #   volumeMounts:
+              #   - name: chromadb-storage
+              #     mountPath: /chroma/chroma
+              # volumes:
+              # - name: chromadb-storage
+              #   persistentVolumeClaim:
+              #     claimName: chromadb-pvc
+    when: cluster_state == "present"
+
+  - name: "Create Deployment for API Service"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Deployment
+        metadata:
+          name: api
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          selector:
+            matchLabels:
+              run: api
+          template:
+            metadata:
+              labels:
+                run: api
+            spec:
+              volumes:
+                - name: persistent-vol
+                  emptyDir: {}
+                - name: google-cloud-key
+                  secret:
+                    secretName: gcp-service-key
+              containers:
+              - image: gcr.io/{{ gcp_project }}/crochet-app-api-service:{{ tag.stdout}}
+                imagePullPolicy: IfNotPresent
+                name: api
+                ports:
+                - containerPort: 9000
+                  protocol: TCP
+                volumeMounts:
+                  - name: persistent-vol
+                    mountPath: /persistent
+                  - name: google-cloud-key
+                    mountPath: /secrets
+                env:
+                  - name: GOOGLE_APPLICATION_CREDENTIALS
+                    value: /secrets/gcp-service.json
+                  - name: GCS_BUCKET_NAME
+                    value: crochet-app-models
+                  - name: CHROMADB_HOST
+                    value: vector-db
+                  - name: CHROMADB_PORT
+                    value: "8000"
+                  - name: GCP_PROJECT
+                    value: "{{ gcp_project }}"
+    when: cluster_state == "present"
+
+  - name: "Create Service for Frontend"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: frontend
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          ports:
+          - port: 3000
+            protocol: TCP
+            targetPort: 3000
+          selector:
+            run: frontend
+          type: NodePort
+    when: cluster_state == "present"
+
+  - name: "Create Service for ChromaDB"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: vector-db
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          ports:
+          - port: 8000
+            protocol: TCP
+            targetPort: 8000
+          selector:
+            run: vector-db
+          type: NodePort
+    when: cluster_state == "present"
+
+  - name: "Delete existing vector-db-loader job if it exists"
+    k8s:
+      state: absent
+      api_version: batch/v1
+      kind: Job
+      namespace: "{{cluster_name}}-namespace"
+      name: vector-db-loader
+    ignore_errors: yes
+    when: cluster_state == "present"
+
+  - name: "Wait for job deletion to complete"
+    shell: "kubectl wait --for=delete job/vector-db-loader -n {{cluster_name}}-namespace"
+    ignore_errors: yes
+    when: cluster_state == "present"
+
+  - name: "Create Job for Loading Vector DB"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Job
+        metadata:
+          name: vector-db-loader
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          template:
+            spec:
+              initContainers:
+              - name: wait-for-chromadb
+                image: busybox:1.28
+                command: ['sh', '-c', 
+                  'until wget --spider -S http://vector-db:8000/api/v1/heartbeat 2>&1 | grep "HTTP/1.1 200"; 
+                  do echo "Waiting for ChromaDB..."; sleep 5; done;']
+              containers:
+              - name: vector-db-loader
+                image: "gcr.io/{{ gcp_project }}/crochet-app-vector-db-cli:{{ tag.stdout}}"
+                env:
+                - name: GCP_PROJECT
+                  value: "{{ gcp_project }}"
+                - name: CHROMADB_HOST
+                  value: "vector-db"
+                - name: CHROMADB_PORT
+                  value: "8000"
+                - name: GOOGLE_APPLICATION_CREDENTIALS
+                  value: "/secrets/gcp-service.json"
+                volumeMounts:
+                - name: google-cloud-key
+                  mountPath: /secrets
+              volumes:
+              - name: google-cloud-key
+                secret:
+                  secretName: gcp-service-key
+              restartPolicy: Never
+          backoffLimit: 4
+    when: cluster_state == "present"
+
+  - name: "Wait for vector-db-loader job to complete"
+    shell: |
+      kubectl wait --for=condition=complete job/vector-db-loader -n {{cluster_name}}-namespace --timeout=600s
+    register: wait_job_result
+    retries: 3
+    delay: 60
+    until: wait_job_result.rc == 0
+    when: cluster_state == "present"
+
+  - name: "Verify vector-db-loader job succeeded"
+    shell: |
+      kubectl get job vector-db-loader -n {{cluster_name}}-namespace -o jsonpath='{.status.conditions[?(@.type=="Complete")].status}'
+    register: job_status
+    failed_when: job_status.stdout != "True"
+    when: cluster_state == "present"
+
+  - name: "Create Service for API Service"
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: api
+          namespace: "{{cluster_name}}-namespace"
+        spec:
+          ports:
+          - port: 9000
+            protocol: TCP
+            targetPort: 9000
+          selector:
+            run: api
+          type: NodePort
+    when: cluster_state == "present"
+
+  - name: Wait for Ingress Nginx to get ready
+    shell: |
+      #!/bin/bash
+      kubectl get service nginx-ingress-controller --namespace="{{cluster_name}}-namespace" -ojson | jq -r '.status.loadBalancer.ingress[].ip'
+    register: nginx_ingress
+    delay: 10
+    retries: 20
+    until: nginx_ingress.stderr == ""
+    when: cluster_state == "present"
+
+  - name: Set Nginx Ingress IP
+    set_fact:
+      nginx_ingress_ip: "{{nginx_ingress.stdout}}"
+    when: cluster_state == "present"
+
+  - name: Debug Ingress Nginx IP Address
+    debug:
+      msg: "Ingress Nginx IP Address: {{ nginx_ingress_ip }}"
+    when: cluster_state == "present"
+
+  - name: Debug vars
+    debug:
+      var: nginx_ingress_ip
+      verbosity: 0
+    when: cluster_state == "present"
+
+  - name: "Create Ingress Controller"
+    k8s:
+      state: present
+      definition:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: ingress-resource
+          namespace: "{{cluster_name}}-namespace"
+          annotations:
+            kubernetes.io/ingress.class: "nginx"
+            nginx.ingress.kubernetes.io/ssl-redirect: "false"
+            nginx.org/rewrites: "serviceName=frontend rewrite=/;serviceName=api rewrite=/"
+        spec:
+          rules:
+          - host: "{{ nginx_ingress_ip }}.sslip.io" # Host requires a domain and not just an IP
+            http:
+              paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: frontend
+                    port:
+                      number: 3000
+              - path: /api/
+                pathType: Prefix
+                backend:
+                  service:
+                    name: api
+                    port:
+                      number: 9000
+    when: cluster_state == "present"

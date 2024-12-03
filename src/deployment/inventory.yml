@@ -1,0 +1,22 @@
+all:
+    vars:
+      ansible_user: sa_111685745464276949929
+      ansible_ssh_private_key_file: "../secrets/ssh-key-deployment"
+      gcp_service_account_file: "../secrets/deployment.json"
+      gcp_service_account_email: "crochet-deployment@crochetai-new.iam.gserviceaccount.com"
+      gcp_auth_kind: "serviceaccount"
+      gcp_scopes: "https://www.googleapis.com/auth/compute"
+      gcp_project: "crochetai-new"
+      gcp_region: "us-east1"
+      gcp_zone: "us-east1-c"
+      docker_network_name: "appnetwork"
+      persistent_disk_name: "crochet-app-demo-disk"
+      persistent_disk_size: 50
+      machine_instance_name: "crochet-app-demo"
+      machine_type: "n2d-standard-2"
+      machine_disk_size: 50
+
+    children:
+        appserver:
+            hosts:
+                35.237.99.180:
