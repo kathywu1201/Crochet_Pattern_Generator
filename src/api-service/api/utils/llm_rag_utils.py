@@ -2,16 +2,13 @@ import os
 from typing import Dict, Any, List, Optional
 from fastapi import HTTPException
 import base64
-# import io
 from PIL import Image
 from pathlib import Path
 import traceback
 import chromadb
 from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
 from vertexai.generative_models import GenerativeModel, ChatSession, Part
-from api.utils.llm_image_utils import image_to_vector, image_to_vector_from_bytes  # Import the functions
-import numpy as np
-import uuid
+from api.utils.llm_image_utils import image_to_vector, image_to_vector_from_bytes  
 
 # Setup
 GCP_PROJECT = os.environ["GCP_PROJECT"]

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 # from api.routers import newsletter, podcast
-from api.routers import llm_rag_chat, llm_chat
+from api.routers import llm_rag_chat, llm_chat, llm_llama_chat
 
 # Setup FastAPI app
 app = FastAPI(title="API Server", description="API Server", version="v1")
@@ -25,6 +25,6 @@ async def get_index():
 # app.include_router(newsletter.router, prefix="/newsletters")
 # app.include_router(podcast.router, prefix="/podcasts")
 app.include_router(llm_chat.router, prefix="/llm")
-# app.include_router(llm_cnn_chat.router, prefix="/llm-cnn")
+app.include_router(llm_llama_chat.router, prefix="/llm-llama")
 app.include_router(llm_rag_chat.router, prefix="/llm-rag")
 # app.include_router(llm_agent_chat.router, prefix="/llm-agent")

@@ -161,10 +161,11 @@ export default function ChatInput({
                             onChange={handleModelChange}
                             disabled={disableModelSelect}
                         >
-                            <option value="llm">Yarn Master Assistant (LLM)</option>
+                            <option value="llm-llama">Yarn Bachelor (Llama)</option>
+                            <option value="llm">Yarn Master (LLM)</option>
                             {/* <option value="llm-cnn">Yarn Master Assistant Assistant (LLM + CNN)</option> */}
-                            <option value="llm-rag">Crochet Expert (RAG)</option>
-                            {/* <option value="llm-agent">Crochet Expert (Agent)</option> */}
+                            <option value="llm-rag">Yarn Phd (RAG)</option>
+                            
                         </select>
                 </div>
             </div>
