@@ -35,12 +35,12 @@ export default function ChatHistorySidebar({
     return (
         <div className={styles.sidebar}>
             <div className={styles.sidebarHeader}>
-                <h2>Chat History</h2>
+                <h2>Pattern Library</h2>
                 <button
                     className={styles.newChatButton}
                     onClick={() => router.push('/chat?model=' + model)}
                 >
-                    New Chat
+                    New Pattern
                 </button>
             </div>
             <div className={styles.chatList}>
