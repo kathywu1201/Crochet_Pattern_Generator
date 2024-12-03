@@ -284,13 +284,121 @@
 //     );
 // }
 
+// 'use client';
+
+// import { useState, useEffect } from 'react';
+// import { useRouter } from 'next/navigation';
+// import ChatInput from '@/components/chat/ChatInput';
+// import ChatHistorySidebar from '@/components/chat/ChatHistorySidebar';
+// import ChatMessage from '@/components/chat/ChatMessage';
+// import DataService from '../../services/DataService';
+// import { uuid } from '../../services/Common';
+
+// // Styles
+// import styles from './styles.module.css';
+
+// export default function ChatPage({ searchParams }) {
+//     const params = searchParams;
+//     const router = useRouter();
+//     const model = params.model || 'llm';
+//     const chat_id = params.id;
+
+//     const [chat, setChat] = useState(null);
+//     const [selectedModel, setSelectedModel] = useState(model);
+//     const [hasActiveChat, setHasActiveChat] = useState(!!chat_id);
+//     const [isTyping, setIsTyping] = useState(false);
+
+//     const fetchChat = async (id) => {
+//         try {
+//             const response = await DataService.GetChat(model, id);
+//             setChat(response.data);
+//         } catch (error) {
+//             console.error('Error fetching chat:', error);
+//         }
+//     };
+
+//     useEffect(() => {
+//         if (chat_id) fetchChat(chat_id);
+//     }, [chat_id]);
+
+//     const startNewChat = async (message) => {
+//         // Generate a temporary chat ID and redirect immediately
+//         const tempChatId = uuid();
+//         const tempChat = {
+//             chat_id: tempChatId,
+//             messages: [{ ...message, role: 'user', message_id: uuid() }],
+//         };
+
+//         setChat(tempChat); // Show temporary chat
+//         setHasActiveChat(true);
+//         router.push(`/chat?model=${model}&id=${tempChatId}`); // Redirect immediately
+
+//         try {
+//             // Process the actual chat backend logic
+//             const response = await DataService.StartChatWithLLM(model, message);
+//             const newChatId = response.data.chat_id;
+//             setChat(response.data); // Replace temporary chat with real data
+//             router.push(`/chat?model=${model}&id=${newChatId}`); // Ensure proper URL
+//         } catch (error) {
+//             console.error('Error starting new chat:', error);
+//             setIsTyping(false);
+//         }
+//     };
+
+//     const appendChat = async (message) => {
+//         try {
+//             setIsTyping(true);
+//             const tempChat = { ...chat };
+//             tempChat.messages.push({ ...message, role: 'user', message_id: uuid() });
+//             setChat(tempChat); // Update chat UI immediately
+
+//             const response = await DataService.ContinueChatWithLLM(model, chat_id, message);
+//             setChat(response.data); // Replace with backend response
+//         } catch (error) {
+//             console.error('Error appending chat:', error);
+//         } finally {
+//             setIsTyping(false);
+//         }
+//     };
+
+//     return (
+//         <div className={styles.container}>
+//             {!hasActiveChat && (
+//                 <section className={styles.hero}>
+//                     <div className={styles.heroContent}>
+//                         <h1>Pattern Assistant 🌟</h1>
+//                         <ChatInput
+//                             onSendMessage={startNewChat}
+//                             selectedModel={selectedModel}
+//                             onModelChange={(newModel) => setSelectedModel(newModel)}
+//                         />
+//                     </div>
+//                 </section>
+//             )}
+//             {hasActiveChat && (
+//                 <div className={styles.chatInterface}>
+//                     <ChatHistorySidebar chat_id={chat_id} model={model} />
+//                     <div className={styles.mainContent}>
+//                         <ChatMessage chat={chat} model={model} isTyping={isTyping} />
+//                         <ChatInput
+//                             onSendMessage={appendChat}
+//                             selectedModel={selectedModel}
+//                             disableModelSelect={true}
+//                         />
+//                     </div>
+//                 </div>
+//             )}
+//         </div>
+//     );
+// }
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import ChatInput from '@/components/chat/ChatInput';
 import ChatHistorySidebar from '@/components/chat/ChatHistorySidebar';
 import ChatMessage from '@/components/chat/ChatMessage';
+import ChatInput from '@/components/chat/ChatInput';
 import DataService from '../../services/DataService';
 import { uuid } from '../../services/Common';
 
@@ -303,92 +411,80 @@ export default function ChatPage({ searchParams }) {
     const model = params.model || 'llm';
     const chat_id = params.id;
 
-    const [chat, setChat] = useState(null);
-    const [selectedModel, setSelectedModel] = useState(model);
-    const [hasActiveChat, setHasActiveChat] = useState(!!chat_id);
-    const [isTyping, setIsTyping] = useState(false);
+    const [chat, setChat] = useState(null); // Current chat data
+    const [hasActiveChat, setHasActiveChat] = useState(!!chat_id); // Check if there's an active chat
 
+    // Fetch chat details when there's a chat ID
     const fetchChat = async (id) => {
         try {
+            setChat(null); // Clear the current chat state
             const response = await DataService.GetChat(model, id);
-            setChat(response.data);
+            setChat(response.data); // Set the fetched chat data
         } catch (error) {
             console.error('Error fetching chat:', error);
+            setChat(null); // Reset in case of an error
         }
     };
 
     useEffect(() => {
-        if (chat_id) fetchChat(chat_id);
+        if (chat_id) {
+            fetchChat(chat_id); // Fetch chat when chat_id exists
+            setHasActiveChat(true);
+        } else {
+            setHasActiveChat(false); // No active chat
+        }
     }, [chat_id]);
 
+    // Start a new chat and redirect to the chat page
     const startNewChat = async (message) => {
-        // Generate a temporary chat ID and redirect immediately
-        const tempChatId = uuid();
+        const tempChatId = uuid(); // Generate a temporary chat ID
         const tempChat = {
             chat_id: tempChatId,
             messages: [{ ...message, role: 'user', message_id: uuid() }],
         };
 
-        setChat(tempChat); // Show temporary chat
+        // Redirect to chat page with a temporary chat state
+        setChat(tempChat);
         setHasActiveChat(true);
-        router.push(`/chat?model=${model}&id=${tempChatId}`); // Redirect immediately
+        router.push(`/chat?model=${model}&id=${tempChatId}`); // Navigate to chat page
 
         try {
-            // Process the actual chat backend logic
+            // Make the backend call to start the chat
             const response = await DataService.StartChatWithLLM(model, message);
             const newChatId = response.data.chat_id;
-            setChat(response.data); // Replace temporary chat with real data
-            router.push(`/chat?model=${model}&id=${newChatId}`); // Ensure proper URL
+
+            // Replace the temporary chat with actual data
+            setChat(response.data);
+            router.push(`/chat?model=${model}&id=${newChatId}`);
         } catch (error) {
             console.error('Error starting new chat:', error);
-            setIsTyping(false);
-        }
-    };
-
-    const appendChat = async (message) => {
-        try {
-            setIsTyping(true);
-            const tempChat = { ...chat };
-            tempChat.messages.push({ ...message, role: 'user', message_id: uuid() });
-            setChat(tempChat); // Update chat UI immediately
-
-            const response = await DataService.ContinueChatWithLLM(model, chat_id, message);
-            setChat(response.data); // Replace with backend response
-        } catch (error) {
-            console.error('Error appending chat:', error);
-        } finally {
-            setIsTyping(false);
         }
     };
 
     return (
         <div className={styles.container}>
-            {!hasActiveChat && (
+            {!hasActiveChat ? (
+                /* Input Page */
                 <section className={styles.hero}>
                     <div className={styles.heroContent}>
                         <h1>Pattern Assistant 🌟</h1>
                         <ChatInput
-                            onSendMessage={startNewChat}
-                            selectedModel={selectedModel}
-                            onModelChange={(newModel) => setSelectedModel(newModel)}
+                            onSendMessage={startNewChat} // Use startNewChat to handle submissions
+                            selectedModel={model}
+                            disableModelSelect={false}
                         />
                     </div>
                 </section>
-            )}
-            {hasActiveChat && (
+            ) : (
+                /* Chat Page */
                 <div className={styles.chatInterface}>
                     <ChatHistorySidebar chat_id={chat_id} model={model} />
                     <div className={styles.mainContent}>
-                        <ChatMessage chat={chat} model={model} isTyping={isTyping} />
-                        <ChatInput
-                            onSendMessage={appendChat}
-                            selectedModel={selectedModel}
-                            disableModelSelect={true}
-                        />
+                        <ChatMessage chat={chat} model={model} />
+                        <ChatInput disableModelSelect={true} /> {/* Only show "New Pattern" button */}
                     </div>
                 </div>
             )}
         </div>
     );
 }
-
