@@ -5,7 +5,7 @@
     padding: 20px;
     overflow-y: auto;
     flex-grow: 1;
-    background: #f1f1e6;
+    background: #fffdf2;
 }
 
 .chatTitle {
@@ -51,17 +51,17 @@
 }
 
 .message.user {
-    background: #444;
+    background: #fff4ae;
     margin-left: auto;
     flex-direction: row-reverse;
 }
 
 .message.user .messageIcon {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(214, 207, 207, 0.15);
 }
 
 .message.assistant {
-    background: #363636;
+    background: #ffec78;
     margin-right: auto;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .messageContent {
-    color: #FFFFFF;
+    color: #444;
     font-size: 15px;
     line-height: 1.5;
     word-break: break-word;
@@ -117,7 +117,7 @@
 }
 
 .messageContent {
-    color: #FFFFFF;
+    color: #444;
     font-size: 15px;
     line-height: 1.5;
 }
