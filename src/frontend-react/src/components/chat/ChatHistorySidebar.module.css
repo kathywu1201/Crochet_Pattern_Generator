@@ -24,7 +24,7 @@
 .newChatButton {
     background: #444;
     border: none;
-    color: white;
+    color: black;
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
@@ -74,10 +74,10 @@
     display: flex;
     gap: 8px;
     font-size: 12px;
-    color: #c9c9c9;
+    color: black;
 }
 
 .chatDate {
     font-size: 10px;
-    color: #c9c9c9;
+    color: #6f6d6d;
 }
