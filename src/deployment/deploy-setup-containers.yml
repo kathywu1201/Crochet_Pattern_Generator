@@ -75,10 +75,7 @@
         networks:
           - name: "{{docker_network_name}}"
         volumes:
-          - /mnt/disk-1/chromadb:/chroma/chroma
-
-    - name: Load Vector DB
-      shell: docker run --rm -it -e GCP_PROJECT="{{ gcp_project }}" -e CHROMADB_HOST="vector-db" -e CHROMADB_PORT="8000" -e GOOGLE_APPLICATION_CREDENTIALS="/secrets/gcp-service.json" -v /srv/secrets:/secrets --network "{{docker_network_name}}" "gcr.io/{{ gcp_project }}/crochet-app-vector-db-cli:{{ tag.stdout}}" cli.py --load
+          - /mnt/disk-1/chromadb:/chroma/chroma  
 
     - name: Create api-service container
       docker_container:
@@ -105,3 +102,5 @@
     
     - name: "Remove all unused containers"
       shell: docker system prune -a -f
+
+    

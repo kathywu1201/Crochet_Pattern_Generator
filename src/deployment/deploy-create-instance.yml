@@ -70,6 +70,9 @@
           items:
             - http-server
             - https-server
+        scheduling:
+          on_host_maintenance: "TERMINATE"
+          automatic_restart: false
         zone: "{{ gcp_zone }}"
         project: "{{ gcp_project }}"
         state: "{{ cluster_state }}"
