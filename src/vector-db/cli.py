@@ -26,8 +26,8 @@ OUTPUT_FOLDER = "outputs"
 JSON_OUTPUT = "json_outputs"
 DATA_OUTPUT = "data_prep"
 BUCKET_NAME = "crochet-patterns-bucket"
-CHROMADB_HOST = "crochet-app-vector-db" #llm-rag-chromadb
-CHROMADB_PORT = 8000
+CHROMADB_HOST = os.environ["CHROMADB_HOST"]
+CHROMADB_PORT = os.environ["CHROMADB_PORT"]
 vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
 embedding_model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
 

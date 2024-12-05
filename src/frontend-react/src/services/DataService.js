@@ -38,9 +38,12 @@ const DataService = {
     GetNewsletterImage: function (image_path) {
         return BASE_API_URL + "/newsletters/image/" + image_path;
     },
+    // GetChats: async function (model, limit) {
+    //     return await api.get(BASE_API_URL + "/" + model + "/chats?limit=" + limit);
+    // },
     GetChats: async function (model, limit) {
-        return await api.get(BASE_API_URL + "/" + model + "/chats?limit=" + limit);
-    },
+        return await api.get(`/${model}/chats?limit=${limit}`);
+    },    
     GetChat: async function (model, chat_id) {
         return await api.get(BASE_API_URL + "/" + model + "/chats/" + chat_id);
     },
