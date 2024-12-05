@@ -17,9 +17,9 @@ fastapi = "*"
 python-multipart = "*"
 pillow = "*"
 chromadb = "==0.5.7"
-tensorflow = "==2.17.0"
-transformers = "==4.35.0"
-torch = "*"
+tensorflow = ">=2.6"
+transformers = ">=4.0"
+tf-keras = "*"
 numpy = "*"
 
 [requires]
