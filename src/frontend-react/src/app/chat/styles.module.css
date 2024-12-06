@@ -1,5 +1,7 @@
 /* src/app/chat/styles.module.css */
-.container {}
+.container {
+    padding-top: 80px;
+}
 
 
 /* Hero Section */
