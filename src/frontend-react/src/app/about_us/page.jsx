@@ -86,6 +86,21 @@ export default function About() {
                     <p className="mb-8">
                         Yarn Master offers a range of features tailored to meet the needs of every crochet and knit lover:
                     </p>
+                    <p className="mb-4">
+                        <strong>Pattern Generation:</strong> Upload a photo of your crochet or knit creation and receive a personalized, step-by-step tutorial.
+                    </p>
+                    <p className="mb-8">
+                        <strong>Community:</strong> Connect with like-minded crafters in our vibrant community space. [Comming Soon]
+                    </p>
+                    <p className="mb-8">
+                        <strong>Guess You Like:</strong> Whether you are a beginner taking your first steps, a hobbyist exploring your passion, or a seasoned professional, Yarn Master is designed to support and inspire everyone on their crafting journey. [Comming Soon]
+                    </p>
+                    <p className="mb-8">
+                        <strong>Resources:</strong> Access curated material recommendations and purchasing links to get everything you need to bring your projects to life. [Comming Soon]
+                    </p>
+                    <p className="mb-8">
+                        Any other new feature you want to add here, we'd love to hear your suggestions!
+                    </p>
 
                     <h2 className={`${styles.subtitle} mb-4`}>Features</h2>
                     <p className="mb-4">
@@ -110,7 +125,8 @@ export default function About() {
 
                     <h2 className={`${styles.subtitle} mb-4`}>Contact Us</h2>
                     <p className="mb-8">
-                        We’d love to hear from you! If you have questions, suggestions, or simply want to connect, please reach out to us via [contact information here]. 
+                        We’d love to hear from you! If you have questions, suggestions, or simply want to connect, please reach out to us via 
+                        <a href="mailto:yarnmaster2024@gmail.com" style={{ color: 'blue' }}> yarnmaster2024@gmail.com</a>. 
                         Together, let’s create something beautiful with Yarn Master!
                     </p>
                 </div>
