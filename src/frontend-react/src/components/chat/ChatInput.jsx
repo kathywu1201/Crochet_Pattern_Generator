@@ -96,7 +96,7 @@ export default function ChatInput({
                         <textarea
                             ref={textAreaRef}
                             className={styles.chatInput}
-                            placeholder="Ex: Show me how to make this blue, heart-shape cup mat"
+                            placeholder="Describe your pattern in detail... (e.g. Can you show me how to crochet this blue heart coaster which has around 6 rows.)"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                         />
