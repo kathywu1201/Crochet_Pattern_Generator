@@ -26,7 +26,7 @@ export default function ChatHistory({
                 const response = await DataService.GetChats(model, 20);
                 setChatHistory(response.data);
             } catch (error) {
-                console.error('Error fetching podcasts:', error);
+                console.error('Error fetching chats:', error);
                 setChatHistory([]); // Set empty array in case of error
             }
         };

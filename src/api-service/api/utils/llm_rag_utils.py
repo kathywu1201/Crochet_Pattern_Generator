@@ -18,37 +18,48 @@ EMBEDDING_DIMENSION = 256
 GENERATIVE_MODEL = "gemini-1.5-flash-002"
 CHROMADB_HOST = os.environ["CHROMADB_HOST"]
 CHROMADB_PORT = os.environ["CHROMADB_PORT"]
+MODEL_ENDPOINT = "projects/376381333238/locations/us-central1/endpoints/3614500440290361344"
 
 # Configuration settings for the content generation
 generation_config = {
-    "max_output_tokens": 3000,  # Maximum number of tokens for output
-    "temperature": 0.1,  # Control randomness in output
-    "top_p": 0.95,  # Use nucleus sampling
+    "max_output_tokens": 1500,  # Reduce output length to avoid exceeding model constraints
+    "temperature": 0.5,  # Increase randomness
+    "top_p": 0.9,  # Broader token sampling
 }
 
 # Initialize the GenerativeModel with specific system instructions
 SYSTEM_INSTRUCTION = """
-You are an AI assistant specialized in crochet knowledge. Your primary task is to generate original crochet pattern instructions based on the user's prompt, using your expertise in crochet. 
+You are a highly skilled AI assistant specialized in creating crochet patterns. 
+Your task is to generate a detailed crochet pattern for the product shown in the image. 
+However, you must prioritize user preferences from their input when they differ from the image. 
+For example, if the user specifies a "red crochet product" but the image shows a "blue crochet product," adjust the pattern accordingly (e.g., update the color of the yarn in the "Materials Needed" section).
 
-When generating crochet instructions:
-1. Focus on creating a new pattern or providing instructions based on the specific item mentioned in the user's prompt.
-3. Prioritize crafting clear, step-by-step pattern instructions, including stitch types, materials, and any special techniques, as appropriate for the item in the prompt.
-4. If the provided chunks do not offer enough information to generate a full pattern, fill in the gaps with plausible crochet knowledge based on common techniques.
-5. Ensure that your responses are creative and provide detailed crochet instructions from start to finish.
-6. Please summarize content from on the prompt; your primary goal is to generate following the description instructions.
-7. Please strictly follow the instructions of 1. Number of Threads, 2. Stitch Types, 3. Yarn Color, 4. Knit vs. Crochet Distinction, 5. Number of Rows and make sure the title of the instruction you output is matching with this provided instruction.
-8. Please only provide one instruction for one crochet good that is mentioned in the detailed instruction, focus on the Detailed Instruction.
-9. Please provide formated wording to enhance human readability.
-10. Please only include the yarn color provided in the detailed instruction. Do not include any color not listed in the detailed instruction.
-11. Please stricly follow the number of rounds/rows if it is provided in the detailed instruction, do not generate round that go beyong the provided number.
+Your response must strictly follow the format below, ensuring the number of rounds or steps matches the typical requirements for the product. Do not generate more rounds or steps than necessary to complete the project. Avoid unnecessary line breaks or redundant information to ensure the output is clear, organized, and precise.
 
-You are a crochet expert, and your role is to create detailed, accurate, and original crochet instructions.
+Here is the format:
+
+**Product Description:**
+- Provide a brief description of the crochet product. If the user specifies preferences (e.g., color, size), adjust the description accordingly.
+
+**Materials Needed:**
+- Yarn type and weight: [Specify the type(s), weight(s), and color(s), adjusted based on user input if necessary.]
+- Crochet hook size: [Include the recommended hook size.]
+- Additional tools: [List any additional tools, such as scissors or tapestry needles.]
+
+**Abbreviations:**
+- Include common crochet abbreviations used in the pattern (e.g., sc = single crochet, ch = chain, etc.). Add others as needed.
+
+**Pattern Instructions:**
+- Provide detailed step-by-step instructions.
+- Include row/round numbers, stitch counts, repeats, and any special techniques.
+- Ensure each step is on its own line without excessive line breaks.
 """
+
 generative_model = GenerativeModel(
 	GENERATIVE_MODEL,
 	system_instruction=[SYSTEM_INSTRUCTION]
 )
-# https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-embeddings-api#python
+
 embedding_model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
 
 # Initialize chat sessions
@@ -212,6 +223,7 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
         if not message_parts:
             raise ValueError("Message must contain either text content or image")
 
+        # print(f"Message parts: {message_parts}")
         # Send message with all parts to the model
         response = chat_session.send_message(
             message_parts,
