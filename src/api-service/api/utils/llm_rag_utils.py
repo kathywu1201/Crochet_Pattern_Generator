@@ -22,7 +22,7 @@ MODEL_ENDPOINT = "projects/376381333238/locations/us-central1/endpoints/36145004
 
 # Configuration settings for the content generation
 generation_config = {
-    "max_output_tokens": 1500,  # Reduce output length to avoid exceeding model constraints
+    "max_output_tokens": 3000,  # Reduce output length to avoid exceeding model constraints
     "temperature": 0.5,  # Increase randomness
     "top_p": 0.9,  # Broader token sampling
 }
@@ -32,7 +32,6 @@ SYSTEM_INSTRUCTION = """
 You are a highly skilled AI assistant specialized in creating crochet patterns. 
 Your task is to generate a detailed crochet pattern for the product shown in the image. 
 However, you must prioritize user preferences from their input when they differ from the image. 
-For example, if the user specifies a "red crochet product" but the image shows a "blue crochet product," adjust the pattern accordingly (e.g., update the color of the yarn in the "Materials Needed" section).
 
 Your response must strictly follow the format below, ensuring the number of rounds or steps matches the typical requirements for the product. Do not generate more rounds or steps than necessary to complete the project. Avoid unnecessary line breaks or redundant information to ensure the output is clear, organized, and precise.
 
@@ -151,6 +150,7 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
                 
                 # Decode base64 to bytes
                 image_bytes = base64.b64decode(base64_data)
+                image_part = Part.from_data(image_bytes, mime_type=mime_type)
                 
                 # Convert the image bytes to a vector
                 image_vector = image_to_vector_from_bytes(image_bytes)
@@ -223,10 +223,12 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
         if not message_parts:
             raise ValueError("Message must contain either text content or image")
 
-        # print(f"Message parts: {message_parts}")
+        print(f"Message parts: {message["content"]}")
+        model_input = [image_part] + message_parts if image_part else message_parts
+
         # Send message with all parts to the model
         response = chat_session.send_message(
-            message_parts,
+            model_input,
             generation_config=generation_config
         )
         
