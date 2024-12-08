@@ -1,5 +1,6 @@
 # Use the official Debian-hosted Python image
-FROM python:3.9-slim-buster
+# FROM python:3.9-slim-buster
+FROM python:3.9-slim-bullseye
 
 ARG DEBIAN_PACKAGES="build-essential git curl"
 
@@ -15,8 +16,8 @@ ENV PYTHONUNBUFFERED=1
 # Tell pipenv where the shell is.
 ENV PYENV_SHELL=/bin/bash
 
-# Set Google Cloud credentials environment variable
-ENV GOOGLE_APPLICATION_CREDENTIALS=/secrets/crochet_prompts_generate.json
+# # Set Google Cloud credentials environment variable
+# ENV GOOGLE_APPLICATION_CREDENTIALS=/secrets/crochet_prompts_generate.json
 
 # Ensure we have an up-to-date baseline and install dependencies
 RUN set -ex; \

@@ -2,6 +2,9 @@
 /build
 /dist
 /.next
+node_modules/
+.next/
+# misc
 .DS_Store
 env.local
 .eslintcache

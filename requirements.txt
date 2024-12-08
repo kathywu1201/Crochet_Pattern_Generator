@@ -1,0 +1,16 @@
+google-cloud-storage
+google-cloud-aiplatform
+google-cloud-vision
+chromadb
+langchain
+langchain-community
+torch
+Pillow
+transformers
+pytest
+opencv-python-headless
+pdfplumber
+pytest_docker_tools
+numpy
+pandas
+pytest-docker-tools==3.1.3

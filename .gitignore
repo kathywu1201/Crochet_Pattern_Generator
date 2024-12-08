@@ -1,14 +1,20 @@
 # folders to ignore
-# <<<<<<< HEAD
 /src/secrets
-# =======
-/data
-# <<<<<<< HEAD
-# /src/secrets
-# =======
-
-# /src/secrets
-
-# >>>>>>> main
+/data.DS_Store
 .DS_Store
-# >>>>>>> main
+/data
+
+/src/secrets
+
+.DS_Store
+.DS_Store
+
+/.pytest_cache
+
+/secrets
+
+.DS_Store
+
+/training
+
+.DS_Store

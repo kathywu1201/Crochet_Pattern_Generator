@@ -13,6 +13,7 @@ google-generativeai = "*"
 google-cloud-aiplatform = ">=1.38"
 pandas = "*"
 pillow = "*"
+google-cloud-logging = "*"
 
 [requires]
 python_version = "3.9"

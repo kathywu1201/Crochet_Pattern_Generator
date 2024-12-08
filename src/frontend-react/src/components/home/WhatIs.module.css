@@ -1,0 +1,141 @@
+/* src/components/GettingReady.module.css */
+.section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+}
+
+.title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #333;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.underline {
+    width: 100px;
+    height: 1px;
+    background-color: #ccc;
+    margin: 0 auto 40px;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 40px;
+    align-items: start;
+}
+
+.textContent {
+    color: #666;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.6;
+}
+
+.subtitle {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.textContent p {
+    margin-bottom: 20px;
+}
+
+.textContent strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.features {
+    margin-top: 40px;
+}
+
+.features h4 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.features ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.features li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.features li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #666;
+}
+
+.imageContainer {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    height: fit-content;
+}
+
+/* .image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+} */
+.imageContainer {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    /* This maintains the image aspect ratio */
+    width: 100%;
+    max-width: 400px;
+    /* Maximum width of the image */
+}
+
+/* If using the fill approach, you need position: relative and a defined height */
+.imageContainer {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    /* Define a fixed height */
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .imageContainer {
+        order: -1;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 20px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 20px;
+    }
+}
