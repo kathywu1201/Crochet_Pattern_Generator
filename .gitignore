@@ -3,18 +3,6 @@
 /data.DS_Store
 .DS_Store
 /data
-
-/src/secrets
-
-.DS_Store
-.DS_Store
-
 /.pytest_cache
-
 /secrets
 
-.DS_Store
-
-/training
-
-.DS_Store
