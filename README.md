@@ -1,4 +1,4 @@
-# AC215 YarnMaster!!
+# AC215 - YarnMaster!!
 
 #### Project Organization
 
@@ -60,27 +60,28 @@
     │   ├── docker-compose.yml
     │   ├── rag.py
     │   ├── data_preparation.py
-    ├── text-generation
-    │   └── llm-finetuning
-    │       ├── Pipfile
-    │       ├── Pipfile.lock
-    │       ├── docker-shell.sh
-    │       ├── docker-entrypoint.sh
-    │       ├── Dockerfile
-    │       └── processing_pdfs.py
+    ├── gemini-finetuning
+    │   ├── Pipfile
+    │   ├── Pipfile.lock
+    │   ├── docker-shell.sh
+    │   ├── docker-entrypoint.sh
+    │   ├── Dockerfile
+    │   ├── processing_pdfs.py
     ├── llama_fintuning
     │   ├── data_preprocessing.py
     │   ├── llama.py
-    │   ├── llama_mock.py
+    │   ├── llama_deploy.py
     │   ├── llama_predict.py
     │   ├── llama_reference.py
+    │   ├── llama_tuning_cleaned_data.py
+    │   ├── test_endpoint.py
     ├── api-service
     │   ├── Pipfile
     │   ├── Pipfile.lock
     │   ├── docker-shell.sh
     │   ├── docker-entrypoint.sh
     │   ├── Dockerfile
-    │   ├── api
+    │   └── api
     │       ├── service.py
     │       ├── routers
     │       │   ├── llm_rag_chat.py
@@ -132,6 +133,7 @@
     │   ├── docker-entrypoint.sh 
     │   ├── cli.py    
     │   ├── data_processor.yaml
+    │   ├── data_processor.yaml
     │   ├── deploy-create-instance.yml
     │   ├── deploy-docker-images-app.yml
     │   ├── deploy-docker-images-ml.yml
@@ -143,8 +145,8 @@
     │   ├── inventory-prod.yml
     │   ├── inventory.yml
     │   ├── model.py
-    │   ├── run-data-collector.sh
-    │   ├── run-data-processor.sh
+    │   ├── run-image-descriptions.sh
+    │   ├── run-pdf-processor.sh
     │   ├── run-ml-pipeline.sh
     │   ├── update-k8s-cluster.yml
  
@@ -185,18 +187,22 @@ For more information about the included features can be viewed in the `About` pa
 
 ![Image](./references/aboutus2.png)
 
-#### How to use YarnMaster? ####
+### How to use YarnMaster?
 
 Here is the homepage of our website, users can click `Quick Start` or `Patterns` to access our pattern generation feature.
 
 ![Image](./references/homepage2.png)
 
-On this pattern page, users can upload an image and a prompt describing the crochet piece that they want the generated instruction. Our app provide 3 different models for the users to choose from: Yarn Bachelar, Yarn Master, and Yarn Phd. Each model focuses on slightly different aspect of instruction generation. 
-- Yarn Bachelor can provide accurate product size and amount of materials need for the given crochet piece.
-- Yarn Master works well in most cases, especially for large crochet products like blanket, scarves, and etc.
-- Yarn Phd is the most knowledgeable AI instructor and works well on small crochet goods like ornament.
+On this pattern page, users can upload an image and a prompt describing the crochet piece that they want the generated instruction. Our app provide 3 different models for the users to choose from: *Yarn Bachelor*, *Yarn Master*, and *Yarn Phd*. Each model focuses on slightly different aspect of instruction generation. 
+- **Yarn Bachelor** can provide accurate product size and amount of materials need for the given crochet piece.
+- **Yarn Master** works well in most cases, especially for large crochet products like blanket, scarves, and etc.
+- **Yarn Phd** is the most knowledgeable AI instructor and works well on small crochet goods like ornament.
 
 ![Image](./references/inputpage2.png)
+
+Here is a sample input users can provide:
+
+![Image](./references/promptsample2.png)
 
 Users can view the generated tutorials in the chatting page. They can also access the previous instructions they have prompted under `Pattern Library` in the sidebar. 
 
@@ -320,4 +326,4 @@ This is the instruction for setting up the deployment process for the first time
    - Add public SSH key to GCP: `gcloud compute os-login ssh-keys add --key-file=/secrets/ssh-key-deployment.pub`.  
    - Note the generated username for later use.
 
-![Image](./references/YarnMaster.png)
+![Image](./references/YarnMaster.jpg)
