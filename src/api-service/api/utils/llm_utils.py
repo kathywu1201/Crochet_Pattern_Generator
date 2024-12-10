@@ -143,6 +143,37 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
             except ValueError as e:
                 print(f"Error processing image: {str(e)}")
                 raise HTTPException(status_code=400, detail=f"Image processing failed: {str(e)}")
+<<<<<<< HEAD
+        elif message.get("image_path"):
+            # Read the image file
+            image_path = os.path.join("chat-history","llm",message.get("image_path"))
+            with Path(image_path).open('rb') as f:
+                image_bytes = f.read()
+
+            # Determine MIME type based on file extension
+            mime_type = {
+                '.jpg': 'image/jpeg',
+                '.jpeg': 'image/jpeg',
+                '.png': 'image/png',
+                '.gif': 'image/gif'
+            }.get(Path(image_path).suffix.lower(), 'image/jpeg')
+
+            # Create an image Part using FileData
+            image_part = Part.from_data(image_bytes, mime_type=mime_type)
+            message_parts.append(image_part)
+
+            # Add text content if present
+            if message.get("content"):
+                message_parts.append(message["content"])
+            else:
+                message_parts.append("Name the cheese in the image, no descriptions needed")
+        else:
+            # Add text content if present
+            if message.get("content"):
+                message_parts.append(message["content"])
+                    
+        
+=======
         # elif message.get("image_path"):
         #     # Read the image file
         #     image_path = os.path.join("chat-history","llm",message.get("image_path"))
@@ -171,6 +202,7 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
         #     if message.get("content"):
         #         message_parts.append(message["content"])
                     
+>>>>>>> main
         if not message_parts:
             raise ValueError("Message must contain either text content or image")
 

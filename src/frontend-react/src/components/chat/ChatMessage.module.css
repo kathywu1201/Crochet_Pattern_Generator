@@ -5,7 +5,7 @@
     padding: 20px;
     overflow-y: auto;
     flex-grow: 1;
-    background: #2C2C2C;
+    background: #fffdf2;
 }
 
 .chatTitle {
@@ -13,18 +13,18 @@
     align-items: center;
     gap: 12px;
     padding: 16px 24px;
-    border-bottom: 1px solid #333;
-    background: #252525;
+    border-bottom: 1px solid #f7b1db;
+    background: #cefff5;
 }
 
 .chatTitleIcon {
     display: flex;
     align-items: center;
-    color: #FFFFFF;
+    color: #f7b1db;
 }
 
 .chatTitleText {
-    color: #FFFFFF;
+    color: #444;
     font-weight: 500;
 }
 
@@ -51,17 +51,17 @@
 }
 
 .message.user {
-    background: #444;
+    background: #fff4ae;
     margin-left: auto;
     flex-direction: row-reverse;
 }
 
 .message.user .messageIcon {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(214, 207, 207, 0.15);
 }
 
 .message.assistant {
-    background: #363636;
+    background: #ffec78;
     margin-right: auto;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .messageContent {
-    color: #FFFFFF;
+    color: #444;
     font-size: 15px;
     line-height: 1.5;
     word-break: break-word;
@@ -117,7 +117,7 @@
 }
 
 .messageContent {
-    color: #FFFFFF;
+    color: #444;
     font-size: 15px;
     line-height: 1.5;
 }

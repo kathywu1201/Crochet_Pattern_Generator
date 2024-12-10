@@ -1,8 +1,5 @@
-
 .DS_Store
-/secrets
 /__pycache__
 /notebooks/.DS_Store
-
-
-
+/secrets
+/llm-rag

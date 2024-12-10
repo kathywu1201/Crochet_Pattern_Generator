@@ -5,4 +5,4 @@
 /data
 /.pytest_cache
 /secrets
-
+/training
