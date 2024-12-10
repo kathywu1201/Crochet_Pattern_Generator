@@ -5,9 +5,9 @@ from datasets import Dataset
 
 # Paths
 image_folder = "dataset/images"
-image_description_folder = "dataset/descriptions"
-instruction_folder = "dataset/instructions"
-output_dataset_path = "filtered_dataset.json"
+# image_description_folder = "dataset/descriptions"
+instruction_folder = "dataset/cleaned_text_instructions"
+output_dataset_path = "dataset/filtered_dataset.json"
 
 # Helper function to count tokens
 def count_tokens(instruction):
@@ -17,20 +17,18 @@ def count_tokens(instruction):
 def load_data(max_tokens=20000):
     data = []
     excluded_count = 0  # Counter for excluded entries
-    for filename in os.listdir(image_description_folder):
+    for filename in os.listdir(instruction_folder):
         base_name = os.path.splitext(filename)[0]
-        description_path = os.path.join(image_description_folder, filename)
+        # description_path = os.path.join(image_description_folder, filename)
         image_path = os.path.join(image_folder, f"{base_name}.png")  # Assuming images are .png
         instruction_path = os.path.join(instruction_folder, f"{base_name}.txt")
 
-        if os.path.exists(description_path) and os.path.exists(image_path) and os.path.exists(instruction_path):
+        if os.path.exists(image_path) and os.path.exists(instruction_path):
             try:
-                with open(description_path, 'r') as f:
-                    description = f.read().strip()
                 with open(instruction_path, 'r') as f:
                     instruction = f.read().strip()
                 if count_tokens(instruction) <= max_tokens:
-                    data.append({"description": description, "image_path": image_path, "instruction": instruction})
+                    data.append({"image_path": image_path, "instruction": instruction})
                 else:
                     excluded_count += 1  # Increment counter for excluded entries
             except Exception as e:

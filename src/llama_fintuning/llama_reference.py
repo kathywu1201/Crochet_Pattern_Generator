@@ -2,7 +2,7 @@ import modal
 
 app = modal.App(name="llama-finetuning")
 
-local_base_path = "/Users/ciciwxp/Desktop/AC215/Crochet_Pattern_Generator/src/llama_fintuning/dataset"
+local_base_path = "dataset"
 descriptions_path = f"{local_base_path}/descriptions"
 images_path = f"{local_base_path}/images"
 instructions_path = f"{local_base_path}/instructions"
