@@ -1,0 +1,8 @@
+# folders to ignore
+/src/secrets
+/data.DS_Store
+.DS_Store
+/data
+/.pytest_cache
+/secrets
+

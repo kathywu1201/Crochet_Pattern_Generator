@@ -5,7 +5,7 @@ export BASE_DIR=$(pwd)
 export PERSISTENT_DIR=$(pwd)/../persistent-folder/
 export SECRETS_DIR=$(pwd)/../secrets/
 export GCP_PROJECT="crochetai-438515" # CHANGE TO YOUR PROJECT ID
-export GOOGLE_APPLICATION_CREDENTIALS="/secrets/crochetai-438515-63ef835b2ccc.json"
+export GOOGLE_APPLICATION_CREDENTIALS="/secrets/crochet_prompts_generate.json"
 export IMAGE_NAME="seleniarm/standalone-chromium:latest"
 export GCS_BUCKET_NAME="crochet-patterns-bucket"
 

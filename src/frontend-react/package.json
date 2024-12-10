@@ -1,0 +1,35 @@
+{
+  "name": "react-app-nextjs",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "WATCHPACK_POLLING=true next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.6",
+    "@mui/material": "^6.1.6",
+    "axios": "^1.7.7",
+    "classnames": "^2.5.1",
+    "next": "latest",
+    "next-auth": "^4.24.10",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-markdown": "^9.0.1",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.0",
+    "uuid": "^11.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7"
+  }
+}
