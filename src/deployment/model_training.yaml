@@ -1,0 +1,58 @@
+# PIPELINE DEFINITION
+# Name: model-training-pipeline
+components:
+  comp-model-training:
+    executorLabel: exec-model-training
+deploymentSpec:
+  executors:
+    exec-model-training:
+      taskSpec:
+        parameterValues:
+          script: |
+            from kfp import dsl
+
+            @dsl.component
+            def model_training(
+                project: str = "",
+                location: str = "",
+                train_dataset: str = "",
+                validation_dataset: str = "",
+                source_model: str = "",
+                display_name: str = "",
+                output_bucket: str = "",
+            ):
+                from vertexai.preview.tuning import sft
+                from vertexai import init
+
+                # Initialize Vertex AI
+                init(project=project, location=location)
+
+                # Fine-tune the model
+                print("Starting fine-tuning...")
+                sft_tuning_job = sft.train(
+                    source_model=source_model,
+                    train_dataset=train_dataset,
+                    validation_dataset=validation_dataset,
+                    epochs=1,
+                    adapter_size=4,
+                    learning_rate_multiplier=1.0,
+                    tuned_model_display_name=display_name,
+                )
+
+                print("Fine-tuning job started...")
+                sft_tuning_job.refresh()
+pipelineInfo:
+  name: model-training-pipeline
+root:
+  dag:
+    tasks:
+      model-training:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-model-training
+        taskInfo:
+          name: model-training
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.4.0
+

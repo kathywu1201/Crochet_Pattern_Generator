@@ -12,8 +12,12 @@ import string
 from kfp import dsl
 from kfp import compiler
 import google.cloud.aiplatform as aip
-from model import model_training as model_training_job, model_deploy as model_deploy_job
-
+from model import (
+    model_training as model_training_job,
+    model_deploy as model_deploy_job,
+    generate_sample_outputs,
+    manual_review_step,
+)
 
 GCP_PROJECT = os.environ["GCP_PROJECT"]
 GCS_BUCKET_NAME = os.environ["GCS_BUCKET_NAME"]
@@ -31,28 +35,29 @@ tag = tag.strip()
 
 print("Tag>>", tag, "<<")
 
-DATA_COLLECTOR_IMAGE = f"gcr.io/{GCP_PROJECT}/cheese-app-data-collector:{tag}"
-DATA_PROCESSOR_IMAGE = f"gcr.io/{GCP_PROJECT}/cheese-app-data-processor:{tag}"
+PDF_PROCESSOR_IMAGE = f"gcr.io/{GCP_PROJECT}/crochet-app-pdf-processor:{tag}"
+IMAGE_DESCRIPTIONS_IMAGE = f"gcr.io/{GCP_PROJECT}/crochet-app-image-descriptions:{tag}"
 
 
 def generate_uuid(length: int = 8) -> str:
     return "".join(random.choices(string.ascii_lowercase + string.digits, k=length))
 
 
-def data_collector():
-    print("data_collector()")
+def pdf_processor():
+    print("pdf_processor()")
 
     # Define a Container Component
     @dsl.container_component
-    def data_collector():
+    def pdf_processor():
         container_spec = dsl.ContainerSpec(
-            image=DATA_COLLECTOR_IMAGE,
+            image=PDF_PROCESSOR_IMAGE,
             command=[],
             args=[
                 "cli.py",
-                "--search",
-                "--nums 10",
-                "--query brie+cheese gouda+cheese gruyere+cheese parmigiano+cheese",
+                "--download",
+                "--process",
+                "--upload",
+                "--folders socks+pillows+rugs",
                 f"--bucket {GCS_BUCKET_NAME}",
             ],
         )
@@ -60,22 +65,22 @@ def data_collector():
 
     # Define a Pipeline
     @dsl.pipeline
-    def data_collector_pipeline():
-        data_collector()
+    def pdf_processor_pipeline():
+        pdf_processor()
 
     # Build yaml file for pipeline
     compiler.Compiler().compile(
-        data_collector_pipeline, package_path="data_collector.yaml"
+        pdf_processor_pipeline, package_path="pdf_processor.yaml"
     )
 
     # Submit job to Vertex AI
     aip.init(project=GCP_PROJECT, staging_bucket=BUCKET_URI)
 
     job_id = generate_uuid()
-    DISPLAY_NAME = "cheese-app-data-collector-" + job_id
+    DISPLAY_NAME = "crochet-app-pdf-processor-" + job_id
     job = aip.PipelineJob(
         display_name=DISPLAY_NAME,
-        template_path="data_collector.yaml",
+        template_path="pdf_processor.yaml",
         pipeline_root=PIPELINE_ROOT,
         enable_caching=False,
     )
@@ -83,19 +88,22 @@ def data_collector():
     job.run(service_account=GCS_SERVICE_ACCOUNT)
 
 
-def data_processor():
-    print("data_processor()")
+def image_descriptions():
+    print("image_descriptions()")
 
-    # Define a Container Component for data processor
+    # Define a Container Component for Image Descriptions
     @dsl.container_component
-    def data_processor():
+    def image_descriptions():
         container_spec = dsl.ContainerSpec(
-            image=DATA_PROCESSOR_IMAGE,
+            image=IMAGE_DESCRIPTIONS_IMAGE,
             command=[],
             args=[
                 "cli.py",
-                "--clean",
-                "--prepare",
+                "--download",
+                "--clean_instructions",
+                "--process",
+                "--split",
+                "--upload",
                 f"--bucket {GCS_BUCKET_NAME}",
             ],
         )
@@ -103,22 +111,22 @@ def data_processor():
 
     # Define a Pipeline
     @dsl.pipeline
-    def data_processor_pipeline():
-        data_processor()
+    def image_descriptions_pipeline():
+        image_descriptions()
 
     # Build yaml file for pipeline
     compiler.Compiler().compile(
-        data_processor_pipeline, package_path="data_processor.yaml"
+        image_descriptions_pipeline, package_path="image_descriptions.yaml"
     )
 
     # Submit job to Vertex AI
     aip.init(project=GCP_PROJECT, staging_bucket=BUCKET_URI)
 
     job_id = generate_uuid()
-    DISPLAY_NAME = "cheese-app-data-processor-" + job_id
+    DISPLAY_NAME = "crochet-app-image-descriptions-" + job_id
     job = aip.PipelineJob(
         display_name=DISPLAY_NAME,
-        template_path="data_processor.yaml",
+        template_path="image_descriptions.yaml",
         pipeline_root=PIPELINE_ROOT,
         enable_caching=False,
     )
@@ -135,8 +143,11 @@ def model_training():
         model_training_job(
             project=GCP_PROJECT,
             location=GCP_REGION,
-            staging_bucket=GCS_PACKAGE_URI,
-            bucket_name=GCS_BUCKET_NAME,
+            train_dataset="gs://{GCS_BUCKET_NAME}train.jsonl",
+            validation_dataset="gs://crochet-patterns/validation.jsonl",
+            source_model="gemini-1.5-flash-002",
+            display_name="finetuned-gemini-v2",
+            output_bucket=GCS_BUCKET_NAME,
         )
 
     # Build yaml file for pipeline
@@ -148,7 +159,7 @@ def model_training():
     aip.init(project=GCP_PROJECT, staging_bucket=BUCKET_URI)
 
     job_id = generate_uuid()
-    DISPLAY_NAME = "cheese-app-model-training-" + job_id
+    DISPLAY_NAME = "crochet-app-model-training-" + job_id
     job = aip.PipelineJob(
         display_name=DISPLAY_NAME,
         template_path="model_training.yaml",
@@ -161,11 +172,14 @@ def model_training():
 
 def model_deploy():
     print("model_deploy()")
+
     # Define a Pipeline
     @dsl.pipeline
     def model_deploy_pipeline():
-        model_deploy(
+        model_deploy_job(
+            project=GCP_PROJECT,
             bucket_name=GCS_BUCKET_NAME,
+            display_name="finetuned-gemini-v2",
         )
 
     # Build yaml file for pipeline
@@ -177,7 +191,7 @@ def model_deploy():
     aip.init(project=GCP_PROJECT, staging_bucket=BUCKET_URI)
 
     job_id = generate_uuid()
-    DISPLAY_NAME = "cheese-app-model-deploy-" + job_id
+    DISPLAY_NAME = "crochet-app-model-deploy-" + job_id
     job = aip.PipelineJob(
         display_name=DISPLAY_NAME,
         template_path="model_deploy.yaml",
@@ -190,75 +204,99 @@ def model_deploy():
 
 def pipeline():
     print("pipeline()")
-    # Define a Container Component for data collector
+
     @dsl.container_component
-    def data_collector():
+    def pdf_processor():
         container_spec = dsl.ContainerSpec(
-            image=DATA_COLLECTOR_IMAGE,
+            image=PDF_PROCESSOR_IMAGE,
             command=[],
             args=[
                 "cli.py",
-                "--search",
-                "--nums 50",
-                "--query brie+cheese gouda+cheese gruyere+cheese parmigiano+cheese",
+                "--download",
+                "--process",
+                "--upload",
+                "--folders socks+pillows+rugs",
                 f"--bucket {GCS_BUCKET_NAME}",
             ],
         )
         return container_spec
 
-    # Define a Container Component for data processor
     @dsl.container_component
-    def data_processor():
+    def image_descriptions():
         container_spec = dsl.ContainerSpec(
-            image=DATA_PROCESSOR_IMAGE,
+            image=IMAGE_DESCRIPTIONS_IMAGE,
             command=[],
             args=[
                 "cli.py",
-                "--clean",
-                "--prepare",
+                "--download",
+                "--clean_instructions",
+                "--process",
+                "--split",
+                "--upload",
                 f"--bucket {GCS_BUCKET_NAME}",
             ],
         )
         return container_spec
-
+    
     # Define a Pipeline
     @dsl.pipeline
     def ml_pipeline():
-        # Data Collector
-        data_collector_task = (
-            data_collector()
-            .set_display_name("Data Collector")
+        # PDF PROCESSOR
+        pdf_processor_task = (
+            pdf_processor()
+            .set_display_name("PDF PROCESSOR")
             .set_cpu_limit("500m")
             .set_memory_limit("2G")
         )
-        # Data Processor
-        data_processor_task = (
-            data_processor()
-            .set_display_name("Data Processor")
-            .after(data_collector_task)
+        # Image Descriptions
+        image_descriptions_task = (
+            image_descriptions()
+            .set_display_name("Image Descriptions")
+            .after(pdf_processor_task)
         )
         # Model Training
         model_training_task = (
             model_training_job(
                 project=GCP_PROJECT,
                 location=GCP_REGION,
-                staging_bucket=GCS_PACKAGE_URI,
-                bucket_name=GCS_BUCKET_NAME,
-                epochs=15,
-                batch_size=16,
-                model_name="mobilenetv2",
-                train_base=False,
+                train_dataset="gs://{GCS_BUCKET_NAME}/persistent/dataset/image_descriptions_jsonl/train.jsonl",
+                validation_dataset="gs://{GCS_BUCKET_NAME}/persistent/dataset/image_descriptions_jsonl/validation.jsonl",
+                source_model="gemini-1.5-flash-002",
+                display_name="finetuned-gemini-v2",
+                output_bucket=GCS_BUCKET_NAME,
             )
             .set_display_name("Model Training")
-            .after(data_processor_task)
+            .after(image_descriptions_task)
         )
+        # Generate Sample Outputs
+        sample_outputs_task = (
+            generate_sample_outputs(
+                project=GCP_PROJECT,
+                location=GCP_REGION,
+                tuned_model_name="finetuned-gemini-v2",
+                output_bucket=GCS_BUCKET_NAME,
+                sample_prompts=[
+                    "Create a heart-shaped coaster crochet pattern",
+                    "Write instructions for a crochet scarf",
+                    "Design a crochet flower pattern",
+                ],
+            )
+            .set_display_name("Generate Sample Outputs")
+            .after(model_training_task)
+        )
+        # Manual Review
+        manual_approval = manual_review_step(
+            output_bucket=GCS_BUCKET_NAME,
+        ).after(sample_outputs_task)
         # Model Deployment
         model_deploy_task = (
             model_deploy_job(
+                project=GCP_PROJECT,
                 bucket_name=GCS_BUCKET_NAME,
+                display_name="finetuned-gemini-v2",
             )
             .set_display_name("Model Deploy")
-            .after(model_training_task)
+            .after(manual_approval)
         )
 
     # Build yaml file for pipeline
@@ -282,39 +320,38 @@ def pipeline():
 def main(args=None):
     print("CLI Arguments:", args)
 
-    if args.data_collector:
-        data_collector()
+    if args.pdf_processor:
+        pdf_processor() # Run just PDF Processor
 
-    if args.data_processor:
-        print("Data Processor")
-        data_processor()
+    if args.image_descriptions:
+        print("Image Descriptions")
+        image_descriptions() # Run just Image Descriptions
 
     if args.model_training:
         print("Model Training")
-        model_training()
+        model_training() # Run just Model Training
 
     if args.model_deploy:
         print("Model Deploy")
-        model_deploy()
+        model_deploy() # Run just Model Deploy
 
     if args.pipeline:
-        pipeline()
+        pipeline() # Run the entire pipeline, including qualitative validation
 
 
 if __name__ == "__main__":
     # Generate the inputs arguments parser
-    # if you type into the terminal 'python cli.py --help', it will provide the description
     parser = argparse.ArgumentParser(description="Workflow CLI")
 
     parser.add_argument(
-        "--data_collector",
+        "--pdf_processor",
         action="store_true",
-        help="Run just the Data Collector",
+        help="Run just the PDF PROCESSOR",
     )
     parser.add_argument(
-        "--data_processor",
+        "--image_descriptions",
         action="store_true",
-        help="Run just the Data Processor",
+        help="Run just the Image Descriptions",
     )
     parser.add_argument(
         "--model_training",
@@ -329,9 +366,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "--pipeline",
         action="store_true",
-        help="Cheese App Pipeline",
+        help="Crochet App Pipeline",
     )
 
     args = parser.parse_args()
 
     main(args)
+

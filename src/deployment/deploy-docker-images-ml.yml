@@ -1,0 +1,41 @@
+---
+- name: "Build docker images and push them to GCR"
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: "Get timestamp for docker tag"
+    shell: "(date +%Y%m%d%H%M%S)"
+    register: tag
+  - name: Print tag
+    debug:
+      var: tag
+  - name: Build pdf-processor container image
+    community.general.docker_image:
+      build:
+        path: /pdf-processor
+        platform: linux/amd64/v2
+      name: gcr.io/{{ gcp_project }}/crochet-app-pdf-processor:{{ tag.stdout}}
+      source: build
+  - name: Push pdf-processor image to GCR
+    community.general.docker_image:
+      name: gcr.io/{{ gcp_project }}/crochet-app-pdf-processor:{{ tag.stdout}}
+      repository: gcr.io/{{ gcp_project }}/crochet-app-pdf-processor:{{ tag.stdout}}
+      push: yes
+      source: local
+  - name: Build image-descriptions container image
+    community.general.docker_image:
+      build:
+        path: /image-descriptions
+        platform: linux/amd64/v2
+      name: gcr.io/{{ gcp_project }}/crochet-app-image-descriptions:{{ tag.stdout}}
+      source: build
+  - name: Push image-descriptions image to GCR
+    community.general.docker_image:
+      name: gcr.io/{{ gcp_project }}/crochet-app-image-descriptions:{{ tag.stdout}}
+      repository: gcr.io/{{ gcp_project }}/crochet-app-image-descriptions:{{ tag.stdout}}
+      push: yes
+      source: local
+  - name: "Save docker tag"
+    shell: echo {{ tag.stdout}} > .docker-tag-ml
+  # - name: "Remove all unused containers"
+  #   shell: docker system prune -a
