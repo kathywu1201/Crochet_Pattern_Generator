@@ -1,0 +1,54 @@
+---
+- name: "Build docker images and push them to GCR"
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: "Get timestamp for docker tag"
+    shell: "(date +%Y%m%d%H%M%S)"
+    register: tag
+  - name: Print tag
+    debug:
+      var: tag
+  - name: Build frontend container image
+    community.general.docker_image:
+      build:
+        path: /frontend-react
+        platform: linux/amd64/v2
+      name: gcr.io/{{ gcp_project }}/crochet-app-frontend-react:{{ tag.stdout}}
+      source: build
+  - name: Push frontend image to GCR
+    community.general.docker_image:
+      name: gcr.io/{{ gcp_project }}/crochet-app-frontend-react:{{ tag.stdout}}
+      repository: gcr.io/{{ gcp_project }}/crochet-app-frontend-react:{{ tag.stdout}}
+      push: yes
+      source: local
+  - name: Build api-service container image
+    community.general.docker_image:
+      build:
+        path: /api-service
+        platform: linux/amd64/v2
+      name: gcr.io/{{ gcp_project }}/crochet-app-api-service-tf:{{ tag.stdout}}
+      source: build
+  - name: Push api-service image to GCR
+    community.general.docker_image:
+      name: gcr.io/{{ gcp_project }}/crochet-app-api-service-tf:{{ tag.stdout}}
+      repository: gcr.io/{{ gcp_project }}/crochet-app-api-service-tf:{{ tag.stdout}}
+      push: yes
+      source: local
+  - name: Build vector-db-cli container image
+    community.general.docker_image:
+      build:
+        path: /vector-db
+        platform: linux/amd64/v2
+      name: gcr.io/{{ gcp_project }}/crochet-app-vector-db-cli:{{ tag.stdout}}
+      source: build
+  - name: Push vector-db-cli image to GCR
+    community.general.docker_image:
+      name: gcr.io/{{ gcp_project }}/crochet-app-vector-db-cli:{{ tag.stdout}}
+      repository: gcr.io/{{ gcp_project }}/crochet-app-vector-db-cli:{{ tag.stdout}}
+      push: yes
+      source: local
+  - name: "Save docker tag"
+    shell: echo {{ tag.stdout}} > .docker-tag
+  - name: "Remove all unused containers"
+    shell: docker system prune -a

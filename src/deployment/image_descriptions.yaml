@@ -1,0 +1,32 @@
+# PIPELINE DEFINITION
+# Name: image-descriptions-pipeline
+components:
+  comp-image-descriptions:
+    executorLabel: exec-image-descriptions
+deploymentSpec:
+  executors:
+    exec-image-descriptions:
+      container:
+        args:
+        - cli.py
+        - --download
+        - --clean_instructions
+        - --process
+        - --split
+        - --upload
+        - --bucket crochet-patterns-bucket-v2
+        image: gcr.io/ac215-project/crochet-app-image-descriptions:20241210142811
+pipelineInfo:
+  name: image-descriptions-pipeline
+root:
+  dag:
+    tasks:
+      image-descriptions:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-image-descriptions
+        taskInfo:
+          name: image-descriptions
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.4.0

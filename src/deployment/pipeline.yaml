@@ -1,0 +1,137 @@
+# PIPELINE DEFINITION
+# Name: crochet-app-pipeline
+components:
+  comp-pdf-processor:
+    executorLabel: exec-pdf-processor
+  comp-image-descriptions:
+    executorLabel: exec-image-descriptions
+  comp-model-training:
+    executorLabel: exec-model-training
+  comp-generate-sample-outputs:
+    executorLabel: exec-generate-sample-outputs
+  comp-manual-review-step:
+    executorLabel: exec-manual-review-step
+  comp-model-deploy:
+    executorLabel: exec-model-deploy
+deploymentSpec:
+  executors:
+    exec-pdf-processor:
+      taskSpec:
+        parameterValues:
+          script: |
+            from kfp import dsl
+
+            @dsl.component
+            def pdf_processor():
+                print("PDF processing task executed.")
+    exec-image-descriptions:
+      taskSpec:
+        parameterValues:
+          script: |
+            from kfp import dsl
+
+            @dsl.component
+            def image_descriptions():
+                print("Image descriptions task executed.")
+    exec-model-training:
+      taskSpec:
+        parameterValues:
+          script: |
+            from kfp import dsl
+
+            @dsl.component
+            def model_training():
+                print("Model training executed.")
+    exec-generate-sample-outputs:
+      taskSpec:
+        parameterValues:
+          script: |
+            from google.cloud import storage
+            from vertexai.generative_models import GenerativeModel
+            from vertexai import init
+
+            # Generate sample outputs for qualitative assessment
+            prompts = ["Create a heart-shaped coaster crochet pattern",
+                    "Write instructions for a crochet scarf",
+                    "Design a crochet flower pattern",]
+            samples = {prompt: "Sample output" for prompt in prompts}
+
+            # Save outputs
+            client = storage.Client()
+            bucket = client.bucket("GCS_BUCKET_NAME")
+            for prompt, output in samples.items():
+                blob = bucket.blob(f"qualitative_outputs/{prompt}.txt")
+                blob.upload_from_string(output)
+    exec-manual-review-step:
+      taskSpec:
+        parameterValues:
+          script: |
+            print("Manual review of generated samples required.")
+            approval = input("Approve the deployment? (yes/no): ").strip().lower()
+            if approval != "yes":
+                raise ValueError("Deployment not approved.")
+    exec-model-deploy:
+      taskSpec:
+        parameterValues:
+          script: |
+            print("Model deployment task executed.")
+pipelineInfo:
+  name: crochet-app-pipeline
+root:
+  dag:
+    tasks:
+      pdf-processor:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-pdf-processor
+        taskInfo:
+          name: pdf-processor
+      image-descriptions:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-image-descriptions
+        taskInfo:
+          name: image-descriptions
+        dependencies:
+        - pdf-processor
+      model-training:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-model-training
+        taskInfo:
+          name: model-training
+        dependencies:
+        - image-descriptions
+      generate-sample-outputs:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-generate-sample-outputs
+        taskInfo:
+          name: generate-sample-outputs
+        dependencies:
+        - model-training
+      manual-review:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-manual-review-step
+        taskInfo:
+          name: manual-review
+        dependencies:
+        - generate-sample-outputs
+      model-deploy:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-model-deploy
+        taskInfo:
+          name: model-deploy
+        dependencies:
+        - manual-review
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.4.0
+

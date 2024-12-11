@@ -1,0 +1,31 @@
+# PIPELINE DEFINITION
+# Name: pdf-processor-pipeline
+components:
+  comp-data-processor:
+    executorLabel: exec-pdf-processor
+deploymentSpec:
+  executors:
+    exec-pdf-processor:
+      container:
+        args:
+        - cli.py
+        - --download
+        - --process
+        - --upload
+        - --folders socks+pillows+rugs"
+        - --bucket crochet-patterns-bucket-v2
+        image: gcr.io/ac215-project/crochet-app-pdf-processor:20241210142811
+pipelineInfo:
+  name: pdf-processor-pipeline
+root:
+  dag:
+    tasks:
+      data-processor:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-pdf-processor
+        taskInfo:
+          name: pdf-processor
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.4.0

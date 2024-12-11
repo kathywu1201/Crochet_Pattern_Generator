@@ -3,10 +3,10 @@ name: Multi-Container Integration Test
 on:
   push:
     branches:
-      - 7-testing
+      - main
   pull_request:
     branches:
-      - 7-testing
+      - main
 
 jobs:
   test:

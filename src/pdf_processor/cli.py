@@ -1,4 +1,3 @@
-# pdf_processor.py
 import os
 import glob
 import shutil
@@ -9,39 +8,41 @@ from google.cloud import storage, vision
 import json
 import time
 
-# GCP configurations
-bucket_name = os.environ["GCS_BUCKET_NAME"]
-input_files = "input_files"
-images_folder = "training/images"
-txt_outputs = "training/text_instructions/txt_outputs"
+# Folder configurations
+dataset_folder = os.path.join("/persistent", "dataset")
+raw_pdf_folder = os.path.join(dataset_folder, "raw_pdf")
+raw_image_folder = os.path.join(dataset_folder, "raw_image")
+raw_instructions_folder = os.path.join(dataset_folder, "raw_instructions/txt_outputs")
+
 
 def makedirs():
-    os.makedirs(input_files, exist_ok=True)
-    os.makedirs(images_folder, exist_ok=True)
-    os.makedirs(txt_outputs, exist_ok=True)
+    os.makedirs(raw_pdf_folder, exist_ok=True)
+    os.makedirs(raw_image_folder, exist_ok=True)
+    os.makedirs(raw_instructions_folder, exist_ok=True)
 
-def upload_to_gcs(local_file, destination_blob_name):
+
+def upload_to_gcs(local_file, destination_blob_name, bucket_name):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(local_file, timeout=600, num_retries=5)
     print(f"Uploaded {local_file} to {destination_blob_name}.")
 
-def download():
+
+def download(bucket_name, folder_names):
     print("Downloading PDFs from GCS...")
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
-    
-    folders = ["Afghans+%26+Blankets", "Pillows+%26+Poufs", "Rug", "Scarves", "Skirts", "Socks", "Tops"]
-    # folders = ["Skirts"]
 
-    for folder in folders:
+    for folder in folder_names:
+        print(f"Processing folder: {folder}")
         blobs = bucket.list_blobs(prefix=folder)
         for blob in blobs:
             if blob.name.endswith(".pdf"):
-                local_path = os.path.join(input_files, os.path.basename(blob.name))
+                local_path = os.path.join(raw_pdf_folder, os.path.basename(blob.name))
                 blob.download_to_filename(local_path)
                 print(f"Downloaded {blob.name} to {local_path}")
+
 
 def extract_text_from_pdf_gcs(gcs_uri, output_uri):
     client = vision.ImageAnnotatorClient()
@@ -50,12 +51,13 @@ def extract_text_from_pdf_gcs(gcs_uri, output_uri):
     input_config = vision.InputConfig(gcs_source=gcs_source, mime_type="application/pdf")
     output_config = vision.OutputConfig(gcs_destination=vision.GcsDestination(uri=output_uri), batch_size=1)
     request = vision.AsyncAnnotateFileRequest(features=[feature], input_config=input_config, output_config=output_config)
-    
+
     operation = client.async_batch_annotate_files(requests=[request])
     operation.result(timeout=300)
     print("Text extraction completed.")
 
-def download_results_from_gcs(prefix, local_file):
+
+def download_results_from_gcs(prefix, local_file, bucket_name):
     """Download the extracted text results from GCS and save only the text."""
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
@@ -72,6 +74,7 @@ def download_results_from_gcs(prefix, local_file):
         f.write(full_text)
 
     print(f"Results saved to {local_file}")
+
 
 def extract_largest_image(pdf_path, output_image_path):
     with pdfplumber.open(pdf_path) as pdf:
@@ -106,60 +109,94 @@ def extract_largest_image(pdf_path, output_image_path):
         cv2.imwrite(output_image_path, output_img)
         print(f"Largest image saved as {output_image_path}")
 
-def upload_pdf(pdf_path):
+def upload_pdf(pdf_path, bucket_name):
     pdf_name = os.path.basename(pdf_path).replace(".pdf", "")
-    upload_to_gcs(pdf_path, f"{input_files}/{pdf_name}.pdf")
+    upload_to_gcs(pdf_path, f"raw/{pdf_name}.pdf", bucket_name)
 
-def process_pdf(pdf_path):
+
+def process_pdf(pdf_path, bucket_name):
     pdf_name = os.path.basename(pdf_path).replace(".pdf", "")
-    gcs_pdf_uri = f"gs://{bucket_name}/input_files/{pdf_name}.pdf"
-    json_output_uri = f"gs://{bucket_name}/training/text_instructions/json_outputs/{pdf_name}_output/"
+    gcs_pdf_uri = f"gs://{bucket_name}/persistent/raw_pdf/{pdf_name}.pdf"
+    json_output_uri = f"gs://{bucket_name}/persistent/raw_instructions/json_outputs/{pdf_name}_output/"
     extract_text_from_pdf_gcs(gcs_pdf_uri, json_output_uri)
 
-    text_file_path = os.path.join(txt_outputs, f"{pdf_name}.txt")
-    download_results_from_gcs(f"training/text_instructions/json_outputs/{pdf_name}_output", text_file_path)
-    
-    image_path = os.path.join(images_folder, f"{pdf_name}.png")
+    text_file_path = os.path.join(raw_instructions_folder, f"{pdf_name}.txt")
+    download_results_from_gcs(f"persistent/raw_instructions/json_outputs/{pdf_name}_output", text_file_path, bucket_name)
+
+    image_path = os.path.join(raw_image_folder, f"{pdf_name}.png")
     extract_largest_image(pdf_path, image_path)
 
-def upload():
+
+def upload(bucket_name):
     """Upload all processed files to GCS."""
-    for folder, gcs_folder in [
-        (images_folder, "training/images"),
-        (txt_outputs, "training/text_instructions/txt_outputs")
-    ]:
-        for local_file in glob.glob(os.path.join(folder, "*")):
-            upload_to_gcs(local_file, f"{gcs_folder}/{os.path.basename(local_file)}")
+    """Upload all processed files to GCS, maintaining the local directory structure."""
+    folder_mappings = {
+        raw_image_folder: "persistent/dataset/raw_image",
+        raw_instructions_folder: "persistent/dataset/raw_instructions/txt_outputs",
+    }
+
+    for local_folder, gcs_folder in folder_mappings.items():
+        for local_file in glob.glob(os.path.join(local_folder, "*")):
+            # Construct the GCS path to mirror the local path
+            relative_path = os.path.relpath(local_file, local_folder)
+            destination_blob_name = os.path.join(gcs_folder, relative_path)
+            upload_to_gcs(local_file, destination_blob_name, bucket_name)
+            print(f"Uploaded {local_file} to {destination_blob_name}")
+
 
 def main(args):
     makedirs()
+
+    bucket_name = os.getenv("GCS_BUCKET_NAME")
+    if args.bucket != "":
+        bucket_name = args.bucket
+    print(f"Using GCS Bucket: {bucket_name}")
+
     if args.download:
-        download()
+        # Handle folder names with "+" separator
+        folder_names = args.folders.split("+") if args.folders else ["socks"]
+        print(f"Downloading PDFs from folders: {folder_names}")
+        download(bucket_name, folder_names)
+
     if args.uploadpdfs:
-        for pdf_file in glob.glob(os.path.join(input_files, "*.pdf")):
-            upload_pdf(pdf_file)
+        for pdf_file in glob.glob(os.path.join(raw_pdf_folder, "*.pdf")):
+            upload_pdf(pdf_file, bucket_name)
+
     if args.process:
         cnt = 0
-        for pdf_file in glob.glob(os.path.join(input_files, "*.pdf")):
+        for pdf_file in glob.glob(os.path.join(raw_pdf_folder, "*.pdf")):
             pdf_name = os.path.basename(pdf_file).replace(".pdf", "")
-            image_path = os.path.join(images_folder, f"{pdf_name}.png")
+            image_path = os.path.join(raw_image_folder, f"{pdf_name}.png")
             if os.path.exists(image_path):
-                print(f"{pdf_name}.pdf already processed, skip!")
+                print(f"{pdf_name}.pdf already processed, skipping!")
                 continue
-            process_pdf(pdf_file)
+            process_pdf(pdf_file, bucket_name)
             cnt += 1
             if cnt % 200 == 0:
                 time.sleep(600)
-            print("processed pdf cnt", cnt)
+            print(f"Processed PDF count: {cnt}")
+
     if args.upload:
-        upload()
+        upload(bucket_name)
+
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser(description="Process PDFs")
     parser.add_argument("-d", "--download", action="store_true", help="Download PDFs")
-    parser.add_argument("-up", "--uploadpdfs", action="store_true", help="Upload PDFs to one folder")
+    parser.add_argument(
+        "-f",
+        "--folders",
+        type=str,
+        nargs="+",
+        default="socks",
+        help="Comma-separated folder names for downloading PDFs (default: socks)",
+    )
+    parser.add_argument("-b", "--bucket", type=str, default = "", help="GCS Bucket Name to override the environment variable")
+    parser.add_argument("-up", "--uploadpdfs", action="store_true", help="Upload PDFs to the raw folder")
     parser.add_argument("-p", "--process", action="store_true", help="Process PDFs")
-    parser.add_argument("-u", "--upload", action="store_true", help="Upload files")
+    parser.add_argument("-u", "--upload", action="store_true", help="Upload processed files to GCS")
+
     args = parser.parse_args()
     main(args)

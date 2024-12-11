@@ -1,15 +1,11 @@
 # Use the official Ubuntu image as the base
 FROM ubuntu:20.04
 
-# Use the official NVIDIA CUDA image as the base for GPU support
-#FROM nvidia/cuda:12.0-base-ubuntu20.04
-#FROM nvidia/cuda:12.0.1-base-ubuntu20.04
-#FROM nvidia/cuda:12.0.1-runtime-ubuntu20.04
-# FROM nvidia/cuda:12.4.1-runtime-ubuntu20.04
-# FROM nvidia/cuda:12.4.1-devel-ubuntu20.04
-
 # Set the environment variable for non-interactive installations
 ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=C.UTF-8
+ENV PYENV_SHELL=/bin/bash
+ENV PYTHONUNBUFFERED=1
 
 # Install required dependencies
 RUN apt-get update && \
@@ -39,17 +35,22 @@ RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --d
     curl https://baltocdn.com/helm/signing.asc | apt-key add -&& \
     echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends kubectl helm python3 python3-pip && \
-    pip install openshift ansible docker apache-libcloud
+    apt-get install -y --no-install-recommends kubectl helm python3.9 python3-pip && \
+    pip install openshift ansible docker apache-libcloud pipenv
 
 RUN useradd -ms /bin/bash app -d /home/app -u 1000 -p "$(openssl passwd -1 passw0rd)" && \
     usermod -aG docker app && \
     mkdir -p /app && \
     chown app:app /app
 
-
 # Set the working directory
 WORKDIR /app
+
+# Install python packages
+ADD --chown=app:app Pipfile Pipfile.lock /app/
+
+RUN pipenv sync
+
 ADD --chown=app:app . /app
 
 # Install ansible dependencies

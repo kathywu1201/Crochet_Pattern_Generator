@@ -12,13 +12,17 @@ import time
 # GCP configurations
 gcp_project = os.environ["GCP_PROJECT"]
 region = "us-central1"
-bucket_name = os.environ["GCS_BUCKET_NAME"]
-base_folder = "training"
-images_folder = f"{base_folder}/images"
-text_instructions_folder = f"{base_folder}/text_instructions/txt_outputs"
-image_descriptions_txt_folder = f"{base_folder}/image_descriptions_txt"
-image_descriptions_json_folder = f"{base_folder}/image_descriptions_json"
-image_descriptions_jsonl_folder = f"{base_folder}/image_descriptions_jsonl"
+
+dataset_folder = os.path.join("/persistent", "dataset")
+raw_image_folder = os.path.join(dataset_folder, "raw_image")
+raw_instructions_folder = os.path.join(dataset_folder, "raw_instructions/txt_outputs")
+image_descriptions_txt_folder = os.path.join(dataset_folder, "/image_descriptions_txt")
+image_descriptions_json_folder = os.path.join(dataset_folder,"/image_descriptions_json")
+image_descriptions_jsonl_folder = os.path.join(dataset_folder,"/image_descriptions_jsonl")
+cleaned_text_instructions_folder = os.path.join(dataset_folder,"/cleaned_text_instructions")
+
+
+
 
 # Define prompt
 instruction = '''
@@ -58,10 +62,12 @@ def makedirs():
     os.makedirs(image_descriptions_txt_folder, exist_ok=True)
     os.makedirs(image_descriptions_json_folder, exist_ok=True)
     os.makedirs(image_descriptions_jsonl_folder, exist_ok=True)
-    os.makedirs(images_folder, exist_ok=True)
-    os.makedirs(text_instructions_folder, exist_ok=True)
+    os.makedirs(raw_image_folder, exist_ok=True)
+    os.makedirs(raw_instructions_folder, exist_ok=True)
+    os.makedirs(cleaned_text_instructions_folder, exist_ok=True)
 
-def upload_to_gcs(local_file, destination_blob_name):
+
+def upload_to_gcs(bucket_name, local_file, destination_blob_name):
     """Upload a local file to GCS."""
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
@@ -69,7 +75,7 @@ def upload_to_gcs(local_file, destination_blob_name):
     blob.upload_from_filename(local_file)
     print(f"Uploaded {local_file} to {destination_blob_name}.")
 
-def download_files_from_gcs(prefix, local_folder):
+def download_files_from_gcs(bucket_name, prefix, local_folder):
     """Download files from a specific GCS folder to a local directory."""
     print(f"Downloading files from '{prefix}'...")
     storage_client = storage.Client()
@@ -113,20 +119,6 @@ def generate_image_description(image_path, max_retries=5, retry_delay=5):
     print(f"Failed to generate description for {image_path} after {max_retries} retries.")
     return "Failed to generate description after multiple retries"
 
-# def generate_image_description(image_path):
-#     """Generate a caption for an image using the Gemini model."""
-#     print(f"Generating detailed description for {image_path}...")
-
-#     image = Image.load_from_file(image_path)
-#     generative_model = GenerativeModel("gemini-1.5-pro-002")
-#     response = generative_model.generate_content(
-#         [instruction, image]
-#     )
-
-#     description = response.text
-#     # print(f"Generated description: {description}")
-#     return description
-
 def save_txt_file(image_name, description):
     """Save the description as a text file."""
     txt_file_path = os.path.join(image_descriptions_txt_folder, f"{os.path.splitext(image_name)[0]}.txt")
@@ -148,12 +140,115 @@ def create_json_file(image_name, user_text, model_text):
         json.dump(json_content, json_file, indent=4)
     print(f"Saved JSON file: {json_file_path}")
 
+def clean_instructions(max_retries=5, retry_delay=5):
+    """Clean text instructions using Gemini and save the cleaned output with retry logic."""
+    print("Cleaning text instructions...")
+
+    # Get all txt files in the text_instructions_folder
+    txt_files = [f for f in os.listdir(raw_instructions_folder) if f.endswith('.txt')]
+
+    if not txt_files:
+        print(f"No instruction files found in '{raw_instructions_folder}'.")
+        return
+
+    for txt_file in txt_files:
+        txt_file_path = os.path.join(raw_instructions_folder, txt_file)
+
+        # Read the content of the text file
+        with open(txt_file_path, 'r') as file:
+            raw_text = file.read()
+
+        # Define the prompt for Gemini
+        cleaning_prompt = f"""
+        You are an expert in data extraction and text summarization with a deep understanding of crochet instructions. Your task is to analyze the provided text file containing raw crochet instructions, which may include noisy background information, and extract the following key details:
+
+        1. **Crochet Product Name:** The specific name or title of the crochet project.
+        2. **Materials:** A list of materials needed for the project, including details such as yarn type, hook size, and other required items.
+        3. **Abbreviations:** All abbreviations mentioned in the text, along with their meanings (e.g., SC: Single Crochet, DC: Double Crochet).
+        4. **Measurements:** The dimensions or sizes relevant to the crochet project.
+        5. **Instructions:** The step-by-step directions for creating the crochet item.
+
+        Please ignore any irrelevant or background information and focus exclusively on the above sections. Organize the extracted details in the following structured format for clarity and consistency:
+
+        ---
+        **Cleaned Text Format:**
+
+        **Crochet Product Name:**  
+        [Insert name of the product]
+
+        **Materials:**  
+        - [Material 1: Description]  
+        - [Material 2: Description]  
+        - [Material 3: Description]
+
+        **Abbreviations:**  
+        - [Abbreviation 1: Meaning]  
+        - [Abbreviation 2: Meaning]  
+        - [Abbreviation 3: Meaning]
+
+        **Measurements:**  
+        [Insert dimensions, sizes, or any measurement-related details]
+
+        **Instructions:**  
+        1. [Step 1: Description]  
+        2. [Step 2: Description]  
+        3. [Step 3: Description]
+
+        ---
+        Additional Guidelines:
+        1. Ensure clarity and conciseness while extracting and organizing the information.
+        2. Use proper crochet terminology for technical accuracy.
+        3. Retain the sequence and structure of the instructions as much as possible.
+
+        If any section is missing or not explicitly mentioned in the text file, state "Not Available" for that section.
+
+        Below is the raw text content:
+        ---
+        {raw_text}
+        """
+
+        # Retry logic
+        retry_count = 0
+        cleaned_text = None
+
+        while retry_count < max_retries:
+            try:
+                # Initialize Gemini model
+                generative_model = GenerativeModel("gemini-1.5-pro-002")
+                response = generative_model.generate_content([cleaning_prompt])
+                cleaned_text = response.text if hasattr(response, 'text') else "Error: Unable to generate cleaned instructions."
+                break  # Exit the loop if processing is successful
+
+            except Exception as e:
+                if '429' in str(e):  # Check if the error is a quota-related issue (HTTP 429)
+                    retry_count += 1
+                    print(f"Quota exceeded for {txt_file}. Retrying in {retry_delay} seconds... (Retry {retry_count}/{max_retries})")
+                    time.sleep(retry_delay)  # Wait for the specified time before retrying
+                else:
+                    print(f"Error cleaning instructions for {txt_file}: {e}")
+                    cleaned_text = "Error: Unable to process this file."
+                    break  # Exit loop if it's an unexpected error
+
+        # If retries are exhausted and still no result
+        if cleaned_text is None:
+            print(f"Failed to clean instructions for {txt_file} after {max_retries} retries.")
+            cleaned_text = "Failed to generate cleaned instructions after multiple retries."
+
+        # Save the cleaned content to the new folder with the original name
+        cleaned_file_path = os.path.join(cleaned_text_instructions_folder, txt_file)
+        with open(cleaned_file_path, 'w') as cleaned_file:
+            cleaned_file.write(cleaned_text)
+
+        print(f"Cleaned instructions saved for {txt_file}: {cleaned_file_path}")
+
+    print("All text instructions cleaned.")
+
 def process():
     """Generate descriptions for all images, load text instructions, and save as JSON and TXT."""
-    image_files = [f for f in os.listdir(images_folder) if f.endswith(".png")]
+    image_files = [f for f in os.listdir(raw_image_folder) if f.endswith(".png")]
 
     if not image_files:
-        print(f"No images found in '{images_folder}'.")
+        print(f"No images found in '{raw_image_folder}'.")
         return
 
     image_processed_cnt = 0
@@ -165,7 +260,7 @@ def process():
             print(f"{image_file} description already processed.")
             continue
 
-        image_path = os.path.join(images_folder, image_file)
+        image_path = os.path.join(raw_image_folder, image_file)
         description = generate_image_description(image_path)
         if "Error generating description" in description or "not crochet" in description or "*not* crochet" in description:
             print(f"{image_file} excluded from dataset.")
@@ -174,7 +269,7 @@ def process():
 
         save_txt_file(image_file, description)
 
-        txt_file_path = os.path.join(text_instructions_folder, f"{os.path.splitext(image_file)[0]}.txt")
+        txt_file_path = os.path.join(cleaned_text_instructions_folder, f"{os.path.splitext(image_file)[0]}.txt")
         if os.path.exists(txt_file_path):
             with open(txt_file_path, "r") as txt_file:
                 text_instruction = txt_file.read().strip()
@@ -190,7 +285,42 @@ def process():
     print("total processed images", image_processed_cnt)
     print("excluded image count", excluded_image_cnt)
 
-def split_json_to_jsonl(input_folder, output_folder, train_ratio=0.85, val_ratio=0, test_ratio=0.15):
+def generate_json_from_existing_files():
+    """
+    Create JSON files for each image description in the folder.
+    If a corresponding cleaned text instruction exists, use it to generate JSON.
+    """
+    print("Generating JSON files from existing descriptions and cleaned instructions...")
+
+    # List all image description text files
+    image_description_files = [f for f in os.listdir(image_descriptions_txt_folder) if f.endswith('.txt')]
+    if not image_description_files:
+        print(f"No image description files found in '{image_descriptions_txt_folder}'.")
+        return
+
+    for description_file in image_description_files:
+        image_name = os.path.splitext(description_file)[0]
+        description_path = os.path.join(image_descriptions_txt_folder, description_file)
+
+        # Read the image description
+        with open(description_path, 'r') as desc_file:
+            image_description = desc_file.read().strip()
+
+        # Check if a corresponding cleaned instruction exists
+        cleaned_instruction_path = os.path.join(cleaned_text_instructions_folder, f"{image_name}.txt")
+        if os.path.exists(cleaned_instruction_path):
+            with open(cleaned_instruction_path, 'r') as instr_file:
+                cleaned_instruction = instr_file.read().strip()
+        else:
+            cleaned_instruction = "No corresponding cleaned instruction available."
+            print(f"No cleaned instruction found for {image_name}.txt")
+
+        # Create the JSON file
+        create_json_file(image_name, image_description, cleaned_instruction)
+
+    print("Finished generating JSON files.")
+
+def split_json_to_jsonl(input_folder, output_folder, train_ratio=0.93, val_ratio=0.07, test_ratio=0):
     """Split JSON files into train, validation, and test JSONL files."""
     json_files = [f for f in os.listdir(input_folder) if f.endswith('.json')]
     random.shuffle(json_files)
@@ -218,33 +348,54 @@ def split_json_to_jsonl(input_folder, output_folder, train_ratio=0.85, val_ratio
     write_to_jsonl(val_files, os.path.join(output_folder, "validation.jsonl"))
     write_to_jsonl(test_files, os.path.join(output_folder, "test.jsonl"))
 
-def upload():
-    """Upload all generated files to GCS."""
-    for local_file in glob.glob(os.path.join(image_descriptions_txt_folder, "*.txt")):
-        upload_to_gcs(local_file, f"{base_folder}/image_descriptions_txt/{os.path.basename(local_file)}")
-    for local_file in glob.glob(os.path.join(image_descriptions_json_folder, "*.json")):
-        upload_to_gcs(local_file, f"{base_folder}/image_descriptions_json/{os.path.basename(local_file)}")
-    for local_file in glob.glob(os.path.join(image_descriptions_jsonl_folder, "*.jsonl")):
-        upload_to_gcs(local_file, f"{base_folder}/image_descriptions_jsonl/{os.path.basename(local_file)}")
+def upload(bucket_name):
+    """Upload all processed files to GCS."""
+    """Upload all processed files to GCS, maintaining the local directory structure."""
+    # Define folder mappings for upload
+    folder_mappings = {
+        image_descriptions_txt_folder: "persistent/dataset/image_descriptions_txt",
+        image_descriptions_json_folder: "persistent/dataset/image_descriptions_json",
+        image_descriptions_jsonl_folder: "persistent/dataset/image_descriptions_jsonl",
+        cleaned_text_instructions_folder: "persistent/dataset/cleaned_text_instructions",
+    }
+
+     # Iterate over the folder mappings and upload files
+    for local_folder, bucket_folder in folder_mappings.items():
+        for local_file in glob.glob(os.path.join(local_folder, "*")):
+            destination_blob_name = os.path.join(bucket_folder, os.path.basename(local_file))
+            upload_to_gcs(bucket_name, local_file, destination_blob_name, bucket_name)
+            print(f"Uploaded {local_file} to {destination_blob_name}")
 
 def main(args):
     makedirs()
 
+    bucket_name = os.getenv("GCS_BUCKET_NAME")
+    if args.bucket != "":
+        bucket_name = args.bucket
+    print(f"Using GCS Bucket: {bucket_name}")
+
     if args.download:
-        download_files_from_gcs("training/images/", images_folder)
-        download_files_from_gcs("training/text_instructions/txt_outputs/", text_instructions_folder)
+        download_files_from_gcs(bucket_name, "training/images/", raw_image_folder)
+        download_files_from_gcs(bucket_name, "training/text_instructions/txt_outputs/", raw_instructions_folder)
     if args.process:
         process()
+    if args.clean_instructions:
+        clean_instructions()
+    if args.generate_json:
+        generate_json_from_existing_files()
     if args.split:
         split_json_to_jsonl(image_descriptions_json_folder, image_descriptions_jsonl_folder)
     if args.upload:
-        upload()
+        upload(bucket_name)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate image descriptions and upload to GCS.")
     parser.add_argument("-d", "--download", action="store_true", help="Download images and text instructions from GCS")
+    parser.add_argument("-ci", "--clean_instructions", action="store_true", help="Clean instructions and save as TXT files")
     parser.add_argument("-p", "--process", action="store_true", help="Process images and generate TXT and JSON files")
     parser.add_argument("-s", "--split", action="store_true", help="Split JSON files into train/val/test JSONL files")
     parser.add_argument("-u", "--upload", action="store_true", help="Upload all files to GCS")
+    parser.add_argument("-b", "--bucket", type=str, default = "", help="GCS Bucket Name to override the environment variable")
+    parser.add_argument("-gj", "--generate_json", action="store_true", help="Generate JSON files from existing descriptions and cleaned instructions (only use if image descriptions already exist)")
     args = parser.parse_args()
     main(args)
