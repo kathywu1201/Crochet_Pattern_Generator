@@ -9,11 +9,16 @@ import json
 import time
 
 # Folder configurations
-dataset_folder = os.path.join("/persistent", "dataset")
-raw_pdf_folder = os.path.join(dataset_folder, "raw_pdf")
-raw_image_folder = os.path.join(dataset_folder, "raw_image")
-raw_instructions_folder = os.path.join(dataset_folder, "raw_instructions/txt_outputs")
+# dataset_folder = os.path.join("/persistent", "dataset")
+# raw_pdf_folder = os.path.join(dataset_folder, "raw_pdf")
+# raw_image_folder = os.path.join(dataset_folder, "raw_image")
+# raw_instructions_folder = os.path.join(dataset_folder, "raw_instructions/txt_outputs")
 
+
+# GCP configurations
+raw_pdf_folder = "input_files"
+raw_image_folder = "training/images"
+raw_instructions_folder = "training/text_instructions/txt_outputs"
 
 def makedirs():
     os.makedirs(raw_pdf_folder, exist_ok=True)
@@ -116,12 +121,12 @@ def upload_pdf(pdf_path, bucket_name):
 
 def process_pdf(pdf_path, bucket_name):
     pdf_name = os.path.basename(pdf_path).replace(".pdf", "")
-    gcs_pdf_uri = f"gs://{bucket_name}/persistent/raw_pdf/{pdf_name}.pdf"
-    json_output_uri = f"gs://{bucket_name}/persistent/raw_instructions/json_outputs/{pdf_name}_output/"
+    gcs_pdf_uri = f"gs://{bucket_name}/input_files/{pdf_name}.pdf"
+    json_output_uri = f"gs://{bucket_name}/training/text_instructions/json_outputs/{pdf_name}_output/"
     extract_text_from_pdf_gcs(gcs_pdf_uri, json_output_uri)
 
     text_file_path = os.path.join(raw_instructions_folder, f"{pdf_name}.txt")
-    download_results_from_gcs(f"persistent/raw_instructions/json_outputs/{pdf_name}_output", text_file_path, bucket_name)
+    download_results_from_gcs(f"training/text_instructions/json_outputs/{pdf_name}_output", text_file_path, bucket_name)
 
     image_path = os.path.join(raw_image_folder, f"{pdf_name}.png")
     extract_largest_image(pdf_path, image_path)
@@ -131,8 +136,8 @@ def upload(bucket_name):
     """Upload all processed files to GCS."""
     """Upload all processed files to GCS, maintaining the local directory structure."""
     folder_mappings = {
-        raw_image_folder: "persistent/dataset/raw_image",
-        raw_instructions_folder: "persistent/dataset/raw_instructions/txt_outputs",
+        raw_image_folder: "training/images",
+        raw_instructions_folder: "training/text_instructions/txt_outputs",
     }
 
     for local_folder, gcs_folder in folder_mappings.items():

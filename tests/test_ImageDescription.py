@@ -40,19 +40,15 @@ def setup_test_directories():
 
 from image_descriptions.cli import makedirs
 
-@patch("image_descriptions.cli.image_descriptions_txt_folder", TEST_IMAGE_DESCRIPTIONS_TXT_FOLDER)
-@patch("image_descriptions.cli.image_descriptions_json_folder", TEST_IMAGE_DESCRIPTIONS_JSON_FOLDER)
-@patch("image_descriptions.cli.image_descriptions_jsonl_folder", TEST_IMAGE_DESCRIPTIONS_JSONL_FOLDER)
-@patch("image_descriptions.cli.images_folder", TEST_IMAGES_FOLDER)
-@patch("image_descriptions.cli.raw_instructions_folder", TEST_TEXT_INSTRUCTIONS_FOLDER)
+@patch('image_descriptions.cli.image_descriptions_txt_folder', TEST_IMAGE_DESCRIPTIONS_TXT_FOLDER)
+@patch('image_descriptions.cli.image_descriptions_json_folder', TEST_IMAGE_DESCRIPTIONS_JSON_FOLDER)
+@patch('image_descriptions.cli.image_descriptions_jsonl_folder', TEST_IMAGE_DESCRIPTIONS_JSONL_FOLDER)
 def test_makedirs():
     """Test that makedirs creates the required directories."""
     makedirs()
     assert os.path.exists(TEST_IMAGE_DESCRIPTIONS_TXT_FOLDER)
     assert os.path.exists(TEST_IMAGE_DESCRIPTIONS_JSON_FOLDER)
     assert os.path.exists(TEST_IMAGE_DESCRIPTIONS_JSONL_FOLDER)
-    assert os.path.exists(TEST_IMAGES_FOLDER)
-    assert os.path.exists(TEST_TEXT_INSTRUCTIONS_FOLDER)
 
 
 @patch("image_descriptions.cli.storage.Client")
@@ -154,7 +150,7 @@ def test_create_json_file():
 
 # Integration Tests
 
-@patch('image_descriptions.cli.raw_image_folder', TEST_IMAGES_FOLDER)
+@patch('image_descriptions.cli.images_folder', TEST_IMAGES_FOLDER)
 @patch('image_descriptions.cli.image_descriptions_txt_folder', TEST_IMAGE_DESCRIPTIONS_TXT_FOLDER)
 @patch('image_descriptions.cli.image_descriptions_json_folder', TEST_IMAGE_DESCRIPTIONS_JSON_FOLDER)
 @patch("image_descriptions.cli.generate_image_description", return_value="Generated description")

@@ -6,3 +6,6 @@
 /.pytest_cache
 /secrets
 /training
+Dockerfile
+Pipfile
+Pipfile.lock

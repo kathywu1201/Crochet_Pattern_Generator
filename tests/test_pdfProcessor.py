@@ -83,7 +83,7 @@ def test_extract_text_from_pdf_gcs(mock_vision_client, setup_folders):
 
 
 @patch("pdf_processor.cli.storage.Client")
-def test_download_results_from_gcs(mock_storage_client, setup_folders):
+def test_download_results_from_gcs(mock_storage_client, setup_folders, TEST_BUCKET_NAME):
     """Test downloading extracted text results from GCS."""
     mock_client_instance = mock_storage_client.return_value
     mock_bucket = mock_client_instance.bucket.return_value
@@ -168,7 +168,7 @@ def test_upload_pdf(mock_upload_to_gcs, setup_folders):
         f.write(b"%PDF-1.4 test content")
 
     # Patch input_files to use TEST_INPUT_FILES
-    with patch("pdf_processor.cli.input_files", TEST_INPUT_FILES):
+    with patch("pdf_processor.cli.raw_pdf_folder", TEST_INPUT_FILES):
         upload_pdf(pdf_path)
 
     # Confirm the mock was called with the correct path
