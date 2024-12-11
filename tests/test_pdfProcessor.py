@@ -94,9 +94,14 @@ def test_download_results_from_gcs(mock_storage_client, setup_folders):
     })
     mock_bucket.list_blobs.return_value = [mock_blob]
 
-    output_path = os.path.join(TEST_TXT_OUTPUTS, "output.txt", TEST_BUCKET_NAME)
+    # Ensure the output path exists
+    os.makedirs(TEST_TXT_OUTPUTS, exist_ok=True)
+    output_path = os.path.join(TEST_TXT_OUTPUTS, "output.txt")
+
+    # Invoke the function
     download_results_from_gcs("output_prefix", output_path, TEST_BUCKET_NAME)
 
+    # Verify results
     assert os.path.exists(output_path)
     with open(output_path, "r") as f:
         content = f.read()
@@ -104,25 +109,6 @@ def test_download_results_from_gcs(mock_storage_client, setup_folders):
     os.remove(output_path)
 
 
-# @patch("pdfplumber.open")
-# def test_extract_largest_image(mock_pdf_open, setup_folders):
-#     """Test extracting the largest image from a PDF page."""
-#     pdf_path = os.path.join(TEST_INPUT_FILES, "test.pdf")
-#     output_image_path = os.path.join(TEST_IMAGES_FOLDER, "output.png")
-
-#     # Mock a PDF with a single image entry on the first page
-#     mock_page = MagicMock()
-#     mock_page.images = [{"x0": 0, "y0": 0, "x1": 100, "bottom": 200}]
-#     mock_pdf = MagicMock()
-#     mock_pdf.pages = [mock_page]
-#     mock_pdf_open.return_value = mock_pdf
-
-#     extract_largest_image(pdf_path, output_image_path)
-#     mock_page.within_bbox.assert_called_once()
-
-#     # Ensure file cleanup
-#     if os.path.exists(pdf_path):
-#         os.remove(pdf_path)
 
 @patch("pdf_processor.cli.pdfplumber.open")  # Update with your actual module name
 @patch("pdf_processor.cli.cv2.imwrite")
@@ -192,10 +178,18 @@ def test_process_pdf(mock_extract_image, mock_download_text, mock_extract_text, 
         process_pdf(pdf_path, TEST_BUCKET_NAME)
 
     # Match expected values
-    mock_extract_text.assert_called_once_with(f"gs://{TEST_BUCKET_NAME}/input_files/test_process.pdf", ANY)
-    mock_download_text.assert_called_once_with(f"training/text_instructions/json_outputs/test_process_output", ANY)
+    mock_extract_text.assert_called_once_with(
+        f"gs://{TEST_BUCKET_NAME}/input_files/test_process.pdf",
+        f"gs://{TEST_BUCKET_NAME}/training/text_instructions/json_outputs/test_process_output/"
+    )
+    mock_download_text.assert_called_once_with(
+        "training/text_instructions/json_outputs/test_process_output",
+        "training/text_instructions/txt_outputs/test_process.txt",
+        TEST_BUCKET_NAME
+    )
     mock_extract_image.assert_called_once_with(pdf_path, ANY)
     os.remove(pdf_path)
+
 
 
 ### System Tests ###
