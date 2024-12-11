@@ -1,12 +1,12 @@
 # Use the official Ubuntu image as the base
-# FROM ubuntu:20.04
+FROM ubuntu:20.04
 
 # Use the official NVIDIA CUDA image as the base for GPU support
 #FROM nvidia/cuda:12.0-base-ubuntu20.04
 #FROM nvidia/cuda:12.0.1-base-ubuntu20.04
 #FROM nvidia/cuda:12.0.1-runtime-ubuntu20.04
 # FROM nvidia/cuda:12.4.1-runtime-ubuntu20.04
-FROM nvidia/cuda:12.4.1-devel-ubuntu20.04
+# FROM nvidia/cuda:12.4.1-devel-ubuntu20.04
 
 # Set the environment variable for non-interactive installations
 ENV DEBIAN_FRONTEND=noninteractive
@@ -41,10 +41,6 @@ RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --d
     apt-get update && \
     apt-get install -y --no-install-recommends kubectl helm python3 python3-pip && \
     pip install openshift ansible docker apache-libcloud
-
-
-# Install PyTorch with CUDA 12.4 support
-RUN pip install torch==2.0.1+cu121 torchvision==0.15.2+cu121 torchaudio==2.0.2+cu121 -f https://download.pytorch.org/whl/cu121/torch_stable.html
 
 RUN useradd -ms /bin/bash app -d /home/app -u 1000 -p "$(openssl passwd -1 passw0rd)" && \
     usermod -aG docker app && \

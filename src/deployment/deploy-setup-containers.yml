@@ -76,11 +76,22 @@
           - name: "{{docker_network_name}}"
         volumes:
           - /mnt/disk-1/chromadb:/chroma/chroma  
+      
+    - name: Load Vector DB
+      shell: |
+        docker run --rm -it \
+        -e GCP_PROJECT="{{ gcp_project }}" \
+        -e CHROMADB_HOST="vector-db" \
+        -e CHROMADB_PORT="8000" \
+        -e GOOGLE_APPLICATION_CREDENTIALS="/secrets/gcp-service.json" \
+        -v /srv/secrets:/secrets \
+        --network "appnetwork" \
+        "gcr.io/{{ gcp_project }}/crochet-app-vector-db-cli:{{ tag.stdout}}" cli.py --load
 
     - name: Create api-service container
       docker_container:
         name: "api-service"
-        image: "gcr.io/{{ gcp_project }}/crochet-app-api-service:{{ tag.stdout}}"
+        image: "gcr.io/{{ gcp_project }}/crochet-app-api-service-tf:{{ tag.stdout}}"
         state: started
         recreate: yes
         published_ports:

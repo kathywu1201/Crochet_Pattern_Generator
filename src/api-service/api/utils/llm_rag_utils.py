@@ -3,8 +3,11 @@ from typing import Dict, Any, List, Optional
 from fastapi import HTTPException
 import base64
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 # import io
 =======
+>>>>>>> main
 >>>>>>> main
 from PIL import Image
 from pathlib import Path
@@ -13,11 +16,15 @@ import chromadb
 from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
 from vertexai.generative_models import GenerativeModel, ChatSession, Part
 <<<<<<< HEAD
+from api.utils.llm_image_utils import image_to_vector, image_to_vector_from_bytes  
+=======
+<<<<<<< HEAD
 from api.utils.llm_image_utils import image_to_vector, image_to_vector_from_bytes  # Import the functions
 import numpy as np
 import uuid
 =======
 from api.utils.llm_image_utils import image_to_vector, image_to_vector_from_bytes  
+>>>>>>> main
 >>>>>>> main
 
 # Setup
@@ -28,16 +35,53 @@ EMBEDDING_DIMENSION = 256
 GENERATIVE_MODEL = "gemini-1.5-flash-002"
 CHROMADB_HOST = os.environ["CHROMADB_HOST"]
 CHROMADB_PORT = os.environ["CHROMADB_PORT"]
+<<<<<<< HEAD
+MODEL_ENDPOINT = "projects/376381333238/locations/us-central1/endpoints/3614500440290361344"
+
+# Configuration settings for the content generation
+generation_config = {
+    "max_output_tokens": 3000,  # Reduce output length to avoid exceeding model constraints
+    "temperature": 0.5,  # Increase randomness
+    "top_p": 0.9,  # Broader token sampling
+=======
 
 # Configuration settings for the content generation
 generation_config = {
     "max_output_tokens": 3000,  # Maximum number of tokens for output
     "temperature": 0.1,  # Control randomness in output
     "top_p": 0.95,  # Use nucleus sampling
+>>>>>>> main
 }
 
 # Initialize the GenerativeModel with specific system instructions
 SYSTEM_INSTRUCTION = """
+<<<<<<< HEAD
+You are a highly skilled AI assistant specialized in creating crochet patterns. 
+Your task is to generate a detailed crochet pattern for the product shown in the image. 
+However, you must prioritize user preferences from their input when they differ from the image. 
+
+Your response must strictly follow the format below, ensuring the number of rounds or steps matches the typical requirements for the product. Do not generate more rounds or steps than necessary to complete the project. Avoid unnecessary line breaks or redundant information to ensure the output is clear, organized, and precise.
+
+Here is the format:
+
+**Product Description:**
+- Provide a brief description of the crochet product. If the user specifies preferences (e.g., color, size), adjust the description accordingly.
+
+**Materials Needed:**
+- Yarn type and weight: [Specify the type(s), weight(s), and color(s), adjusted based on user input if necessary.]
+- Crochet hook size: [Include the recommended hook size.]
+- Additional tools: [List any additional tools, such as scissors or tapestry needles.]
+
+**Abbreviations:**
+- Include common crochet abbreviations used in the pattern (e.g., sc = single crochet, ch = chain, etc.). Add others as needed.
+
+**Pattern Instructions:**
+- Provide detailed step-by-step instructions.
+- Include row/round numbers, stitch counts, repeats, and any special techniques.
+- Ensure each step is on its own line without excessive line breaks.
+"""
+
+=======
 You are an AI assistant specialized in crochet knowledge. Your primary task is to generate original crochet pattern instructions based on the user's prompt, using your expertise in crochet. 
 
 When generating crochet instructions:
@@ -54,11 +98,16 @@ When generating crochet instructions:
 
 You are a crochet expert, and your role is to create detailed, accurate, and original crochet instructions.
 """
+>>>>>>> main
 generative_model = GenerativeModel(
 	GENERATIVE_MODEL,
 	system_instruction=[SYSTEM_INSTRUCTION]
 )
+<<<<<<< HEAD
+
+=======
 # https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-embeddings-api#python
+>>>>>>> main
 embedding_model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
 
 # Initialize chat sessions
@@ -150,6 +199,10 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
                 
                 # Decode base64 to bytes
                 image_bytes = base64.b64decode(base64_data)
+<<<<<<< HEAD
+                image_part = Part.from_data(image_bytes, mime_type=mime_type)
+=======
+>>>>>>> main
                 
                 # Convert the image bytes to a vector
                 image_vector = image_to_vector_from_bytes(image_bytes)
@@ -222,9 +275,18 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
         if not message_parts:
             raise ValueError("Message must contain either text content or image")
 
+<<<<<<< HEAD
+        print(f"Message parts: {message["content"]}")
+        model_input = [image_part] + message_parts if image_part else message_parts
+
+        # Send message with all parts to the model
+        response = chat_session.send_message(
+            model_input,
+=======
         # Send message with all parts to the model
         response = chat_session.send_message(
             message_parts,
+>>>>>>> main
             generation_config=generation_config
         )
         

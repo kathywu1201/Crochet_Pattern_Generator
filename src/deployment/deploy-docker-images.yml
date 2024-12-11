@@ -27,12 +27,12 @@
       build:
         path: /api-service
         platform: linux/amd64/v2
-      name: gcr.io/{{ gcp_project }}/crochet-app-api-service:{{ tag.stdout}}
+      name: gcr.io/{{ gcp_project }}/crochet-app-api-service-tf:{{ tag.stdout}}
       source: build
   - name: Push api-service image to GCR
     community.general.docker_image:
-      name: gcr.io/{{ gcp_project }}/crochet-app-api-service:{{ tag.stdout}}
-      repository: gcr.io/{{ gcp_project }}/crochet-app-api-service:{{ tag.stdout}}
+      name: gcr.io/{{ gcp_project }}/crochet-app-api-service-tf:{{ tag.stdout}}
+      repository: gcr.io/{{ gcp_project }}/crochet-app-api-service-tf:{{ tag.stdout}}
       push: yes
       source: local
   - name: Build vector-db-cli container image

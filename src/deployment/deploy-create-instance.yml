@@ -34,6 +34,15 @@
         service_account_email: "{{ gcp_service_account_email }}"
       when: cluster_state == "present"
 
+    - name: "Create API firewall rule"
+      gce_net:
+        name: default
+        fwname: "default-allow-api"
+        allowed: "tcp:9000"
+        state: "present"
+        src_range: "0.0.0.0/0"
+        project_id: "{{ gcp_project }}"
+
     # Create Persistent Disk
     - name: Create Compute disk
       gcp_compute_disk:
@@ -70,9 +79,6 @@
           items:
             - http-server
             - https-server
-        scheduling:
-          on_host_maintenance: "TERMINATE"
-          automatic_restart: false
         zone: "{{ gcp_zone }}"
         project: "{{ gcp_project }}"
         state: "{{ cluster_state }}"

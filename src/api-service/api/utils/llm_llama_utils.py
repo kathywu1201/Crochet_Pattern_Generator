@@ -80,6 +80,8 @@ description_model = GenerativeModel(
     system_instruction=[DESCRIPTION_PROMPT]
 )
 
+<<<<<<< HEAD
+=======
 LLAMMA_INSTRUCTION = """
 You are a highly skilled AI assistant specialized in creating precise, step-by-step crochet patterns. Your goal is to generate a crochet pattern based on the given image description. The pattern must be detailed, easy to follow, and structured for both beginners and experts.
 
@@ -107,6 +109,7 @@ Please include the following in your response:
 Your response should focus solely on the crochet pattern, avoiding any extraneous details or descriptions unrelated to the crafting process.
 """
 
+>>>>>>> main
 # Initialize chat sessions
 chat_sessions: Dict[str, ChatSession] = {}
 
