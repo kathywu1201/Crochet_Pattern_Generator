@@ -94,7 +94,7 @@ def test_download_results_from_gcs(mock_storage_client, setup_folders):
     })
     mock_bucket.list_blobs.return_value = [mock_blob]
 
-    output_path = os.path.join(TEST_TXT_OUTPUTS, "output.txt")
+    output_path = os.path.join(TEST_TXT_OUTPUTS, "output.txt", TEST_BUCKET_NAME)
     download_results_from_gcs("output_prefix", output_path, TEST_BUCKET_NAME)
 
     assert os.path.exists(output_path)
@@ -173,7 +173,7 @@ def test_upload_pdf(mock_upload_to_gcs, setup_folders):
         upload_pdf(pdf_path, TEST_BUCKET_NAME)
 
     # Confirm the mock was called with the correct path
-    mock_upload_to_gcs.assert_called_with(pdf_path, f"{TEST_INPUT_FILES}/test_upload.pdf")
+    mock_upload_to_gcs.assert_called_with(pdf_path, f"{TEST_INPUT_FILES}/test_upload.pdf", TEST_BUCKET_NAME)
     os.remove(pdf_path)
 
 
