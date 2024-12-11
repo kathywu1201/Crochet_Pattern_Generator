@@ -2,3 +2,4 @@
 /Dockerfile_download
 /venv
 /chromedriver
+.DS_Store
