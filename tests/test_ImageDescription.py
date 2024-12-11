@@ -215,4 +215,3 @@ def test_main_system_flow(mock_upload, mock_split, mock_process, mock_download):
     mock_process.assert_called_once()
     mock_split.assert_called_once()
     mock_upload.assert_called_once()
-

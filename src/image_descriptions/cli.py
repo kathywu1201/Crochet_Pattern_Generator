@@ -10,18 +10,24 @@ from vertexai.preview.generative_models import GenerativeModel, Image
 import time
 
 # GCP configurations
+
+# dataset_folder = os.path.join("/persistent", "dataset")
+# raw_image_folder = os.path.join(dataset_folder, "raw_image")
+# raw_instructions_folder = os.path.join(dataset_folder, "raw_instructions/txt_outputs")
+# image_descriptions_txt_folder = os.path.join(dataset_folder, "/image_descriptions_txt")
+# image_descriptions_json_folder = os.path.join(dataset_folder,"/image_descriptions_json")
+# image_descriptions_jsonl_folder = os.path.join(dataset_folder,"/image_descriptions_jsonl")
+# cleaned_text_instructions_folder = os.path.join(dataset_folder,"/cleaned_text_instructions")
+
 gcp_project = os.environ["GCP_PROJECT"]
 region = "us-central1"
-
-dataset_folder = os.path.join("/persistent", "dataset")
-raw_image_folder = os.path.join(dataset_folder, "raw_image")
-raw_instructions_folder = os.path.join(dataset_folder, "raw_instructions/txt_outputs")
-image_descriptions_txt_folder = os.path.join(dataset_folder, "/image_descriptions_txt")
-image_descriptions_json_folder = os.path.join(dataset_folder,"/image_descriptions_json")
-image_descriptions_jsonl_folder = os.path.join(dataset_folder,"/image_descriptions_jsonl")
-cleaned_text_instructions_folder = os.path.join(dataset_folder,"/cleaned_text_instructions")
-
-
+base_folder = "training"
+raw_image_folder = f"{base_folder}/images"
+raw_instructions_folder = f"{base_folder}/text_instructions/txt_outputs"
+image_descriptions_txt_folder = f"{base_folder}/image_descriptions_txt"
+image_descriptions_json_folder = f"{base_folder}/image_descriptions_json"
+image_descriptions_jsonl_folder = f"{base_folder}/image_descriptions_jsonl"
+cleaned_text_instructions_folder = f"{base_folder}/cleaned_text_instructions"
 
 
 # Define prompt
@@ -348,23 +354,17 @@ def split_json_to_jsonl(input_folder, output_folder, train_ratio=0.93, val_ratio
     write_to_jsonl(val_files, os.path.join(output_folder, "validation.jsonl"))
     write_to_jsonl(test_files, os.path.join(output_folder, "test.jsonl"))
 
-def upload(bucket_name):
-    """Upload all processed files to GCS."""
-    """Upload all processed files to GCS, maintaining the local directory structure."""
-    # Define folder mappings for upload
-    folder_mappings = {
-        image_descriptions_txt_folder: "persistent/dataset/image_descriptions_txt",
-        image_descriptions_json_folder: "persistent/dataset/image_descriptions_json",
-        image_descriptions_jsonl_folder: "persistent/dataset/image_descriptions_jsonl",
-        cleaned_text_instructions_folder: "persistent/dataset/cleaned_text_instructions",
-    }
+def upload():
+    """Upload all generated files to GCS."""
+    for local_file in glob.glob(os.path.join(image_descriptions_txt_folder, "*.txt")):
+        upload_to_gcs(local_file, f"{base_folder}/image_descriptions_txt/{os.path.basename(local_file)}")
+    for local_file in glob.glob(os.path.join(image_descriptions_json_folder, "*.json")):
+        upload_to_gcs(local_file, f"{base_folder}/image_descriptions_json/{os.path.basename(local_file)}")
+    for local_file in glob.glob(os.path.join(image_descriptions_jsonl_folder, "*.jsonl")):
+        upload_to_gcs(local_file, f"{base_folder}/image_descriptions_jsonl/{os.path.basename(local_file)}")
+    for local_file in glob.glob(os.path.join(cleaned_text_instructions_folder, "*.jsonl")):
+        upload_to_gcs(local_file, f"{base_folder}/cleaned_text_instructions/{os.path.basename(local_file)}")
 
-     # Iterate over the folder mappings and upload files
-    for local_folder, bucket_folder in folder_mappings.items():
-        for local_file in glob.glob(os.path.join(local_folder, "*")):
-            destination_blob_name = os.path.join(bucket_folder, os.path.basename(local_file))
-            upload_to_gcs(bucket_name, local_file, destination_blob_name, bucket_name)
-            print(f"Uploaded {local_file} to {destination_blob_name}")
 
 def main(args):
     makedirs()
