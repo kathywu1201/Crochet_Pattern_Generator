@@ -60,13 +60,13 @@
     │   ├── docker-compose.yml
     │   ├── rag.py
     │   ├── data_preparation.py
-    ├── gemini-finetuning
+    ├── gemini_finetuning
     │   ├── Pipfile
     │   ├── Pipfile.lock
     │   ├── docker-shell.sh
     │   ├── docker-entrypoint.sh
     │   ├── Dockerfile
-    │   ├── processing_pdfs.py
+    │   ├── gemini-finetuning.py
     ├── llama_fintuning
     │   ├── data_preprocessing.py
     │   ├── llama.py
