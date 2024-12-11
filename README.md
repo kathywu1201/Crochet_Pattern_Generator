@@ -5,7 +5,7 @@
 ```
 ├── Readme.md 
 ├── notebooks
-│   └── eda.ipynb
+│   └── combine.py
 ├── references/
 ├── reports
 │   ├── APCOMP215 Proposal.pdf
@@ -20,6 +20,10 @@
 │   ├── test_ImageVector.py
 │   ├── test_integration.py
 │   └── test_pdfProcessor.py
+├── test_runner
+│   ├── Dockerfile
+│   ├── Pipfile
+│   ├── Pipfile.lock
 └── src
     ├── data_gathering
     │   ├── Pipfile
@@ -184,6 +188,8 @@ For more information about the included features can be viewed in the `About` pa
 
 ### How to use YarnMaster?
 
+We will show you a simple tutorial of how to use YarnMaster.
+
 Here is the homepage of our website, users can click `Quick Start` or `Patterns` to access our pattern generation feature.
 
 ![Image](./references/homepage2.png)
@@ -251,7 +257,8 @@ The deployment of our application on a Google Cloud Platform (GCP) Virtual Machi
    - This creates a new Nginx container to manage traffic on port 80.
 
 7. **Access the Application**
-   - Use the VM's external IP address to access the application in a web browser at: ```http://<External IP>/```.
+   - Use the VM's external IP address to access the application in a web browser at: 
+   ```http://<External IP>/```.
 
 By using Ansible for automation, this deployment process is efficient and repeatable. It handles everything from building Docker images to configuring the VM and deploying containers, ensuring a streamlined setup. The application is fully accessible via the VM’s external IP, with Nginx managing traffic between components.
 
@@ -320,5 +327,7 @@ This is the instruction for setting up the deployment process for the first time
    - Generate SSH key: `ssh-keygen -f /secrets/ssh-key-deployment`.  
    - Add public SSH key to GCP: `gcloud compute os-login ssh-keys add --key-file=/secrets/ssh-key-deployment.pub`.  
    - Note the generated username for later use.
+
+ENJOY!
 
 ![Image](./references/YarnMaster.jpg)
