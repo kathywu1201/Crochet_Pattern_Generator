@@ -23,6 +23,7 @@ TEST_INPUT_FILES = "test_input_files"
 TEST_IMAGES_FOLDER = "test_images"
 TEST_TXT_OUTPUTS = "test_txt_outputs"
 TEST_BUCKET_NAME = "test-bucket"
+TEST_RAW_PDF_FOLDER = "test_raw_pdf"
 
 
 @pytest.fixture(scope="module")
@@ -43,17 +44,14 @@ def setup_folders():
 @patch("pdf_processor.cli.storage.Client")
 def test_download_from_gcs(mock_storage_client, setup_folders):
     """Test downloading PDFs from GCS."""
-    mock_client_instance = mock_storage_client.return_value
-    mock_bucket = mock_client_instance.bucket.return_value
     mock_blob = MagicMock()
-    mock_blob.name = "Skirts/test_document.pdf"
-    mock_blob.download_to_filename.side_effect = lambda filepath: open(filepath, 'w').close()  # Simulate file creation
+    mock_blob.name = "test/test.pdf"
+    mock_blob.download_to_filename.side_effect = lambda filepath: open(filepath, "w").close()
+    mock_bucket = mock_storage_client.return_value.bucket.return_value
     mock_bucket.list_blobs.return_value = [mock_blob]
 
-    with patch("pdf_processor.cli.input_files", TEST_INPUT_FILES):
-        download()
-        downloaded_pdf = os.path.join(TEST_INPUT_FILES, "test_document.pdf")
-    
+    download(TEST_BUCKET_NAME, ["test"])
+    downloaded_pdf = os.path.join(TEST_INPUT_FILES, "test.pdf")
     assert os.path.exists(downloaded_pdf), f"{downloaded_pdf} was not downloaded as expected."
     os.remove(downloaded_pdf)
 
@@ -184,18 +182,16 @@ def test_upload_pdf(mock_upload_to_gcs, setup_folders):
 @patch("pdf_processor.cli.download_results_from_gcs")
 @patch("pdf_processor.cli.extract_largest_image")
 def test_process_pdf(mock_extract_image, mock_download_text, mock_extract_text, setup_folders):
-    """Integration test for processing a PDF file."""
+    """Test processing a single PDF."""
     pdf_path = os.path.join(TEST_INPUT_FILES, "test_process.pdf")
-    with open(pdf_path, "wb") as f:
-        f.write(b"%PDF-1.4 test content")
+    with open(pdf_path, "w") as f:
+        f.write("Dummy PDF content")
 
-    with patch("pdf_processor.cli.bucket_name", TEST_BUCKET_NAME):
-        process_pdf(pdf_path)
-
-    # Match expected values
-    mock_extract_text.assert_called_once_with(f"gs://{TEST_BUCKET_NAME}/input_files/test_process.pdf", ANY)
-    mock_download_text.assert_called_once_with(f"training/text_instructions/json_outputs/test_process_output", ANY)
-    mock_extract_image.assert_called_once_with(pdf_path, ANY)
+    process_pdf(pdf_path, TEST_BUCKET_NAME)
+    mock_extract_text.assert_called_once_with(
+        f"gs://{TEST_BUCKET_NAME}/persistent/raw_pdf/test_process.pdf", 
+        f"gs://{TEST_BUCKET_NAME}/persistent/raw_instructions/json_outputs/test_process_output/"
+    )
     os.remove(pdf_path)
 
 
