@@ -20,7 +20,9 @@ import time
 # cleaned_text_instructions_folder = os.path.join(dataset_folder,"/cleaned_text_instructions")
 
 gcp_project = os.environ["GCP_PROJECT"]
+bucket_name = os.environ["GCS_BUCKET_NAME"]
 region = "us-central1"
+
 base_folder = "training"
 raw_image_folder = f"{base_folder}/images"
 raw_instructions_folder = f"{base_folder}/text_instructions/txt_outputs"
@@ -369,7 +371,7 @@ def upload():
 def main(args):
     makedirs()
 
-    bucket_name = os.getenv("GCS_BUCKET_NAME")
+    # bucket_name = os.getenv("GCS_BUCKET_NAME")
     if args.bucket != "":
         bucket_name = args.bucket
     print(f"Using GCS Bucket: {bucket_name}")

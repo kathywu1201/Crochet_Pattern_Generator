@@ -14,7 +14,7 @@ import time
 # raw_image_folder = os.path.join(dataset_folder, "raw_image")
 # raw_instructions_folder = os.path.join(dataset_folder, "raw_instructions/txt_outputs")
 
-
+bucket_name = os.environ["GCS_BUCKET_NAME"]
 # GCP configurations
 raw_pdf_folder = "input_files"
 raw_image_folder = "training/images"
@@ -152,7 +152,7 @@ def upload(bucket_name):
 def main(args):
     makedirs()
 
-    bucket_name = os.getenv("GCS_BUCKET_NAME")
+    # bucket_name = os.getenv("GCS_BUCKET_NAME")
     if args.bucket != "":
         bucket_name = args.bucket
     print(f"Using GCS Bucket: {bucket_name}")

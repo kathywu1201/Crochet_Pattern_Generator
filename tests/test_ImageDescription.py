@@ -24,6 +24,7 @@ TEST_TEXT_INSTRUCTIONS_FOLDER = f"{TEST_BASE_FOLDER}/text_instructions/txt_outpu
 TEST_IMAGE_DESCRIPTIONS_TXT_FOLDER = f"{TEST_BASE_FOLDER}/image_descriptions_txt"
 TEST_IMAGE_DESCRIPTIONS_JSON_FOLDER = f"{TEST_BASE_FOLDER}/image_descriptions_json"
 TEST_IMAGE_DESCRIPTIONS_JSONL_FOLDER = f"{TEST_BASE_FOLDER}/image_descriptions_jsonl"
+TEST_BUCKET_NAME = "test-bucket"
 
 @pytest.fixture(scope="module")
 def setup_test_directories():
@@ -65,7 +66,7 @@ def test_upload_to_gcs(mock_storage_client):
     with open(test_file, "w") as f:
         f.write("mock content")
 
-    upload_to_gcs(test_file, "test_blob_name")
+    upload_to_gcs(TEST_BUCKET_NAME ,test_file, "test_blob_name")
     mock_bucket.blob.assert_called_with("test_blob_name")
     mock_blob.upload_from_filename.assert_called_with(test_file)
     os.remove(test_file)
@@ -82,7 +83,7 @@ def test_download_files_from_gcs(mock_storage_client):
     mock_blob.name = "training/images/test_image.png"
     mock_bucket.list_blobs.return_value = [mock_blob]
 
-    download_files_from_gcs("training/images", TEST_IMAGES_FOLDER)
+    download_files_from_gcs(TEST_BUCKET_NAME, "training/images", TEST_IMAGES_FOLDER)
     downloaded_image = os.path.join(TEST_IMAGES_FOLDER, "test_image.png")
     
     # Simulate downloaded file creation
@@ -150,7 +151,7 @@ def test_create_json_file():
 
 # Integration Tests
 
-@patch('image_descriptions.cli.images_folder', TEST_IMAGES_FOLDER)
+@patch('image_descriptions.cli.raw_image_folder', TEST_IMAGES_FOLDER)
 @patch('image_descriptions.cli.image_descriptions_txt_folder', TEST_IMAGE_DESCRIPTIONS_TXT_FOLDER)
 @patch('image_descriptions.cli.image_descriptions_json_folder', TEST_IMAGE_DESCRIPTIONS_JSON_FOLDER)
 @patch("image_descriptions.cli.generate_image_description", return_value="Generated description")

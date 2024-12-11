@@ -28,15 +28,16 @@ TEST_RAW_PDF_FOLDER = "test_raw_pdf"
 
 @pytest.fixture(scope="module")
 def setup_folders():
-    # Ensure all necessary test directories are created
+    os.makedirs("input_files", exist_ok=True)  # Create the missing folder
     os.makedirs(TEST_INPUT_FILES, exist_ok=True)
     os.makedirs(TEST_IMAGES_FOLDER, exist_ok=True)
     os.makedirs(TEST_TXT_OUTPUTS, exist_ok=True)
     yield
-    # Clean up after tests
+    shutil.rmtree("input_files")  # Clean up after tests
     shutil.rmtree(TEST_INPUT_FILES)
     shutil.rmtree(TEST_IMAGES_FOLDER)
     shutil.rmtree(TEST_TXT_OUTPUTS)
+
 
 ### Unit Tests ###
 
@@ -51,7 +52,7 @@ def test_download_from_gcs(mock_storage_client, setup_folders):
     mock_bucket.list_blobs.return_value = [mock_blob]
 
     download(TEST_BUCKET_NAME, ["test"])
-    downloaded_pdf = os.path.join(TEST_INPUT_FILES, "test.pdf")
+    downloaded_pdf = os.path.join("input_files", "test.pdf")
     assert os.path.exists(downloaded_pdf), f"{downloaded_pdf} was not downloaded as expected."
     os.remove(downloaded_pdf)
 
@@ -169,7 +170,7 @@ def test_upload_pdf(mock_upload_to_gcs, setup_folders):
 
     # Patch input_files to use TEST_INPUT_FILES
     with patch("pdf_processor.cli.raw_pdf_folder", TEST_INPUT_FILES):
-        upload_pdf(pdf_path)
+        upload_pdf(pdf_path, TEST_BUCKET_NAME)
 
     # Confirm the mock was called with the correct path
     mock_upload_to_gcs.assert_called_with(pdf_path, f"{TEST_INPUT_FILES}/test_upload.pdf")
