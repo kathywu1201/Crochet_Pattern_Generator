@@ -116,7 +116,7 @@ def extract_largest_image(pdf_path, output_image_path):
 
 def upload_pdf(pdf_path, bucket_name):
     pdf_name = os.path.basename(pdf_path).replace(".pdf", "")
-    upload_to_gcs(pdf_path, f"raw/{pdf_name}.pdf", bucket_name)
+    upload_to_gcs(pdf_path, f"{raw_pdf_folder}/{pdf_name}.pdf", bucket_name)
 
 
 def process_pdf(pdf_path, bucket_name):

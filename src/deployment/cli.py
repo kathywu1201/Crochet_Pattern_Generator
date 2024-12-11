@@ -259,8 +259,8 @@ def pipeline():
             model_training_job(
                 project=GCP_PROJECT,
                 location=GCP_REGION,
-                train_dataset="gs://{GCS_BUCKET_NAME}/persistent/dataset/image_descriptions_jsonl/train.jsonl",
-                validation_dataset="gs://{GCS_BUCKET_NAME}/persistent/dataset/image_descriptions_jsonl/validation.jsonl",
+                train_dataset="gs://{GCS_BUCKET_NAME}/training/image_descriptions_jsonl/train.jsonl",
+                validation_dataset="gs://{GCS_BUCKET_NAME}/training/image_descriptions_jsonl/validation.jsonl",
                 source_model="gemini-1.5-flash-002",
                 display_name="finetuned-gemini-v2",
                 output_bucket=GCS_BUCKET_NAME,

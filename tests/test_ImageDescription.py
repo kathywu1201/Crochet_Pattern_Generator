@@ -206,9 +206,10 @@ def test_main_system_flow(mock_upload, mock_split, mock_process, mock_download):
     parser.add_argument("-p", "--process", action="store_true")
     parser.add_argument("-s", "--split", action="store_true")
     parser.add_argument("-u", "--upload", action="store_true")
+    parser.add_argument("-b", "--bucket", type=str, default="")
 
     # Run main function with all steps
-    args = parser.parse_args(["--download", "--process", "--split", "--upload"])
+    args = parser.parse_args(["--download", "--process", "--split", "--upload", "--bucket", TEST_BUCKET_NAME])
     main(args)
 
     # Check that each step was called

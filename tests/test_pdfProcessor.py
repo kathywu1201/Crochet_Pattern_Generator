@@ -189,7 +189,7 @@ def test_process_pdf(mock_extract_image, mock_download_text, mock_extract_text, 
         f.write(b"%PDF-1.4 test content")
 
     with patch("pdf_processor.cli.bucket_name", TEST_BUCKET_NAME):
-        process_pdf(pdf_path)
+        process_pdf(pdf_path, TEST_BUCKET_NAME)
 
     # Match expected values
     mock_extract_text.assert_called_once_with(f"gs://{TEST_BUCKET_NAME}/input_files/test_process.pdf", ANY)
