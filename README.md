@@ -1,14 +1,19 @@
+# AC215 - YarnMaster!!
 
 #### Project Organization
 
 ```
-├── Readme.md
-├── data 
+├── Readme.md 
 ├── notebooks
 │   └── eda.ipynb
 ├── references/
 ├── reports
-│   └── APCOMP215 Proposal.pdf
+│   ├── APCOMP215 Proposal.pdf
+│   ├── APCOMP215 Proposal_new.pdf
+│   ├── milestone3.pdf
+│   ├── milestone2.md
+│   ├── milestone3.md
+│   ├── milestone4.md
 ├── tests
 │   ├── documentations.txt
 │   ├── test_ImageDescription.py
@@ -55,31 +60,40 @@
     │   ├── docker-compose.yml
     │   ├── rag.py
     │   ├── data_preparation.py
-    ├── text-generation
-    │   └── llm-finetuning
-    │       ├── Pipfile
-    │       ├── Pipfile.lock
-    │       ├── docker-shell.sh
-    │       ├── docker-entrypoint.sh
-    │       ├── Dockerfile
-    │       └── processing_pdfs.py
+    ├── gemini-finetuning
+    │   ├── Pipfile
+    │   ├── Pipfile.lock
+    │   ├── docker-shell.sh
+    │   ├── docker-entrypoint.sh
+    │   ├── Dockerfile
+    │   ├── processing_pdfs.py
+    ├── llama_fintuning
+    │   ├── data_preprocessing.py
+    │   ├── llama.py
+    │   ├── llama_deploy.py
+    │   ├── llama_predict.py
+    │   ├── llama_reference.py
+    │   ├── llama_tuning_cleaned_data.py
+    │   ├── test_endpoint.py
     ├── api-service
     │   ├── Pipfile
     │   ├── Pipfile.lock
     │   ├── docker-shell.sh
     │   ├── docker-entrypoint.sh
     │   ├── Dockerfile
-    │   ├── api
-    │   │   ├── service.py
-    │   │   ├── routers
-    │   │   │   ├── llm_rag_chat.py
-    │   │   │   ├── llm_agent_chat.py
-    │   │   └── utils
-    │   │       ├── chat_utils.py
-    │   │       ├── llm_rag_utils.py
-    │   │       ├── llm_agent_utils.py
-    │   │       └── llm_image_utils.py
-    ├── vectorDB
+    │   └── api
+    │       ├── service.py
+    │       ├── routers
+    │       │   ├── llm_rag_chat.py
+    │       │   ├── llm_chat.py
+    │       │   ├── llm_llama_chat.py
+    │       └── utils
+    │           ├── chat_utils.py
+    │           ├── llm_utils.py
+    │           ├── llm_rag_utils.py
+    │           ├── llm_llama_utils.py
+    │           └── llm_image_utils.py
+    ├── vector-db
     │   ├── Pipfile       
     │   ├── Pipfile.lock           
     │   ├── Dockerfile             
@@ -89,16 +103,56 @@
     │   ├── cli.py                  
     │   ├── semantic_splitter.py  
     ├── frontend_react
+    │   ├── .env.development
+    │   ├── .env.production
+    │   ├── .gitignore
+    │   ├── Dockerfile
+    │   ├── Dockerfile.dev
+    │   ├── docker-shell.sh
+    │   ├── jsconfig.json
+    │   ├── next.config.js
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── postcss.config.js
+    │   ├── tailwind.config.js
     │   ├── public/assets
     │   │   └── *.png
     │   └── src
     │       ├── components/
     │       ├── app/
     │       └── services/
+    ├── deployment
+    │   ├── nginx-conf/nginx
+    │   │   └── nginx.conf
+    │   ├── .dockertag          
+    │   ├── .dockertag-ml  
+    │   ├── Pipfile       
+    │   ├── Pipfile.lock           
+    │   ├── Dockerfile             
+    │   ├── docker-shell.sh         
+    │   ├── docker-entrypoint.sh 
+    │   ├── cli.py    
+    │   ├── data_processor.yaml
+    │   ├── data_processor.yaml
+    │   ├── deploy-create-instance.yml
+    │   ├── deploy-docker-images-app.yml
+    │   ├── deploy-docker-images-ml.yml
+    │   ├── deploy-k8s-cluster.yml
+    │   ├── deploy-k8s-update.sh
+    │   ├── deploy-provision-instance.yml
+    │   ├── deploy-setup-containers.yml
+    │   ├── deploy-setup-webserver.yml
+    │   ├── inventory-prod.yml
+    │   ├── inventory.yml
+    │   ├── model.py
+    │   ├── run-image-descriptions.sh
+    │   ├── run-pdf-processor.sh
+    │   ├── run-ml-pipeline.sh
+    │   ├── update-k8s-cluster.yml
  
 ```
 
-# AC215 - Milestone4 - YarnMaster
+# AC215 - Final Project - YarnMaster
 
 **Team Members**
 Shiqi Wang, Yanfeiyun Wu, Jiahui Zhang, Wanying Zhang
@@ -107,228 +161,169 @@ Shiqi Wang, Yanfeiyun Wu, Jiahui Zhang, Wanying Zhang
 YarnMaster
 
 **Project**
-In this project, we aim to develop a Deep Learning model capable of interpreting images of crochet products and generating corresponding, detailed pattern instructions. Despite crochet's popularity as a creative and therapeutic pastime, enthusiasts like us often struggle to find clear, step-by-step instructions for intriguing designs we encounter online or in person due to scarce resources. Existing tools can transform written instructions into visual 3D models, but there is a significant gap in generating pattern instructions directly from images of finished products. To address this need, we envision not only creating a model that provides meaningful instructions but also developing an app tailored for crochet enthusiasts. This platform would allow users to upload pictures of crochet items they find interesting, receive detailed patterns, and foster an online community where they can connect, share their creations, and inspire each other.
+In this project, we aim to develop a Deep Learning model capable of interpreting images of crochet products and generating corresponding, detailed pattern instructions. Despite crochet's popularity as a creative and therapeutic pastime, enthusiasts like us often struggle to find clear, step-by-step instructions for intriguing designs we encounter online or in person due to scarce resources. Existing tools can transform written instructions into visual 3D models, but there is a significant gap in generating pattern instructions directly from images of finished products. To address this need, we envision not only creating a model that provides meaningful instructions but also developing an app tailored for crochet enthusiasts. This platform would allow users to upload pictures of crochet items they find interesting, receive detailed patterns, and foster an online community where they can connect, share their creations, and inspire each other [project proposal](./reports/APCOMP215%20Proposal_new.pdf).
 
-### Milestone4 ###
+## Previous Milestones
 
-In this milestone, we mainly focus on building the components for testing, backend development (api service), and frontend design of the YarnMaster website. We have successfully conntected the frontend with the backend and the api service, and able to chat with the generative model through the website.
+Below are the previous milestones we've done.
 
-**Application Design**
-Before building the website, we have designed the overall application architecture (training pipeline) and user inference pipeline. The training pipeline includes data gathering, pdf processing, image to vector, image description, RAG, and finetuning. The user inference pipeline includes image description, RAG, and chatting with the generative model.
+- [Milestone 2](./reports/milestone2.md):
+    - Data scraping from the website, data preprocessing, language model finetune and RAG. 
+    - Each component are in separte contaienrs.
+- [Milestone 3](./reports/milestone3.md):
+    - Seprate the data preprocessing container to `pdf_processor` and `image_2_vector`.
+- [Milestone 4](./reports/milestone4.md):
+    - Setup frontend interface, backend API, tests for different functionalities.
+    - Additional `fontend-react` and `api-service` containers.
 
-The user inference pipeline is designed in three different options - text + image, text-only, and image-only. These options are designed to cater to different user preferences and needs.
+## Final Deliverables
 
-Here is the overall training pipeline:
-![Training Pipeline](./references/training_pipeline.png)
+### Overview of YarnMaster
+Yarn Master is a team of four data science students who developed a shared passion for crochet. As our skills improved, we found ourselves no longer satisfied with merely following existing patterns available online. Sometimes we wondered if we could recreate it ourselves when we came across a beautifully crafted yarn product in daily life, but we often couldn’t find precise tutorials online. Through our research, we discovered that there is currently no tool on the market that can generate accurate instructions directly from a picture of a crochet item. We also experimented with AI tools like ChatGPT to generate tutorials, but the results were far from satisfactory. Coincidentally, this semester we enrolled in Harvard’s AC215 course. When brainstorming project topics, we thought, why not create a software tool that helps crochet enthusiasts quickly generate accurate tutorials by uploading an image of their crochet product along with a detailed description?
 
-Here is the user inference pipeline:
+Our project aims to help users who are interested in doing crochet works but have a hard time finding accessible instructions quickly due to the limited access to reliable, step-by-step crochet patterns and unreliable instructions generated by current AI models not specialized in crochet and knitting. By providing the image of crochet good and descriptive prompts, the crochet AI instructor will generate detailed pattern tutorials for the users.
 
-Here is the text + image option:
-![Text + Image](./references/image_text.png)
+For more information about the included features can be viewed in the `About` page in our website.
 
-Here is the text-only option:
-![Text-only](./references/text.png)
+![Image](./references/aboutus2.png)
 
-Here is the image-only option:
-![Image-only](./references/image.png)
+### How to use YarnMaster?
 
-**Backend API**
-We built backend api service using FastAPI, and it includes one chat model currently: Gemini (RAG). The Gemini (RAG) model is used for generating pattern instructions based on the input image and text prompt. We will add more chat models in the future.
+Here is the homepage of our website, users can click `Quick Start` or `Patterns` to access our pattern generation feature.
 
-![Gemini RAG](./references/gemini_rag.png)
+![Image](./references/homepage2.png)
 
-**Frontend**
-A user-friendly interface that allows users to upload images of crochet products, receive detailed pattern instructions, and interact with the generative model. The app will send the image and user prompt to the backend api service, and display the response from the api service to the user in the frontend.
+On this pattern page, users can upload an image and a prompt describing the crochet piece that they want the generated instruction. Our app provide 3 different models for the users to choose from: *Yarn Bachelor*, *Yarn Master*, and *Yarn Phd*. Each model focuses on slightly different aspect of instruction generation. 
+- **Yarn Bachelor** can provide accurate product size and amount of materials need for the given crochet piece.
+- **Yarn Master** works well in most cases, especially for large crochet products like blanket, scarves, and etc.
+- **Yarn Phd** is the most knowledgeable AI instructor and works well on small crochet goods like ornament.
 
-Here are some screenshots of our website:
+![Image](./references/inputpage2.png)
 
-![Homepage](./references/homepage.png)
+Here is a sample input users can provide:
 
-![Login](./references/login.png)
+![Image](./references/promptsample2.png)
 
-![About Us](./references/aboutus.png)
+Users can view the generated tutorials in the chatting page. They can also access the previous instructions they have prompted under `Pattern Library` in the sidebar. 
 
-![Community](./references/community.png)
+![Image](./references/chat2.png)
 
-**Data Pipeline Containers**
-1.  One container automized data collecting process to scrape pdfs from open source website and upload themsto Google Cloud Storage (GCS).
+Our current model has a limitation in that it cannot guarantee 100% accurate crochet instructions. To address this, we plan to integrate a feedback loop with a third-party system capable of creating crochet goods based on the generated instructions. If the created product does not closely resemble the user's input image, the system will provide feedback to our model. This feedback will enable the model to refine and regenerate instructions until the resulting product aligns with the user's expectations, ensuring continuous improvement in instruction accuracy.
 
-	**Input:** Source URL and specific parameters; required secrets (provided via Docker).
+### Deployment Instructions
 
-	**Output:** pdfs stored in the specified GCS location.
+#### App Deployment to GCP (Ansible) ####
 
-2. One container read in instruction pdfs and storing the segmented images and raw text to Goodle Cloud Storage. 
+The deployment of our application on a Google Cloud Platform (GCP) Virtual Machine (VM) is fully automated using Ansible. The process involves configuring secrets, building Docker images, setting up the VM, and deploying containers with a web server. Below is a step-by-step guide with explanations.
 
-   **Input:** PDFs downloaded from GCS.
+1. **Configuration**
+   - Begin by updating the `inventory.yml` file with the following details:
+     - Ansible user credentials.
+     - GCP project information.
+     - GCP VM instance details.
+   - Ensure necessary secrets, such as SSH keys and GCP credentials, are properly set up for secure deployment.
 
-   **Output:** Cropped images (first image in first page of every PDF, saved as png) and raw text (txt), uploaded into GCS.
+2. **Build and Push Docker Containers**
+   - Build Docker images for the application components: `vector-db`, `api-service`, and `frontend-react`.  
+     - Run the command: `ansible-playbook deploy-docker-images.yml -i inventory.yml`.  
+   - Push these images to the Google Container Registry (GCR).  
+   - Tag all images with a timestamp to maintain consistency between components.  
+   - Note: This step may take time, especially for large images like the `api-service`.
 
-3. One container read in raw images data and output image vectors.
+3. **Create Compute Instance**
+   - Create a GCP VM configured with a mounted persistent disk for data storage.  
+   - Allow HTTP traffic on port 80 and HTTPS traffic on port 443 to enable web access.  
+   - Use the command: `ansible-playbook deploy-create-instance.yml -i inventory.yml --extra-vars cluster_state=present`.  
+   - Once the VM is created, update the `inventory.yml` file with the compute instance's external IP address.
 
-   **Input:** Images downloaded from GCS.
+4. **Provision Compute Instance**
+   - Set up the VM with required dependencies and configurations.  
+   - This includes installing Docker, setting up the Docker network, and preparing the environment for container deployment.  
+   - Use the command: `ansible-playbook deploy-provision-instance.yml -i inventory.yml`.
 
-   **Output:** Image vectors (saved as npy) and uploaded into GCS.
+5. **Deploy Docker Containers**
+   - Pull the pre-built Docker images from GCR and run them on the VM:
+     - **Vector-DB:** Runs on port 8000.  
+     - **API Service:** Runs on port 9000.  
+     - **Frontend:** Runs on port 3000.  
+   - Secrets (e.g., GCP credentials) are mounted into the containers to ensure secure access to necessary resources.  
+   - Deploy the containers using: `ansible-playbook deploy-setup-containers.yml -i inventory.yml`.
 
-4. One container read in raw image data and output description of the image.
+6. **Webserver Configuration**
+   - Set up Nginx as a reverse proxy to route incoming HTTP traffic between the `frontend` and `API service`:  
+     - Configure `nginx.conf` with routing rules.  
+     - Deploy the web server using: `ansible-playbook deploy-setup-webserver.yml -i inventory.yml`.  
+   - This creates a new Nginx container to manage traffic on port 80.
 
-   **Input:** Images and raw text downloaded from GCS.
+7. **Access the Application**
+   - Use the VM's external IP address to access the application in a web browser at: `http://<External IP>/`.
 
-   **Output:** Descriptions of images (txt and json) and upload into GCS.
+By using Ansible for automation, this deployment process is efficient and repeatable. It handles everything from building Docker images to configuring the VM and deploying containers, ensuring a streamlined setup. The application is fully accessible via the VM’s external IP, with Nginx managing traffic between components.
 
-5. One container prepares data for the RAG model, including tasks such as chunking, embedding, and loading to the vector database.
+#### App Deployment using Kubernetes ####
 
-	**Input:** Download image (png) and text (json and txt) data from GCS and load the data to the RAG model. Additional, it will also download the generated prompt as the user input prompt.
-
-	**Output:** Output a combination of generated user prompt and chunked text (as json file) searched from the vector database.
-
-6. One container to fine tune large language model (Gemini).
-
-   **Input:** The generated prompt from last llm and original textual instruction.
-
-   **Output:** The textual pattern instruction based on the prompt input.
-
-## Data Pipeline Overview
-
-1. **`src/data_gathering/data_scraping.py`**
-   This script uses Selenium to scrape pattern PDF download links from the Yarnspirations website based on a specified project type and downloads the PDFs to a designated folder inside a Docker container. It configures Chrome to run in headless mode, loops through pages of patterns, extracts PDF links, and saves the PDFs to project-specific directories, handling errors and ensuring the directories exist before saving.
-
-2. **`src/data_gathering/data_upload.py`**
-   This script uploads all files from a local folder to a Google Cloud Storage bucket by walking through the folder structure, creating corresponding blob paths, and uploading each file using the Google Cloud Storage client. It ensures that the credentials environment variable is set for authentication and prints the progress of each uploaded file.
-
-3. **`src/data_gathering/cli.py`**
-   This script creates a command-line interface tool that perform two tasks: scrape data from a website and upload the scraped data to GCS.
-
-4. **`src/data_gathering/docker-shell.sh`**
-   This Docker shell script sets up environment variables, pulls the latest seleniarm/standalone-chromium image, and runs a container with mounted local directories for the app and secrets. Inside the container, it installs Python, pip, sets up a virtual environment, and installs necessary Python packages like Selenium, Requests, and Google Cloud Storage.
-
-5. **`src/pdf_processor/cli.py`**
-   This script extracts the raw text and image from the PDF files and store them into local folder then upload into GCS.
-
-6. **`src/pdf_processor/Pipfile`**
-   We used the following packages to help with preprocessing the PDFs:
-   - `google-cloud-vision`
-   - `google-cloud-storage`
-   - `pdfplumber`
-
-7. **`src/image_2_vector/cli.py`**
-   This script extracts the image from the PDF files, convert image to image vectors, and store them into local folder then upload into GCS.
-
-8. **`src/image_2_vector/Pipfile`**
-   We used the following packages to help with preprocessing the PDFs:
-   - `numpy`
-   - `google-cloud-storage`
-   - `Pillow`
-   - `torch`
-   - `transformers`
-
-9. **`src/image_descriptions/generate_prompts_gemini.py`**
-   This script use gemini to produce descriptions of the images downloaded from GCS bucket, then create formatted json and jsonl files that can use to finetune LLM (still gemini) later. Then, upload txt files (raw descriptions), json, and jsonl files (contain train, validation, and test datasets) into GCS bucket.
-
-10. **`src/image_descriptions/Pipfile`**
-   We used the following packages to help with generate image descriptions:
-   - `user-agent`
-   - `requests`
-   - `google-cloud-storage`
-   - `google-generativeai`
-   - `google-cloud-aiplatform`
-   - `pandas`
-   - `pillow`
-
-11. **`src/llm-rag/rag.py`**
-   This script prepares the necessary dat for setting up our vector database. It performs downloading data from GCS bucket, chunking, embedding, loads data into a vector database (ChromaDB), and upload retrieved chunks and prompts to the GCS bucket which will be used as input in the Large Language Model.
-
-12. **`src/llm-rag/Pipfile`**
-   We used the following packages to help with processing RAG:
-   - `chromadb`
-   - `google-cloud-storage`
-   - `google-cloud-aiplatform`
-   - `langchain`
-
-13. **`src/llm-finetuning/gemini-finetuning.py`**
-   This script utilizes prompt generated from crochet images from last Gemini model and raw texual instructions corresponding with each image to finetune the Gemini, to make the model generate textual pattern instructions based on prompt. It also gives instructions of how to generate output based on RAG as well as the prompts which users input.
-
-14. **`src/llm-finetuning/Pipfile`**
-   We used the following packages to help with preprocessing:
-   - `google-cloud-storage`
-   - `google-generativeai`
-   - `google-cloud-aiplatform`
-
-15. **`src/../Dockerfile(s)`**
-   Our Dockerfiles follow standard conventions, with the exception of some specific modifications described in the Dockerfile/described below.
-   - In the data_gathering container, instead of building our own image, we utilized an open-source image on dockerhub which can let us run chromdriver in the container.
-
-
-## Running Dockerfile
-Instructions for running the Dockerfiles in each of the container is: `sh docker-shell.sh`
-
-**VectorDB Container**
-- This container runs the vector database (ChromaDB).
-   - Run `sh docker-shell.sh` will automatically build the image, run the container, start the chroma server, and load the data into the vector database.
-
-**API Service Container**
-- This container runs the FastAPI api service.
-   - Run `npm run dev` when inside the container.
-   - The api service will be hosted at `http://localhost:9000/docs`
-
-**Frontend React Container**
-- This container runs the frontend react app.
-   - Run `npm start` when inside the container. 
-   - The frontend will be hosted at `http://localhost:3000`
-
-**Data Gathering Container**
-- This container scrapes data from a website and uploads the scraped data to GCS.
-   - `python3 cli.py scrape —project-type {project-type} —pages {pages}`
-   - `python3 cli.py upload —folder {/path/to/download/folder}—bucket {bucket-name}`
-   Example usage:
-   - `python3 cli.py scrape --project-type "Rugs" --pages 3`
-   - `python3 cli.py upload --folder "/app/input_file" --bucket “crochet-patterns-bucket"`
-
-**PDF Processor Container**
-
-- This container has scripts for process PDFs and output images and raw text instructions to put into RAG and LLM.
-- Instructions for running the model container:\
-  - `python3 cli.py --download`, download the PDFs from GCS.
-  - `python3 cli.py --uploadpdfs`, uploads the downloaded PDFs into one folder on GCS for easy process.
-  - `python3 cli.py --process`, Process the PDFs, including extracting images(use pdfplumber and cvs) and extract raw text from (Google Cloud Vision API) the PDFs.
-  - `python3 cli.py --upload`, Upload the processed images and raw text to GCS
-
-**Image To Vector Container**
-
-- This container has scripts for convert the images to image vectors to put into RAG
-- Instructions for running the model container:\
-  - `python3 cli.py --download`, download the images from GCS.
-  - `python3 cli.py --process`, Convert the images to image vectors (user SwinV2)
-  - `python3 cli.py --upload`, Upload the processed image vectors to GCS
-
-**Image Descriptions container**
-- This container has scripts for running a gemini and asked it to generate image descriptions of the inputted image.
-- Instructions for running the model container:\
-   - `python3 cli.py --download`, download the images from GCS.
-   - `python3 cli.py --process`, generate image descriptions for the images, and save both txt files and formatted json files into local directory
-   - `python3 cli.py --split`, split the json files into training, validation, and testing datasets and store in jsonl files
-   - `python cli.py --upload`, upload the image descriptions (txt file), fomatted json files, and splitted jsonl files to GCS bucket
-
-**RAG container**
-- This container has scripts for rag pipline and prepare inference data that can pass to language model.
-- Instructions for running the model container:\
-   - `python rag.py --download`, download the image, image vector and text instruction from GCS.
-   - `python rag.py --chunk`, use semantic chunking to chunk text.
-   - `python rag.py --embed`, generate embeddings for chunked text.
-   - `python rag.py --load`, load embeddings to the vector database.
-   - `python rag.py --query`, query the vector database to retrieve chunked text.
-   - `python rag.py --upload`, upload the retrieved information to the GCS bucket. 
-
-**Language Model container**
-- This container has scripts for Genimi finetuning, chatting with fine-tuned model
-- Instructions for running the model container 
-   - `python gemini-finetuning.py --train`, finetune the model.
-   - `python gemini-finetuning.py --chat`, chat with the fine-tuned model
-
-**Reports**
-This folder contains our updated proposal.
-
-**References**
-This folder contains some images and documents that help us understand the project.
-
-**midterm_presentation**
-This folder contains our midterm presentation.
+This guide outlines the process for deploying the Crochet App on a Kubernetes cluster using Ansible. The deployment leverages the `deploy-k8s-cluster.yml` playbook and the `inventory.yml` configuration file for automation.
+
+**1. Build and Push Docker Containers (Optional)**  
+   - If the Docker containers for the application are not already built and pushed to the Google Container Registry (GCR), execute:  
+     `ansible-playbook deploy-docker-images.yml -i inventory.yml`
+   - This step builds Docker images for the frontend, API service, and ChromaDB components and pushes them to GCR, tagging the images for version control.
+
+**2. Create and Deploy Kubernetes Cluster**  
+   - Use the following command to create and configure a Google Kubernetes Engine (GKE) cluster:  
+     `ansible-playbook deploy-k8s-cluster.yml -i inventory.yml --extra-vars cluster_state=present`
+   - This process includes:
+     1. **Cluster Creation:** Creates a GKE cluster (`crochet-app-cluster`) with autoscaling (1–2 nodes) and nodes of type `n2d-standard-2` with 30 GB disk space.
+     2. **Namespace Setup:** Creates the `crochet-app-cluster-namespace` for managing Kubernetes resources.
+     3. **Ingress Controller:** Installs Nginx ingress using Helm for external access to cluster services.
+     4. **Persistent Volume Claims:** Sets up PVCs for app data storage and ChromaDB storage.
+     5. **Secrets Management:** Imports GCP credentials into the cluster as Kubernetes secrets for secure access.
+     6. **Application Deployment:** Deploys:
+        - **Frontend Service** (exposed on port 3000).  
+        - **API Service** (exposed on port 9000 with GCP credentials and persistent storage).  
+        - **ChromaDB Service** (exposed on port 8000 with persistent storage).
+     7. **Data Initialization:** Executes a Kubernetes job to load initial data into ChromaDB.
+     8. **Service Exposure:** Creates NodePort services for frontend, API, and ChromaDB components.
+     9. **Ingress Configuration:** Sets up routing to:
+        - `/` for frontend traffic.  
+        - `/api/` for API service traffic.
+
+**3. Access the Application**  
+   - After successful deployment, retrieve the ingress IP from the terminal output.
+   - Open the app in a web browser using:  
+     ```http://<YOUR INGRESS IP>.sslip.io```
+
+This deployment process automates the setup of a Kubernetes cluster, the configuration of resources, and the deployment of services. It ensures scalability, security, and efficient resource management for the Crochet App, making it accessible via the provided ingress IP.
+
+### CI/CD: Github Actions
+
+We've implemented Github Actions workflow to perform: (1) tests of each containers, (2) integration tests between multicontainers, (3) automated update to our Kunernetes cluster, and (4) automated retrain when we gather new data. Here are the commands in commit that will trigger the these actions:
+- The unit tests in each container and integration tests between multicontainers will run everytime when we push new changes to the main branch.
+- Adding ` /deploy-app` at the end of the commit message will automatically update our deployed app on the kubernetes cluster.
+- Adding `/run-pdf-processor` at the end of the commit message will automatically process the pdfs we've gathered and upload the images and text instructions to the GCS buckets.
+- Adding `/run-image-description` at the end of the commit message will automatically retrieve image descriptions and clean raw text instructions using LLMs that we gathered from the PDF processing step.
+- Adding `/run-ml-pipeline` at the end of the commit message will automatically trigger the workflow for data preprocessing (including pdf processing, image description, and text cleaning) and retraining the model we currently have. After the model is retrained, since our generated instructions are hard to evaluate using a loss function to check their performance, we incorporate an additional validation step to ensure that the model performs as expected. If the validation is successful, we will finally deploy the updated model for use.
+
+The CI/CD automations allows us to easily update the deployed app without restarting our server when we make some update with our code, such as a newly implemented feature or version update of our model. 
+
+### Prerequisites
+
+Our app is fully implemented using containers, which mean it is necessary to have access to the Docker Container. To run the Docker container locally, ensure that Docker is installed and running on your system. You should also have access to the required secrets, such as GCP credentials and SSH keys, properly set up in the `/secrets` directory. Verify that you have configured the `inventory.yml` file with accurate project details, including the GCP project ID and authentication settings. Additionally, confirm that your system has access to the internet to pull necessary images and authenticate with GCP. Finally, check that your Docker environment has sufficient resources (CPU, memory, and disk space) to run the container smoothly.
+
+### Setup Instructions
+
+This is the instruction for setting up the deployment process for the first time.
+
+1. **Setup Docker Container**  
+   - Use Docker to create a deployment container with all required tools.  
+   - Update `docker-shell.sh` with your GCP project ID and run `sh docker-shell.sh`.  
+   - Verify tools with `gcloud`, `ansible`, and `kubectl` commands.  
+   - Authenticate to GCP with `gcloud auth list`.
+
+2. **SSH Setup**  
+   - Enable OS Login: `gcloud compute project-info add-metadata --project <YOUR GCP_PROJECT> --metadata enable-oslogin=TRUE`.  
+   - Generate SSH key: `ssh-keygen -f /secrets/ssh-key-deployment`.  
+   - Add public SSH key to GCP: `gcloud compute os-login ssh-keys add --key-file=/secrets/ssh-key-deployment.pub`.  
+   - Note the generated username for later use.
+
+![Image](./references/YarnMaster.jpg)

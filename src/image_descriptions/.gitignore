@@ -2,3 +2,4 @@
 /echo
 /__pycache__
 data_collecting.py
+.DS_Store

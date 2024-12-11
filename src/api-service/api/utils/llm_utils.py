@@ -15,12 +15,12 @@ GCP_LOCATION = "us-central1"
 EMBEDDING_MODEL = "text-embedding-004"
 EMBEDDING_DIMENSION = 256
 GENERATIVE_MODEL = "gemini-1.5-flash-002"
-MODEL_ENDPOINT = "projects/376381333238/locations/us-central1/endpoints/3614500440290361344"
+MODEL_ENDPOINT = "projects/511913269681/locations/us-central1/endpoints/6607705342631477248"
 
 # Configuration settings for the content generation
 generation_config = {
-    "max_output_tokens": 2000,  # Maximum number of tokens for output
-    "temperature": 0.1,  # Control randomness in output
+    "max_output_tokens": 3000,  # Maximum number of tokens for output
+    "temperature": 0.75,  # Control randomness in output
     "top_p": 0.95,  # Use nucleus sampling
 }
 
@@ -29,7 +29,6 @@ SYSTEM_INSTRUCTION = """
 You are a highly skilled AI assistant specialized in creating crochet patterns. 
 Your task is to generate a detailed crochet pattern for the product shown in the image. 
 However, you must prioritize user preferences from their input when they differ from the image. 
-For example, if the user specifies a "red crochet product" but the image shows a "blue crochet product," adjust the pattern accordingly (e.g., update the color of the yarn in the "Materials Needed" section).
 
 Your response must strictly follow the format below, ensuring the number of rounds or steps matches the typical requirements for the product. Do not generate more rounds or steps than necessary to complete the project. Avoid unnecessary line breaks or redundant information to ensure the output is clear, organized, and precise.
 
@@ -156,6 +155,8 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
 
                 {generated_description}
 
+                User Instructions:
+
                 {message.get('content', 'Please provide detailed crochet instructions for recreating this item.')}
                 """
                 
@@ -169,10 +170,12 @@ def generate_chat_response(chat_session: ChatSession, message: Dict) -> str:
         if not message_parts:
             raise ValueError("Message must contain either text content or image")
 
-        # print("Message parts:", message_parts)
+        print("Message parts:", message_parts)
+
         # Send message with all parts to the model
         response = generative_model.generate_content(
-            [message_parts],  
+            # [message_parts],  
+            [image_part, message_parts],
             generation_config=generation_config, 
             stream=False, 
         )

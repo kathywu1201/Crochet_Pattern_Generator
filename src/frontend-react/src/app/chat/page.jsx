@@ -117,23 +117,30 @@ export default function ChatPage({ searchParams }) {
 
     return (
         <div className={styles.container}>
-            {!hasActiveChat ? (
-                /* Input Page */
+
+            {!hasActiveChat && (
                 <section className={styles.hero}>
                     <div className={styles.heroContent}>
                         <h1>Pattern Assistant 🌟</h1>
-                        <ChatInput
-                            onSendMessage={startNewChat} // Use startNewChat to handle submissions
-                            selectedModel={model}
-                            onModelChange={handleModelChange}
-                            disableModelSelect={false}
-                        />
+                        {/* Main Chat Input: ChatInput */}
+                        <ChatInput 
+                            onSendMessage={startNewChat} 
+                            className={styles.heroChatInputContainer} 
+                            selectedModel={selectedModel} 
+                            onModelChange={handleModelChange}>
+                        </ChatInput>
                     </div>
                 </section>
-            ) : (
-                /* Chat Page */
+            )}
+
+            {/* Chat History Section: ChatHistory */}
+            {!hasActiveChat && (
+                <ChatHistory model={model}></ChatHistory>
+            )}
+
+            {/* Active Chat Interface */}
+            {hasActiveChat && (
                 <div className={styles.chatInterface}>
-                    {/* Chat History Sidebar: Only in the active chat interface */}
                     <ChatHistorySidebar chat_id={chat_id} model={model}></ChatHistorySidebar>
                     <div className={styles.mainContent}>
                         <ChatMessage chat={chat} model={model} />

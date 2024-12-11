@@ -39,7 +39,11 @@ export default function ChatHistory({
             <div className={styles.recentHeader}>
                 <h2>
                     <span className={styles.chatIcon}><HistoryIcon></HistoryIcon></span>
+<<<<<<< HEAD
                     Your recent chats
+=======
+                    Your Pattern Library
+>>>>>>> main
                 </h2>
                 <button className={styles.viewAllButton}>
                     View all <ArrowForward />

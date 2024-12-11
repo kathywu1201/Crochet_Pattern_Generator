@@ -1,4 +1,4 @@
-# This file follows the same logic as in gemini_finetuning.py in llm_finetuning folder, but added the
+# This file follows the same logic as in gemini_finetuning.py in gemini_finetuning folder, but added the
 # manually validation check component to manually check the quality of the output before deploy the model
 
 from kfp import dsl
