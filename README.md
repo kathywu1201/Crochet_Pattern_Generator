@@ -51,15 +51,6 @@
     │   ├── docker-entrypoint.sh
     │   ├── Dockerfile
     │   ├── cli.py
-    ├── llm_rag
-    │   ├── Pipfile
-    │   ├── Pipfile.lock
-    │   ├── docker-shell.sh
-    │   ├── docker-entrypoint.sh
-    │   ├── docker-shell.sh
-    │   ├── docker-compose.yml
-    │   ├── rag.py
-    │   ├── data_preparation.py
     ├── gemini_finetuning
     │   ├── Pipfile
     │   ├── Pipfile.lock
@@ -132,8 +123,11 @@
     │   ├── docker-shell.sh         
     │   ├── docker-entrypoint.sh 
     │   ├── cli.py    
-    │   ├── data_processor.yaml
-    │   ├── data_processor.yaml
+    │   ├── image_descriptions.yaml
+    │   ├── pdf_processor.yaml
+    │   ├── pipeline.yaml
+    │   ├── model_deploy.yaml
+    │   ├── model_training.yaml
     │   ├── deploy-create-instance.yml
     │   ├── deploy-docker-images-app.yml
     │   ├── deploy-docker-images-ml.yml
@@ -148,20 +142,20 @@
     │   ├── run-image-descriptions.sh
     │   ├── run-pdf-processor.sh
     │   ├── run-ml-pipeline.sh
-    │   ├── update-k8s-cluster.yml
+    │   └── update-k8s-cluster.yml
  
 ```
 
 # AC215 - Final Project - YarnMaster
 
-**Team Members**
+**Team Members**\
 Shiqi Wang, Yanfeiyun Wu, Jiahui Zhang, Wanying Zhang
 
-**Group Name**
+**Group Name**\
 YarnMaster
 
-**Project**
-In this project, we aim to develop a Deep Learning model capable of interpreting images of crochet products and generating corresponding, detailed pattern instructions. Despite crochet's popularity as a creative and therapeutic pastime, enthusiasts like us often struggle to find clear, step-by-step instructions for intriguing designs we encounter online or in person due to scarce resources. Existing tools can transform written instructions into visual 3D models, but there is a significant gap in generating pattern instructions directly from images of finished products. To address this need, we envision not only creating a model that provides meaningful instructions but also developing an app tailored for crochet enthusiasts. This platform would allow users to upload pictures of crochet items they find interesting, receive detailed patterns, and foster an online community where they can connect, share their creations, and inspire each other [project proposal](./reports/APCOMP215%20Proposal_new.pdf).
+**Project**\
+In this project, we aim to develop a Deep Learning model capable of interpreting images of crochet products and generating corresponding, detailed pattern instructions. Despite crochet's popularity as a creative and therapeutic pastime, enthusiasts like us often struggle to find clear, step-by-step instructions for intriguing designs we encounter online or in person due to scarce resources. Existing tools can transform written instructions into visual 3D models, but there is a significant gap in generating pattern instructions directly from images of finished products. To address this need, we envision not only creating a model that provides meaningful instructions but also developing an app tailored for crochet enthusiasts. This platform would allow users to upload pictures of crochet items they find interesting, receive detailed patterns, and foster an online community where they can connect, share their creations, and inspire each other. Here is our [project proposal](./reports/APCOMP215%20Proposal_new.pdf).
 
 ## Previous Milestones
 
@@ -256,7 +250,7 @@ The deployment of our application on a Google Cloud Platform (GCP) Virtual Machi
    - This creates a new Nginx container to manage traffic on port 80.
 
 7. **Access the Application**
-   - Use the VM's external IP address to access the application in a web browser at: `http://<External IP>/`.
+   - Use the VM's external IP address to access the application in a web browser at: ```http://<External IP>/```.
 
 By using Ansible for automation, this deployment process is efficient and repeatable. It handles everything from building Docker images to configuring the VM and deploying containers, ensuring a streamlined setup. The application is fully accessible via the VM’s external IP, with Nginx managing traffic between components.
 
@@ -291,7 +285,7 @@ This guide outlines the process for deploying the Crochet App on a Kubernetes cl
 **3. Access the Application**  
    - After successful deployment, retrieve the ingress IP from the terminal output.
    - Open the app in a web browser using:  
-     ```http://<YOUR INGRESS IP>.sslip.io```
+     ```http://<INGRESS IP>.sslip.io```
 
 This deployment process automates the setup of a Kubernetes cluster, the configuration of resources, and the deployment of services. It ensures scalability, security, and efficient resource management for the Crochet App, making it accessible via the provided ingress IP.
 
