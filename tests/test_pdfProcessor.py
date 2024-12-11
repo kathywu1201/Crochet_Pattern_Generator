@@ -83,7 +83,7 @@ def test_extract_text_from_pdf_gcs(mock_vision_client, setup_folders):
 
 
 @patch("pdf_processor.cli.storage.Client")
-def test_download_results_from_gcs(mock_storage_client, setup_folders, TEST_BUCKET_NAME):
+def test_download_results_from_gcs(mock_storage_client, setup_folders):
     """Test downloading extracted text results from GCS."""
     mock_client_instance = mock_storage_client.return_value
     mock_bucket = mock_client_instance.bucket.return_value
@@ -94,7 +94,7 @@ def test_download_results_from_gcs(mock_storage_client, setup_folders, TEST_BUCK
     mock_bucket.list_blobs.return_value = [mock_blob]
 
     output_path = os.path.join(TEST_TXT_OUTPUTS, "output.txt")
-    download_results_from_gcs("output_prefix", output_path)
+    download_results_from_gcs("output_prefix", output_path, TEST_BUCKET_NAME)
 
     assert os.path.exists(output_path)
     with open(output_path, "r") as f:
@@ -182,16 +182,18 @@ def test_upload_pdf(mock_upload_to_gcs, setup_folders):
 @patch("pdf_processor.cli.download_results_from_gcs")
 @patch("pdf_processor.cli.extract_largest_image")
 def test_process_pdf(mock_extract_image, mock_download_text, mock_extract_text, setup_folders):
-    """Test processing a single PDF."""
+    """Integration test for processing a PDF file."""
     pdf_path = os.path.join(TEST_INPUT_FILES, "test_process.pdf")
-    with open(pdf_path, "w") as f:
-        f.write("Dummy PDF content")
+    with open(pdf_path, "wb") as f:
+        f.write(b"%PDF-1.4 test content")
 
-    process_pdf(pdf_path, TEST_BUCKET_NAME)
-    mock_extract_text.assert_called_once_with(
-        f"gs://{TEST_BUCKET_NAME}/persistent/raw_pdf/test_process.pdf", 
-        f"gs://{TEST_BUCKET_NAME}/persistent/raw_instructions/json_outputs/test_process_output/"
-    )
+    with patch("pdf_processor.cli.bucket_name", TEST_BUCKET_NAME):
+        process_pdf(pdf_path)
+
+    # Match expected values
+    mock_extract_text.assert_called_once_with(f"gs://{TEST_BUCKET_NAME}/input_files/test_process.pdf", ANY)
+    mock_download_text.assert_called_once_with(f"training/text_instructions/json_outputs/test_process_output", ANY)
+    mock_extract_image.assert_called_once_with(pdf_path, ANY)
     os.remove(pdf_path)
 
 
