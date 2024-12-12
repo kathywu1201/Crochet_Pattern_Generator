@@ -2,7 +2,7 @@
 
 Video Link: [https://youtu.be/2AV7KvwVaH](https://youtu.be/2AV7KvwVaHU)
 
-Medium Post: [https://medium.com/@jiahuiz816/ai-powered-crochet-knit-pattern-instruction-generator-bd482cee7c7b](https://medium.com/@jiahuiz816/ai-powered-crochet-knit-pattern-instruction-generator-bd482cee7c7b)
+Medium Post: [https://medium.com/@yebing233/7111786413b4](https://medium.com/@yebing233/7111786413b4)
 
 #### Project Organization
 
