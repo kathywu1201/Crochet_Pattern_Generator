@@ -1,5 +1,9 @@
 # AC215 - YarnMaster!!
 
+Video Link: [Watch the video on Youtube]()
+
+Medium Post: [View our blog post]()
+
 #### Project Organization
 
 ```
