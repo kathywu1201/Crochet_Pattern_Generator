@@ -1,8 +1,8 @@
 # AC215 - YarnMaster!!
 
-Video Link: [Watch the video on Youtube]()
+Video Link: [https://youtu.be/2AV7KvwVaH](https://youtu.be/2AV7KvwVaHU)
 
-Medium Post: [View our blog post]()
+Medium Post: [https://medium.com/@jiahuiz816/ai-powered-crochet-knit-pattern-instruction-generator-bd482cee7c7b](https://medium.com/@jiahuiz816/ai-powered-crochet-knit-pattern-instruction-generator-bd482cee7c7b)
 
 #### Project Organization
 
